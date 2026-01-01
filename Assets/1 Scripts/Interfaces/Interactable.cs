@@ -7,8 +7,11 @@ public class Interactable : MonoBehaviour
 {
     [Header("Interactable")]
     public bool moveToHand;
+
+    public Vector3 inHandRotation;
     public float moveDuration = 0.5f;
     public bool isMovingToHand;
+    public bool dropCurrentItem = true;
     public float moveSpeed = 12f;
     public Container container;
     
@@ -55,13 +58,13 @@ public class Interactable : MonoBehaviour
 
     public void SetRbColActive(bool active)
     {
+        if (col)
+            col.enabled = active;
+        
         if (rb)
         {
             rb.isKinematic = !active;
         }
-
-        if (col)
-            col.enabled = active;
     }
 
     public virtual void SetOutline(bool active)
@@ -107,7 +110,8 @@ public class Interactable : MonoBehaviour
         // Final snap
         transform.SetParent(hand);
         transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.identity;
+        var r = Quaternion.Euler(inHandRotation);
+        transform.localRotation = r;
 
         isMovingToHand = false;
     }

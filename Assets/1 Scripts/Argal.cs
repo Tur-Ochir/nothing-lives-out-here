@@ -11,7 +11,7 @@ public class Argal : Interactable
     {
         base.Awake();
         
-        ActivateRandomChild();
+        // ActivateRandomChild();
         
         rb = GetComponent<Rigidbody>();
         col = GetComponentInChildren<Collider>();

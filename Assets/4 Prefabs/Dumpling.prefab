@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   moveToHand: 1
+  inHandRotation: {x: -120, y: 0, z: 0}
   moveDuration: 0.5
   isMovingToHand: 0
   moveSpeed: 12

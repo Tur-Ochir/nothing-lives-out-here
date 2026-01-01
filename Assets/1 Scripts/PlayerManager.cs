@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,17 +10,24 @@ public class PlayerManager : MonoBehaviour
     [Header("Movement")]
     public float speed;
     public float crouchSpeedMultiplier = 0.5f;
-    public Transform camTarget;
     public Vector3 standingOffset;
     public Vector3 crouchingOffset;
     private bool crouching;
+    
+    [Header("Camera")]
+    public Transform camTarget;
+    public CinemachineBasicMultiChannelPerlin camNoise;
+    public float bobTransSpeed = 5f;
+    public float walkingBobAmplitude = 2f;
+    public float walkingBobFrequency = 0.02f;
 
     [Header("Interact")]
     public Transform handPoint;
     public Transform twoHandPoint;
     public float maxDistance = 5;
-    public Interactable heldItem;
     public bool IsHoldingItem => heldItem != null;
+    public Interactable heldItem;
+    public Container currentContainer;
     
     private PlayerInput input;
     private CharacterController controller;
@@ -30,8 +38,8 @@ public class PlayerManager : MonoBehaviour
     private Transform camTransform;
     private bool isInteracting;
     private Interactable currentInteractable;
-    public Container currentContainer;
-
+    private Vector3 moveDirection;
+    
     private void Awake()
     {
         Instance = this;
@@ -65,43 +73,11 @@ public class PlayerManager : MonoBehaviour
     {
         var moveInput = moveAction.ReadValue<Vector2>();
         Move(moveInput);
+        HandleHeadBob();
 
         if (interactAction.WasPressedThisFrame())
         {
-            if (Physics.Raycast(camTransform.position, camTransform.forward, out RaycastHit hit, maxDistance))
-            {
-                if (hit.transform.TryGetComponent(out Container container))
-                {
-                    if (currentContainer != null)
-                    {
-                        if (container.TryGet(currentContainer))
-                        {
-                            return;
-                        }
-                    }
-                    if (IsHoldingItem)
-                    {
-                        if (container.TryContain(heldItem))
-                        {
-                            return;
-                        } 
-                    }
-                    else
-                    {
-                        container.Hold();
-                        // currentContainer = container;
-                    }
-                }
-
-                if (hit.transform.TryGetComponent(out Interactable interactable))
-                {
-                    if (IsHoldingItem)
-                    {
-                        heldItem.Drop();
-                    }
-                    interactable.Interact();
-                }
-            }
+            if (HandleInteraction()) return;
         }
 
         if (dropAction.WasPressedThisFrame())
@@ -125,9 +101,49 @@ public class PlayerManager : MonoBehaviour
 
     }
 
+    private bool HandleInteraction()
+    {
+        if (Physics.Raycast(camTransform.position, camTransform.forward, out RaycastHit hit, maxDistance))
+        {
+            if (hit.transform.TryGetComponent(out Container container))
+            {
+                if (currentContainer != null)
+                {
+                    if (container.TryGet(currentContainer))
+                    {
+                        return true;
+                    }
+                }
+                if (IsHoldingItem)
+                {
+                    if (container.TryContain(heldItem))
+                    {
+                        return true;
+                    } 
+                }
+                else
+                {
+                    container.Hold();
+                    // currentContainer = container;
+                }
+            }
+
+            if (hit.transform.TryGetComponent(out Interactable interactable))
+            {
+                if (IsHoldingItem && interactable.dropCurrentItem)
+                {
+                    heldItem.Drop();
+                }
+                interactable.Interact();
+            }
+        }
+
+        return false;
+    }
+
     private void Move(Vector2 moveInput)
     {
-        Vector3 moveDirection = camTransform.right * moveInput.x + camTransform.forward * moveInput.y;
+        moveDirection = camTransform.right * moveInput.x + camTransform.forward * moveInput.y;
         controller.SimpleMove(moveDirection * speed);
     }
     
@@ -174,6 +190,19 @@ public class PlayerManager : MonoBehaviour
         else
         {
             speed /=  crouchSpeedMultiplier;
+        }
+    }
+    private void HandleHeadBob()
+    {
+        if (moveDirection.magnitude > 0.1f)
+        {
+            camNoise.AmplitudeGain = Mathf.Lerp(camNoise.AmplitudeGain, walkingBobAmplitude, Time.deltaTime * bobTransSpeed);
+            camNoise.FrequencyGain = Mathf.Lerp(camNoise.FrequencyGain, walkingBobFrequency, Time.deltaTime * bobTransSpeed);
+        }
+        else
+        {
+            camNoise.AmplitudeGain = Mathf.Lerp(camNoise.AmplitudeGain, 0, Time.deltaTime * bobTransSpeed);
+            camNoise.FrequencyGain = Mathf.Lerp(camNoise.FrequencyGain, 0, Time.deltaTime * bobTransSpeed);
         }
     }
 }

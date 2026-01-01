@@ -8,6 +8,13 @@ public class LightBulb : Interactable
     public int lightMatIndex;
     public bool isOn = false;
 
+    protected override void Start()
+    {
+        base.Start();
+        
+        SetActivate(false);
+    }
+
     public override void Interact()
     {
         base.Interact();
