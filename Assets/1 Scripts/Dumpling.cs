@@ -2,15 +2,31 @@ using UnityEngine;
 
 public class Dumpling : Interactable
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public bool cooked;
+    private MeshRenderer meshRenderer;
+
+    protected override void Start()
     {
+        base.Start();
         
+        meshRenderer = GetComponent<MeshRenderer>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Cook()
     {
+        cooked = true;
+    }
+
+    public bool Eat()
+    {
+        if (!cooked)
+        {
+            Debug.Log("Can't eat raw dumpling.");
+            return false;
+        }
         
+        Debug.Log("Eaten dumpling.");
+        meshRenderer.material.color = Color.peru;
+        return true;
     }
 }

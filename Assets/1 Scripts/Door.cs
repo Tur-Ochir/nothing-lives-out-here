@@ -35,7 +35,7 @@ public class Door : Interactable
     private void HandleRotate(bool open)
     {
         Vector3 targetRotation = open ? openRotation : closedRotation;
-        transform.DORotate(targetRotation, rotationDuration);
+        transform.DOLocalRotate(targetRotation, rotationDuration);
         // transform
     }
 

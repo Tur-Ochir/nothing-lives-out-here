@@ -7,61 +7,61 @@ using UnityEngine.InputSystem;
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance;
-    [Header("Movement")]
-    public float speed;
+    [Header("Movement")] public float speed;
     public float crouchSpeedMultiplier = 0.5f;
     public Vector3 standingOffset;
     public Vector3 crouchingOffset;
     private bool crouching;
-    
-    [Header("Camera")]
-    public Transform camTarget;
+
+    [Header("Camera")] public Transform camTarget;
     public CinemachineBasicMultiChannelPerlin camNoise;
     public float bobTransSpeed = 5f;
     public float walkingBobAmplitude = 2f;
     public float walkingBobFrequency = 0.02f;
 
-    [Header("Interact")]
-    public Transform handPoint;
+    [Header("Interact")] public Transform handPoint;
     public Transform twoHandPoint;
     public float maxDistance = 5;
     public bool IsHoldingItem => heldItem != null;
     public Interactable heldItem;
     public Container currentContainer;
-    
+    public int eatenDumplings = 0;
+
     private PlayerInput input;
     private CharacterController controller;
     private InputAction moveAction;
     private InputAction interactAction;
     private InputAction dropAction;
     private InputAction crouchAction;
+    private InputAction eatAction;
     private Transform camTransform;
     private bool isInteracting;
     private Interactable currentInteractable;
     private Vector3 moveDirection;
-    
+
     private void Awake()
     {
         Instance = this;
-        
-        
+
+
         controller = GetComponent<CharacterController>();
         input = GetComponent<PlayerInput>();
-        
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        
+
         camTransform = Camera.main.transform;
     }
 
     private void OnEnable()
     {
         input.actions.Enable();
-        
+
         moveAction = input.actions["Move"];
         interactAction = input.actions["Interact"];
         dropAction = input.actions["Drop"];
         crouchAction = input.actions["Crouch"];
+        eatAction = input.actions["Eat"];
     }
 
     private void OnDisable()
@@ -82,14 +82,7 @@ public class PlayerManager : MonoBehaviour
 
         if (dropAction.WasPressedThisFrame())
         {
-            if (currentContainer != null)
-            {
-                currentContainer.Release();
-            }
-            if (IsHoldingItem)
-            {
-                heldItem.Drop();   
-            }
+            HandleDrop();
         }
 
         if (crouchAction.WasPressedThisFrame())
@@ -97,8 +90,31 @@ public class PlayerManager : MonoBehaviour
             Crouch();
         }
 
-        HandleLookAtInteractable();
+        if (eatAction.WasPressedThisFrame())
+        {
+            if (heldItem.TryGetComponent(out Dumpling dumpling))
+            {
+                if (dumpling.Eat())
+                {
+                    Eat();
+                }
+            }
+        }
 
+        HandleLookAtInteractable();
+    }
+
+    private void HandleDrop()
+    {
+        if (currentContainer != null)
+        {
+            currentContainer.Release();
+        }
+
+        if (IsHoldingItem)
+        {
+            heldItem.Drop();
+        }
     }
 
     private bool HandleInteraction()
@@ -114,12 +130,13 @@ public class PlayerManager : MonoBehaviour
                         return true;
                     }
                 }
+
                 if (IsHoldingItem)
                 {
                     if (container.TryContain(heldItem))
                     {
                         return true;
-                    } 
+                    }
                 }
                 else
                 {
@@ -134,6 +151,7 @@ public class PlayerManager : MonoBehaviour
                 {
                     heldItem.Drop();
                 }
+
                 interactable.Interact();
             }
         }
@@ -146,7 +164,7 @@ public class PlayerManager : MonoBehaviour
         moveDirection = camTransform.right * moveInput.x + camTransform.forward * moveInput.y;
         controller.SimpleMove(moveDirection * speed);
     }
-    
+
     void HandleLookAtInteractable()
     {
         if (Physics.Raycast(camTransform.position, camTransform.forward,
@@ -161,6 +179,7 @@ public class PlayerManager : MonoBehaviour
                     currentInteractable = interactable;
                     currentInteractable.SetOutline(true);
                 }
+
                 return;
             }
         }
@@ -168,6 +187,7 @@ public class PlayerManager : MonoBehaviour
         // Nothing hit or not interactable
         ClearCurrentInteractable();
     }
+
     void ClearCurrentInteractable()
     {
         if (currentInteractable != null)
@@ -180,29 +200,37 @@ public class PlayerManager : MonoBehaviour
     private void Crouch()
     {
         crouching = !crouching;
-        
+
         var target = crouching ? crouchingOffset : standingOffset;
         camTarget.DOLocalMove(target, 0.3f);
         if (crouching)
         {
-            speed *= crouchSpeedMultiplier; 
+            speed *= crouchSpeedMultiplier;
         }
         else
         {
-            speed /=  crouchSpeedMultiplier;
+            speed /= crouchSpeedMultiplier;
         }
     }
+
     private void HandleHeadBob()
     {
         if (moveDirection.magnitude > 0.1f)
         {
-            camNoise.AmplitudeGain = Mathf.Lerp(camNoise.AmplitudeGain, walkingBobAmplitude, Time.deltaTime * bobTransSpeed);
-            camNoise.FrequencyGain = Mathf.Lerp(camNoise.FrequencyGain, walkingBobFrequency, Time.deltaTime * bobTransSpeed);
+            camNoise.AmplitudeGain =
+                Mathf.Lerp(camNoise.AmplitudeGain, walkingBobAmplitude, Time.deltaTime * bobTransSpeed);
+            camNoise.FrequencyGain =
+                Mathf.Lerp(camNoise.FrequencyGain, walkingBobFrequency, Time.deltaTime * bobTransSpeed);
         }
         else
         {
             camNoise.AmplitudeGain = Mathf.Lerp(camNoise.AmplitudeGain, 0, Time.deltaTime * bobTransSpeed);
             camNoise.FrequencyGain = Mathf.Lerp(camNoise.FrequencyGain, 0, Time.deltaTime * bobTransSpeed);
         }
+    }
+
+    private void Eat()
+    {
+        eatenDumplings++;
     }
 }

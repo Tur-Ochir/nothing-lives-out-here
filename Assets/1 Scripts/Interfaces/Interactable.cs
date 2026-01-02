@@ -6,6 +6,7 @@ using UnityEngine;
 public class Interactable : MonoBehaviour
 {
     [Header("Interactable")]
+    public bool canInteract = true;
     public bool moveToHand;
 
     public Vector3 inHandRotation;
@@ -14,6 +15,7 @@ public class Interactable : MonoBehaviour
     public bool dropCurrentItem = true;
     public float moveSpeed = 12f;
     public Container container;
+    public string reasonNotInteract;
     
     [HideInInspector] public Outline outline;
     [HideInInspector] public Rigidbody rb;
@@ -44,6 +46,11 @@ public class Interactable : MonoBehaviour
 
     public virtual void Interact()
     {
+        if (!canInteract)
+        {
+            Debug.Log($"{reasonNotInteract}");
+            return;
+        }
         Debug.Log($"Interact {transform.name}");
 
         if (moveToHand && !PlayerManager.Instance.IsHoldingItem)
@@ -78,6 +85,8 @@ public class Interactable : MonoBehaviour
     public virtual void Drop()
     {
         if (PlayerManager.Instance.heldItem != this)
+            return;
+        if (isMovingToHand)
             return;
 
         PlayerManager.Instance.heldItem = null;

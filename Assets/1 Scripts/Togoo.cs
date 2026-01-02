@@ -1,3 +1,4 @@
+using System.Threading;
 using DG.Tweening;
 using UnityEngine;
 
@@ -5,12 +6,31 @@ public class Togoo : Container
 {
     public Vector3 tagPoint;
     private Tag tag;
+    private bool steamingDumpling;
+    public ParticleSystem steamingParticle;
+    public float steamingDuration;
 
     protected override void Awake()
     {
         base.Awake();
 
         tag = GetComponentInChildren<Tag>();
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        if (steamingDumpling)
+        {
+            steamingDuration -= Time.deltaTime;
+
+            if (steamingDuration <= 0)
+            {
+                SetSteaming(false);
+                CookDumplings();
+            }
+        }
     }
 
     public override bool TryContain(Interactable item)
@@ -22,6 +42,16 @@ public class Togoo : Container
             tag.transform.DOLocalRotate(Vector3.zero, 0.5f);
 
             PlayerManager.Instance.heldItem = null;
+
+            if (currentCounter >= 3)
+            {
+                //TODO BUUZ CHANAJ EHLEH
+                SetSteaming(true);
+            }
+            else
+            {
+                //TODO TSOOHON BUUZ IDEED TSADAHGUI BAIH GEJ HELEH
+            }
             return true;
         }
 
@@ -42,6 +72,20 @@ public class Togoo : Container
         }
 
         return false;
+    }
+
+    private void SetSteaming(bool active)
+    {
+        steamingDumpling = active;
+        if (active)
+        {
+            steamingParticle.Play();
+        }
+        else
+        {
+            steamingParticle.Stop();
+        }
+        
     }
 
     public override void Hold()
@@ -71,6 +115,17 @@ public class Togoo : Container
         if (tag != null)
         {
             tag.SetRbColActive(activate);
+        }
+    }
+
+    private void CookDumplings()
+    {
+        foreach (var item in items)
+        {
+            if (item.TryGetComponent(out Dumpling dumpling))
+            {
+                dumpling.Cook();
+            }
         }
     }
 }
