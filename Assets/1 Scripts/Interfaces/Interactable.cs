@@ -7,6 +7,7 @@ public class Interactable : MonoBehaviour
 {
     [Header("Interactable")]
     public bool canInteract = true;
+    public bool canUse = true;
     public bool moveToHand;
 
     public Vector3 inHandRotation;
@@ -61,6 +62,16 @@ public class Interactable : MonoBehaviour
             PlayerManager.Instance.heldItem = this;
             StartCoroutine(MoveToHand());  
         }
+    }
+
+    public virtual void Use()
+    {
+        if (!canUse)
+        {
+            // Debug.Log($"{reasonNotInteract}");
+            return;
+        }
+        
     }
 
     public void SetRbColActive(bool active)

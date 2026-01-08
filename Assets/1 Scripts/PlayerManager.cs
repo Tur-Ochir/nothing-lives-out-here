@@ -7,7 +7,10 @@ using UnityEngine.InputSystem;
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance;
-    [Header("Movement")] public float speed;
+    [Header("Movement")]
+    public bool canMove = true;
+    public bool canCrouch = true;
+    public float speed;
     public float crouchSpeedMultiplier = 0.5f;
     public Vector3 standingOffset;
     public Vector3 crouchingOffset;
@@ -92,6 +95,7 @@ public class PlayerManager : MonoBehaviour
 
         if (eatAction.WasPressedThisFrame())
         {
+            heldItem.Use();
             if (heldItem.TryGetComponent(out Dumpling dumpling))
             {
                 if (dumpling.Eat())
@@ -161,6 +165,8 @@ public class PlayerManager : MonoBehaviour
 
     private void Move(Vector2 moveInput)
     {
+        if (!canMove) return;
+        
         moveDirection = camTransform.right * moveInput.x + camTransform.forward * moveInput.y;
         controller.SimpleMove(moveDirection * speed);
     }
@@ -199,6 +205,8 @@ public class PlayerManager : MonoBehaviour
 
     private void Crouch()
     {
+        if (!canCrouch) return;
+        
         crouching = !crouching;
 
         var target = crouching ? crouchingOffset : standingOffset;

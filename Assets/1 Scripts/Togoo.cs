@@ -9,6 +9,7 @@ public class Togoo : Container
     private bool steamingDumpling;
     public ParticleSystem steamingParticle;
     public float steamingDuration;
+    public int minDumplings = 3;
 
     protected override void Awake()
     {
@@ -43,7 +44,7 @@ public class Togoo : Container
 
             PlayerManager.Instance.heldItem = null;
 
-            if (currentCounter >= 3)
+            if (currentCounter >= minDumplings)
             {
                 //TODO BUUZ CHANAJ EHLEH
                 SetSteaming(true);
