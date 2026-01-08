@@ -232,5 +232,6 @@ public class PlayerManager : MonoBehaviour
     private void Eat()
     {
         eatenDumplings++;
+        //TODO EATING SFX
     }
 }

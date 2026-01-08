@@ -12,6 +12,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Awdar.001
+    second: {fileID: 2100000, guid: b241bf065e2dce640b422b5a119b0853, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Battery
     second: {fileID: 2100000, guid: 46f77e10fe0afb24f87450d3627535dc, type: 2}
   - first:
@@ -42,6 +47,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Match
+    second: {fileID: 2100000, guid: 7ba17597b44a0f1478c3955d7ac02396, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Mod
     second: {fileID: 2100000, guid: 517d23fdc495b38468ea17251f038950, type: 2}
   - first:
@@ -49,6 +59,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Mod 2
     second: {fileID: 2100000, guid: 678235a6f51506f4e83879022793ddcc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mod 2.001
+    second: {fileID: 2100000, guid: 1010721ecb101b74fb18f8db0fe27117, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
