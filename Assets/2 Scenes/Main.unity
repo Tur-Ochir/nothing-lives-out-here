@@ -3295,6 +3295,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6317578925029434746, guid: c937f3e68b49c464488a1f06b8a2da9d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2e3f185dec5347e4782662ab7948e513, type: 2}
     - target: {fileID: 6821395786924264301, guid: c937f3e68b49c464488a1f06b8a2da9d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.419
@@ -6817,6 +6821,7 @@ MonoBehaviour:
   crouchingOffset: {x: 0, y: -0.3, z: 0}
   camTarget: {fileID: 1775948843}
   camNoise: {fileID: 1027998761}
+  useHeadBob: 0
   bobTransSpeed: 5
   walkingBobAmplitude: 1
   walkingBobFrequency: 0.1
@@ -6825,6 +6830,7 @@ MonoBehaviour:
   maxDistance: 2.5
   heldItem: {fileID: 0}
   currentContainer: {fileID: 0}
+  seeingContainer: {fileID: 0}
   eatenDumplings: 0
 --- !u!114 &421483716
 MonoBehaviour:
@@ -12100,7 +12106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Outline
-  outlineMode: 0
+  outlineMode: 1
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
   outlineWidth: 2
   precomputeOutline: 0
@@ -12191,6 +12197,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   colliders: []
   tagPoint: {x: 0, y: 0, z: 0.237}
+  tag: {fileID: 0}
   steamingParticle: {fileID: 936197430}
   steamingDuration: 2
   minDumplings: 1
@@ -31261,7 +31268,7 @@ MonoBehaviour:
   outline: {fileID: 0}
   rb: {fileID: 0}
   col: {fileID: 0}
-  isCapped: 1
+  togoo: {fileID: 0}
 --- !u!64 &1439109060
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -32103,6 +32110,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   colliders: []
   tagPoint: {x: 0, y: 0, z: 0}
+  tag: {fileID: 0}
   steamingParticle: {fileID: 0}
   steamingDuration: 0
   minDumplings: 3
@@ -39325,7 +39333,7 @@ MonoBehaviour:
   outline: {fileID: 0}
   rb: {fileID: 0}
   col: {fileID: 0}
-  isCapped: 1
+  togoo: {fileID: 0}
 --- !u!64 &1849954750
 MeshCollider:
   m_ObjectHideFlags: 0
