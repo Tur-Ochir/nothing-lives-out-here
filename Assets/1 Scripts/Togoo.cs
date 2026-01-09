@@ -5,11 +5,12 @@ using UnityEngine;
 public class Togoo : Container
 {
     public Vector3 tagPoint;
-    private Tag tag;
+    public Tag tag;
     private bool steamingDumpling;
     public ParticleSystem steamingParticle;
     public float steamingDuration;
     public int minDumplings = 3;
+    public Furnace furnace;
 
     protected override void Awake()
     {
@@ -36,23 +37,16 @@ public class Togoo : Container
 
     public override bool TryContain(Interactable item)
     {
-        if (item.TryGetComponent(out Tag tag))
+        if (item.TryGetComponent(out Tag newTag))
         {
-            tag.transform.SetParent(transform);
-            tag.transform.DOLocalMove(tagPoint, 0.5f).OnComplete(() => item.col.enabled = true);
-            tag.transform.DOLocalRotate(Vector3.zero, 0.5f);
+            newTag.transform.SetParent(transform);
+            newTag.transform.DOLocalMove(tagPoint, 0.5f).OnComplete(() => item.col.enabled = true);
+            newTag.transform.DOLocalRotate(Vector3.zero, 0.5f);
+            newTag.togoo = this;
+            tag = newTag;
 
             PlayerManager.Instance.heldItem = null;
-
-            if (currentCounter >= minDumplings)
-            {
-                //TODO BUUZ CHANAJ EHLEH
-                SetSteaming(true);
-            }
-            else
-            {
-                //TODO TSOOHON BUUZ IDEED TSADAHGUI BAIH GEJ HELEH
-            }
+            TryCook();
             return true;
         }
 
@@ -105,17 +99,12 @@ public class Togoo : Container
         
         if (tag != null)
         {
-            tag.SetRbColActive(true);
+            tag.col.enabled = true;
         }
-    }
 
-    public override void SetActivateCollider(bool activate)
-    {
-        base.SetActivateCollider(activate);
-        
-        if (tag != null)
+        for (int i = 0; i < items.Count; i++)
         {
-            tag.SetRbColActive(activate);
+            items[i].col.enabled = true;
         }
     }
 
@@ -127,6 +116,16 @@ public class Togoo : Container
             {
                 dumpling.Cook();
             }
+        }
+    }
+
+    public void TryCook()
+    {
+        if (currentCounter <= 0) return;
+        
+        if (currentCounter >= minDumplings && furnace != null && furnace.isBurning && tag != null)
+        {
+            SetSteaming(true);
         }
     }
 }

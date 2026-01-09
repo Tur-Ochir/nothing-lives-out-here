@@ -6,10 +6,11 @@ public class Furnace : Container
 {
     [Header("Furnace")] public ParticleSystem fireParticles;
     public float burnTime = 0f;
-    private bool isBurning = false;
+    public bool isBurning = false;
     public Vector3 togooPoint;
     public Cap cap;
     public Door am;
+    private Togoo currentTogoo;
 
     protected override void Update()
     {
@@ -73,6 +74,8 @@ public class Furnace : Container
             togoo.transform.DOLocalRotate(Vector3.zero, 0.5f);
             PlayerManager.Instance.currentContainer = null;
             cap.canCap = false;
+            togoo.furnace = this;
+            currentTogoo = togoo;
             return true;
         }
 
@@ -91,6 +94,10 @@ public class Furnace : Container
         {
             isBurning = true;
             fireParticles.Play();
+            if (currentTogoo != null)
+            {
+                currentTogoo.TryCook();
+            }
         }
         else
         {

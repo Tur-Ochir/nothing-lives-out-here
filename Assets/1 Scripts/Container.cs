@@ -23,11 +23,13 @@ public class Container : MonoBehaviour
 
     public Rigidbody rb;
     public Collider[] colliders;
+    private Outline outline;
 
     protected virtual void Awake()
     {
         colliders = GetComponents<Collider>();
         rb = GetComponent<Rigidbody>();
+        outline = GetComponent<Outline>();
     }
 
     protected virtual void Update()
@@ -138,5 +140,11 @@ public class Container : MonoBehaviour
         transform.localRotation = Quaternion.identity;
 
         isMovingToHand = false;
+    }
+    public virtual void SetOutline(bool active)
+    {
+        if (outline == null) return;
+        
+        outline.enabled = active;
     }
 }

@@ -18,6 +18,7 @@ public class PlayerManager : MonoBehaviour
 
     [Header("Camera")] public Transform camTarget;
     public CinemachineBasicMultiChannelPerlin camNoise;
+    public bool useHeadBob = true;
     public float bobTransSpeed = 5f;
     public float walkingBobAmplitude = 2f;
     public float walkingBobFrequency = 0.02f;
@@ -28,6 +29,7 @@ public class PlayerManager : MonoBehaviour
     public bool IsHoldingItem => heldItem != null;
     public Interactable heldItem;
     public Container currentContainer;
+    public Container seeingContainer;
     public int eatenDumplings = 0;
 
     private PlayerInput input;
@@ -95,13 +97,9 @@ public class PlayerManager : MonoBehaviour
 
         if (eatAction.WasPressedThisFrame())
         {
-            heldItem.Use();
-            if (heldItem.TryGetComponent(out Dumpling dumpling))
+            if (heldItem != null)
             {
-                if (dumpling.Eat())
-                {
-                    Eat();
-                }
+                heldItem.Use(); 
             }
         }
 
@@ -188,10 +186,23 @@ public class PlayerManager : MonoBehaviour
 
                 return;
             }
+            if (hit.transform.TryGetComponent(out Container container))
+            {
+                // New interactable
+                if (seeingContainer != container)
+                {
+                    ClearCurrentContainer();
+                    seeingContainer = container;
+                    seeingContainer.SetOutline(true);
+                }
+
+                return;
+            }
         }
 
         // Nothing hit or not interactable
         ClearCurrentInteractable();
+        ClearCurrentContainer();
     }
 
     void ClearCurrentInteractable()
@@ -200,6 +211,14 @@ public class PlayerManager : MonoBehaviour
         {
             currentInteractable.SetOutline(false);
             currentInteractable = null;
+        }
+    }
+    void ClearCurrentContainer()
+    {
+        if (seeingContainer != null)
+        {
+            seeingContainer.SetOutline(false);
+            seeingContainer = null;
         }
     }
 
@@ -223,6 +242,12 @@ public class PlayerManager : MonoBehaviour
 
     private void HandleHeadBob()
     {
+        if (!useHeadBob)
+        {
+            camNoise.AmplitudeGain = 0;
+            camNoise.FrequencyGain = 0;
+            return;
+        }
         if (moveDirection.magnitude > 0.1f)
         {
             camNoise.AmplitudeGain =
@@ -237,7 +262,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    private void Eat()
+    public void Eat()
     {
         eatenDumplings++;
         //TODO EATING SFX

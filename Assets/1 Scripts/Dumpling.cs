@@ -18,32 +18,33 @@ public class Dumpling : Interactable
     public void Cook()
     {
         cooked = true;
-        col.enabled = true;
         meshRenderer.material.color = cookedColor;
+        eatenVer1.GetComponent<MeshRenderer>().material.color = cookedColor;
+        col.enabled = true;
     }
 
-    public bool Eat()
+    public override void Use()
     {
+        base.Use();
+        
         if (!cooked)
         {
             Debug.Log("Can't eat raw dumpling.");
-            return false;
+            return;
         }
         
         Debug.Log("Eaten dumpling.");
         counter--;
 
-        if (counter < 2)
+        if (counter == 1)
         {
             meshRenderer.enabled = false;
             eatenVer1.SetActive(true);
         }
-        else if (counter < 1)
+        if (counter < 1)
         {
             Destroy(gameObject);
             PlayerManager.Instance.heldItem = null;
         }
-        
-        return true;
     }
 }
