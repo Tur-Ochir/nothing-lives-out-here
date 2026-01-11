@@ -128,4 +128,14 @@ public class Togoo : Container
             SetSteaming(true);
         }
     }
+
+    public override void SetActivateCollider(bool activate)
+    {
+        base.SetActivateCollider(activate);
+
+        if (tag != null)
+        {
+            tag.col.enabled = activate;
+        }
+    }
 }

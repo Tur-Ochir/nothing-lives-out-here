@@ -15,6 +15,7 @@ public class Container : MonoBehaviour
     public float moveDuration = 0.5f;
     public bool isMovingToHand;
     public float moveSpeed = 12f;
+    public Vector3 inHandRotation;
     public float groundCheckDistance = 1f;
     public List<Interactable> items = new List<Interactable>();
     private Transform hand;
@@ -137,7 +138,7 @@ public class Container : MonoBehaviour
         // Final snap
         transform.SetParent(hand);
         transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.identity;
+        transform.localRotation = Quaternion.Euler(inHandRotation);
 
         isMovingToHand = false;
     }

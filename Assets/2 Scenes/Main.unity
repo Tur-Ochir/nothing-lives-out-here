@@ -8150,6 +8150,7 @@ MonoBehaviour:
   moveDuration: 0.5
   isMovingToHand: 0
   moveSpeed: 12
+  inHandRotation: {x: 0, y: 0, z: 0}
   groundCheckDistance: 1
   items: []
   groundLayer:
@@ -12189,6 +12190,7 @@ MonoBehaviour:
   moveDuration: 0.5
   isMovingToHand: 0
   moveSpeed: 12
+  inHandRotation: {x: 0, y: 0, z: 90}
   groundCheckDistance: 0.3
   items: []
   groundLayer:
@@ -29233,6 +29235,7 @@ MonoBehaviour:
   moveDuration: 0.5
   isMovingToHand: 0
   moveSpeed: 12
+  inHandRotation: {x: 0, y: 0, z: 0}
   groundCheckDistance: 0.5
   items: []
   groundLayer:
@@ -32102,6 +32105,7 @@ MonoBehaviour:
   moveDuration: 0.5
   isMovingToHand: 0
   moveSpeed: 12
+  inHandRotation: {x: 0, y: 0, z: 0}
   groundCheckDistance: 0.3
   items: []
   groundLayer:
