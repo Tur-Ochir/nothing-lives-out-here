@@ -51,7 +51,7 @@ public class Arag : Container
 
     public override void Hold()
     {
-        base.Hold(); ;
+        base.Hold();
     }
 
     public override void Release()
