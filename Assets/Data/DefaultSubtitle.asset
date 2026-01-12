@@ -12,4 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f7f6e1c03ca41038dc1666523689649, type: 3}
   m_Name: DefaultSubtitle
   m_EditorClassIdentifier: Assembly-CSharp::SubtitleDatabase
-  subtitles: []
+  subtitles:
+  - id: intro
+    english: While herding his cattle, he got lost in a storm. He found a <i>ger</i>
+      and decided to spend the night there.
+    mongolian: "\u041C\u0430\u043B\u0430\u0430 \u0445\u0430\u0440\u0438\u0443\u043B\u0436
+      \u044F\u0432\u0430\u0430\u0434 \u0448\u0443\u0443\u0440\u0433\u0430\u043D\u0434
+      \u04E9\u0440\u0442\u04E9\u04E9\u0434 \u0442\u04E9\u04E9\u0440\u0441\u04E9\u043D.
+      \u041D\u044D\u0433 \u0433\u044D\u0440 \u043E\u043B\u043E\u043E\u0434 \u0442\u04AF\u04AF\u043D\u0434\u044D\u044D
+      \u0448\u04E9\u043D\u0438\u0439\u0433 \u04E9\u043D\u0433\u04E9\u0440\u04AF\u04AF\u043B\u044D\u0445\u044D\u044D\u0440
+      \u0431\u043E\u043B\u043E\u0432."
+    duration: 6

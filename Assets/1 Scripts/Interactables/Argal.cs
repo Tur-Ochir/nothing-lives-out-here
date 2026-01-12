@@ -17,7 +17,7 @@ public class Argal : Interactable
         col = GetComponentInChildren<Collider>();
     }
 
-    private void ActivateRandomChild()
+    public void ActivateRandomChild()
     {
         r = Random.Range(0, transform.childCount);
         transform.GetChild(r).gameObject.SetActive(true);
