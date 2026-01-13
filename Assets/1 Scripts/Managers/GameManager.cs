@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
     public Light mainLight;
     public LightBulb gerLight;
     public MonsterManager monsterManager;
@@ -24,6 +25,12 @@ public class GameManager : MonoBehaviour
     public TMP_Text subtitleText;
     public enum Language { English, Mongolian }
     public Language currentLanguage = Language.English;
+    public static int EventIndex;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void OnEnable()
     {

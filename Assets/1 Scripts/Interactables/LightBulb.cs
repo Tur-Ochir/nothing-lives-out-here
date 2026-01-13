@@ -12,7 +12,7 @@ public class LightBulb : Interactable
     {
         base.Start();
         
-        // SetActivate(false);
+        SetActivate(false);
     }
 
     public override void Interact()

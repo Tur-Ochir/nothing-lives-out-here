@@ -17,6 +17,7 @@ public class PlayerManager : MonoBehaviour
     private bool crouching;
 
     [Header("Camera")] public Transform camTarget;
+    public CinemachineVirtualCameraBase vcam;
     public CinemachineBasicMultiChannelPerlin camNoise;
     public bool useHeadBob = true;
     public float bobTransSpeed = 5f;
@@ -56,6 +57,12 @@ public class PlayerManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         camTransform = Camera.main.transform;
+    }
+
+    private void Start()
+    {
+        DisableCam();
+        Invoke(nameof(EnableCam), 3f);
     }
 
     private void OnEnable()
@@ -266,5 +273,16 @@ public class PlayerManager : MonoBehaviour
     {
         eatenDumplings++;
         //TODO EATING SFX
+    }
+
+    public void DisableCam()
+    {
+        var ac = vcam.GetComponent<CinemachineInputAxisController>();
+        ac.enabled = false;
+    }
+    public void EnableCam()
+    {
+        var ac = vcam.GetComponent<CinemachineInputAxisController>();
+        ac.enabled = true;
     }
 }

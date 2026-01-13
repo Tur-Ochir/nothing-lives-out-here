@@ -2,6 +2,7 @@
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Interactable : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class Interactable : MonoBehaviour
     [HideInInspector] public Outline outline;
     [HideInInspector] public Rigidbody rb;
     [HideInInspector] public Collider col;
+    
+    public UnityAction OnInteract;
 
     Transform hand;
     protected virtual void Awake()
@@ -53,7 +56,7 @@ public class Interactable : MonoBehaviour
             return;
         }
         Debug.Log($"Interact {transform.name}");
-
+        OnInteract?.Invoke();
         if (moveToHand && !PlayerManager.Instance.IsHoldingItem)
         {
             SetRbColActive(false);
