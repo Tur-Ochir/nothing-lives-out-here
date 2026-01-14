@@ -15,7 +15,7 @@ public class SubtitleTrigger : MonoBehaviour
         if (useInteractable)
         {
             var interactable = GetComponent<Interactable>();
-            interactable.OnInteract += DelayedTryPlaySub;
+            // interactable.OnInteract += DelayedTryPlaySub;
             // interactable.OnInteract += (() => { Destroy(this);});
         }
     }

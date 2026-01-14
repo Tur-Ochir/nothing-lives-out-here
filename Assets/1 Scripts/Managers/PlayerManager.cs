@@ -40,6 +40,7 @@ public class PlayerManager : MonoBehaviour
     private InputAction dropAction;
     private InputAction crouchAction;
     private InputAction eatAction;
+    private InputAction fireAction;
     private Transform camTransform;
     private bool isInteracting;
     private Interactable currentInteractable;
@@ -61,8 +62,8 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
-        DisableCam();
-        Invoke(nameof(EnableCam), 3f);
+        // DisableCam();
+        // Invoke(nameof(EnableCam), 3f);
     }
 
     private void OnEnable()
@@ -74,6 +75,7 @@ public class PlayerManager : MonoBehaviour
         dropAction = input.actions["Drop"];
         crouchAction = input.actions["Crouch"];
         eatAction = input.actions["Eat"];
+        fireAction = input.actions["Fire"];
     }
 
     private void OnDisable()
@@ -104,9 +106,17 @@ public class PlayerManager : MonoBehaviour
 
         if (eatAction.WasPressedThisFrame())
         {
-            if (heldItem != null)
+            if (heldItem != null && heldItem.canUse)
             {
                 heldItem.Use(); 
+            }
+        }
+
+        if (fireAction.WasPressedThisFrame())
+        {
+            if (heldItem != null && heldItem.canUse)
+            {
+                heldItem.Use();
             }
         }
 

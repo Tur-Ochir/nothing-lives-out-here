@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        //FOR DEBUG
         if (Input.GetKeyDown(KeyCode.V))
         {
             gerDoor.TryOpenAnimation();

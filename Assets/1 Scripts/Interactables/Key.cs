@@ -8,7 +8,7 @@ public class Key : Interactable
     public Vector3 posB;
     public float toggleSpeed = 0.5f;
     
-    private bool atA = true;
+    public bool atA = true;
 
     public override void Interact()
     {
