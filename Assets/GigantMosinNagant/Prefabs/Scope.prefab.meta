@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c4927baba68a4bf46b9b7016ded4e83c
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 226276
+  packageName: Gigant Mosin-Nagant sniper rifle
+  packageVersion: 1.0
+  assetPath: Assets/GigantMosinNagant/Prefabs/Scope.prefab
+  uploadId: 512731

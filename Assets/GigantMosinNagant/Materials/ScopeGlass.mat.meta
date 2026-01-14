@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a9f5518715addf8408e61e4aef999259
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 226276
+  packageName: Gigant Mosin-Nagant sniper rifle
+  packageVersion: 1.0
+  assetPath: Assets/GigantMosinNagant/Materials/ScopeGlass.mat
+  uploadId: 512731

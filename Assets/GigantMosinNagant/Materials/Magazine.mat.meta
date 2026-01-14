@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 08ce9658f001dc9439072f7083cd82bf
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 226276
+  packageName: Gigant Mosin-Nagant sniper rifle
+  packageVersion: 1.0
+  assetPath: Assets/GigantMosinNagant/Materials/Magazine.mat
+  uploadId: 512731

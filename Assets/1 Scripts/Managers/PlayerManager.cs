@@ -187,6 +187,7 @@ public class PlayerManager : MonoBehaviour
                 if (currentInteractable != interactable)
                 {
                     ClearCurrentInteractable();
+                    ClearCurrentContainer();
                     currentInteractable = interactable;
                     currentInteractable.SetOutline(true);
                 }
@@ -198,6 +199,7 @@ public class PlayerManager : MonoBehaviour
                 // New interactable
                 if (seeingContainer != container)
                 {
+                    ClearCurrentInteractable();
                     ClearCurrentContainer();
                     seeingContainer = container;
                     seeingContainer.SetOutline(true);

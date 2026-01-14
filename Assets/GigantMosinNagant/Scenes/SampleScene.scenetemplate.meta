@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 751135beddc0f26408b639b1207764e5
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 226276
+  packageName: Gigant Mosin-Nagant sniper rifle
+  packageVersion: 1.0
+  assetPath: Assets/GigantMosinNagant/Scenes/SampleScene.scenetemplate
+  uploadId: 512731

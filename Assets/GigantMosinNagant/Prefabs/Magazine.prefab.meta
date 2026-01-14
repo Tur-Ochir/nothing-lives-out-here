@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 9f04fc6e0062d3b47be8d66207c2d3ac
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 226276
+  packageName: Gigant Mosin-Nagant sniper rifle
+  packageVersion: 1.0
+  assetPath: Assets/GigantMosinNagant/Prefabs/Magazine.prefab
+  uploadId: 512731
