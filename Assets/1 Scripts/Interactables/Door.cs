@@ -26,7 +26,7 @@ public class Door : Interactable
 
     public override void Interact()
     {
-        if (key.atA) return;
+        if (key != null && key.atA) return;
         
         base.Interact();
         // Debug.Log($"Haalga interacting");

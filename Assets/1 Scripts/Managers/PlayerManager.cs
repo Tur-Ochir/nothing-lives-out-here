@@ -104,14 +104,6 @@ public class PlayerManager : MonoBehaviour
             Crouch();
         }
 
-        if (eatAction.WasPressedThisFrame())
-        {
-            if (heldItem != null && heldItem.canUse)
-            {
-                heldItem.Use(); 
-            }
-        }
-
         if (fireAction.WasPressedThisFrame())
         {
             if (heldItem != null && heldItem.canUse)

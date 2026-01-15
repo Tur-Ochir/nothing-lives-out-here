@@ -9,6 +9,7 @@ public class Gun : Interactable
     public GameObject hitEffectPrefab;
     public AudioClip fireSound;
     public AudioSource audioSource;
+    public Animator animator;
     
     [Header("Parameters")]
     public float range = 100f;
@@ -23,6 +24,7 @@ public class Gun : Interactable
     private float nextFireTime;
     private Vector3 originalLocalPos;
     private Quaternion originalLocalRot;
+    
 
     protected override void Awake()
     {
@@ -35,8 +37,8 @@ public class Gun : Interactable
     protected override void Start()
     {
         base.Start();
-        originalLocalPos = transform.localPosition;
-        originalLocalRot = transform.localRotation;
+        originalLocalPos = new Vector3(0, 0, 0);
+        originalLocalRot = Quaternion.Euler(0, 90, 0);
     }
 
     public override void Use()
@@ -61,7 +63,7 @@ public class Gun : Interactable
         }
 
         // 2. Recoil Animation
-        // ApplyRecoil();
+        ApplyRecoil();
 
         // 3. Raycast Logic
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
@@ -90,10 +92,11 @@ public class Gun : Interactable
         });
 
         // Procedural rotation kick
-        transform.DOLocalRotate(new Vector3(recoilXRotation, 0, 0), recoilDuration).SetEase(Ease.OutQuad).OnComplete(() =>
+        transform.DOLocalRotate(new Vector3(0, 90, recoilXRotation), recoilDuration).SetEase(Ease.OutQuad).OnComplete(() =>
         {
-            transform.DOLocalRotate(Vector3.zero, recoilDuration * 2f).SetEase(Ease.InOutSine);
+            transform.DOLocalRotate(new Vector3(0, 90, 0), recoilDuration * 2f).SetEase(Ease.InOutSine);
         });
+        animator.CrossFade("BoltAction", 0.1f);
     }
 
     // Ensure we reset properly when dropped or moved
@@ -101,5 +104,11 @@ public class Gun : Interactable
     {
         transform.DOKill();
         base.Drop();
+    }
+
+    public override void Interact()
+    {
+        base.Interact();
+        
     }
 }
