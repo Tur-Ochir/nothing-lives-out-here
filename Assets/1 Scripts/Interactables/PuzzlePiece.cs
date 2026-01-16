@@ -18,6 +18,7 @@ public class PuzzlePiece : MonoBehaviour
     public void SetSelected(bool isSelected)
     {
         if (outline != null) outline.enabled = isSelected;
+        rb.isKinematic = !isSelected;
     }
 
     public void Move(Vector2 direction, Transform relativeTo)
@@ -26,7 +27,7 @@ public class PuzzlePiece : MonoBehaviour
 
         // Move relative to the camera/focus point
         Vector3 moveDir = relativeTo.right * direction.x + relativeTo.up * direction.y;
-        rb.linearVelocity = moveDir * moveSpeed;
+        rb.linearVelocity = new Vector3(direction.y, 0 , direction.x) * moveSpeed;
     }
 
     public void StopMoving()

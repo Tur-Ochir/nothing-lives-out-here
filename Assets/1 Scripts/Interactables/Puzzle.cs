@@ -123,7 +123,7 @@ public class Puzzle : Interactable
                 if (selectedPiece != null) selectedPiece.SetSelected(false);
 
                 // Select new
-                selectedPiece = piece;
+                selectedPiece = piece;  
                 selectedPiece.SetSelected(true);
             }
         }
