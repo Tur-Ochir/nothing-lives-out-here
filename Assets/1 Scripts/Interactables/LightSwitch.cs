@@ -11,8 +11,11 @@ public class LightSwitch : Interactable
         base.Interact();
         if (!isOn)
         {
-            if (PlayerManager.Instance.heldItem == null) return;
-            if (!PlayerManager.Instance.heldItem.TryGetComponent(out Match match)) return;
+            if (PlayerManager.Instance.heldItem == null || !PlayerManager.Instance.heldItem.TryGetComponent(out Match match))
+            {
+                GameManager.Instance.PlaySubtitle(reasonNotInteract);
+                return;
+            };
         }
         
         isOn = !isOn;

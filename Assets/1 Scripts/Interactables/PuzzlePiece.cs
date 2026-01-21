@@ -21,13 +21,13 @@ public class PuzzlePiece : MonoBehaviour
         rb.isKinematic = !isSelected;
     }
 
-    public void Move(Vector2 direction, Transform relativeTo)
+    public void Move(Vector3 direction, Transform relativeTo)
     {
         if (rb == null) return;
 
         // Move relative to the camera/focus point
         Vector3 moveDir = relativeTo.right * direction.x + relativeTo.up * direction.y;
-        rb.linearVelocity = new Vector3(direction.y, 0 , direction.x) * moveSpeed;
+        rb.linearVelocity = direction * moveSpeed;
     }
 
     public void StopMoving()

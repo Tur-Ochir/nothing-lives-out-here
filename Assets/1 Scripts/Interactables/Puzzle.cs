@@ -10,8 +10,12 @@ public class Puzzle : Interactable
     
     [Header("Input Actions")]
     public InputActionProperty moveAction;
+    public InputActionProperty scrollAction;
     public InputActionProperty selectAction;
     public InputActionProperty exitAction;
+
+    [Header("Parameters")]
+    public float scrollSensitivity = 0.01f;
 
     [Header("Raycast Settings")]
     public LayerMask pieceLayer;
@@ -29,6 +33,7 @@ public class Puzzle : Interactable
     private void OnEnable()
     {
         moveAction.action?.Enable();
+        scrollAction.action?.Enable();
         selectAction.action?.Enable();
         exitAction.action?.Enable();
     }
@@ -97,13 +102,18 @@ public class Puzzle : Interactable
             HandleSelection();
         }
 
-        // Piece Movement
-        if (selectedPiece != null && moveAction.action != null)
+        if (selectedPiece != null)
         {
-            Vector2 moveInput = moveAction.action.ReadValue<Vector2>();
-            if (moveInput.magnitude > 0.1f)
+            Vector2 moveInput = moveAction.action != null ? moveAction.action.ReadValue<Vector2>() : Vector2.zero;
+            Vector2 scrollDelta = scrollAction.action != null ? scrollAction.action.ReadValue<Vector2>() : Vector2.zero;
+
+            // Add scroll to vertical movement
+            // float verticalMove = moveInput.y + (scrollDelta.y * scrollSensitivity);
+            Vector3 combinedInput = new Vector3(moveInput.y, scrollDelta.y * scrollSensitivity, moveInput.x);
+
+            if (combinedInput.magnitude > 0.01f)
             {
-                selectedPiece.Move(moveInput, focusCamera.transform);
+                selectedPiece.Move(combinedInput, focusCamera.transform);
             }
             else
             {

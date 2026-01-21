@@ -26,7 +26,11 @@ public class Door : Interactable
 
     public override void Interact()
     {
-        if (key != null && key.atA) return;
+        if (key != null && key.atA)
+        {
+            GameManager.Instance.PlaySubtitle(reasonNotInteract);
+            return;
+        }
         
         base.Interact();
         // Debug.Log($"Haalga interacting");
@@ -60,7 +64,7 @@ public class Door : Interactable
         {
             PlayKnockSFX();
             yield return new WaitForSeconds(UnityEngine.Random.Range(0.2f, 1f));
-        }
+        }   
     }
 
     private void PlayKnockSFX()
