@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class Door : Interactable
 {
-    public Key key;
+    public DoorKey doorKey;
     [Header("Animation")]
     public float rotationDuration = 1;
     public Vector3 closedRotation;
@@ -26,7 +26,7 @@ public class Door : Interactable
 
     public override void Interact()
     {
-        if (key != null && key.atA)
+        if (doorKey != null && doorKey.atA)
         {
             GameManager.Instance.PlaySubtitle(reasonNotInteract);
             return;

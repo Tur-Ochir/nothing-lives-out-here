@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        PlaySubtitle("intro");
+        // PlaySubtitle("intro");
     }
 
     private void Update()

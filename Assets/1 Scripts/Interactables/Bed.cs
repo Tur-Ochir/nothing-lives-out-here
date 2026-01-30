@@ -36,5 +36,6 @@ public class Bed : Interactable
         PlayerManager.Instance.canMove = true;
         PlayerManager.Instance.canCrouch = true;
         CanvasManager.Instance.BlackScreen(0.8f);
+        PlayerManager.Instance.heldItem = null;
     }
 }
