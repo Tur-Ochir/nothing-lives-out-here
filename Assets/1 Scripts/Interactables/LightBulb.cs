@@ -11,8 +11,7 @@ public class LightBulb : Interactable
     protected override void Start()
     {
         base.Start();
-        
-        SetActivate(false);
+       Interact();
     }
 
     public override void Interact()

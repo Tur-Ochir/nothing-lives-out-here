@@ -39,6 +39,7 @@ public class Furnace : Container
             argal.transform.DOLocalMove(Vector3.zero, 0.5f).OnComplete((() =>
             {
                 argal.gameObject.SetActive(false);
+                GameManager.Instance.PlaySubtitle("match");
             }));
             argal.transform.DOLocalRotate(Vector3.zero, 0.5f);
             // currentCounter++;
@@ -52,6 +53,7 @@ public class Furnace : Container
             if (burnTime > 0)
             {
                 SetFire(true);
+                GameManager.Instance.PlaySubtitle("fire");
             }
             return true;
         }
@@ -87,7 +89,7 @@ public class Furnace : Container
         base.Remove(item);
         Destroy(item.gameObject);
     }
-
+    
     public void SetFire(bool active)
     {
         if (active)

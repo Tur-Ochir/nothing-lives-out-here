@@ -6,7 +6,7 @@ public class Togoo : Container
 {
     public Vector3 tagPoint;
     public Tag tag;
-    private bool steamingDumpling;
+    public bool steamingDumpling;
     public ParticleSystem steamingParticle;
     public float steamingDuration;
     public int minDumplings = 3;
@@ -121,8 +121,12 @@ public class Togoo : Container
 
     public void TryCook()
     {
-        if (currentCounter <= 0) return;
-        
+        if (currentCounter == 0) return;
+        if (currentCounter < minDumplings)
+        {
+            GameManager.Instance.PlaySubtitle("min-req-dumplings");
+            return;
+        }
         if (currentCounter >= minDumplings && furnace != null && furnace.isBurning && tag != null)
         {
             SetSteaming(true);

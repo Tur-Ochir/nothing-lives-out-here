@@ -27,6 +27,10 @@ public class Arag : Container
             PlayerManager.Instance.heldItem = null;
             return true;
         }
+        else
+        {
+            
+        }
 
         return false;
     }

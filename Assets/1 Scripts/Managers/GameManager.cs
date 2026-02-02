@@ -2,6 +2,7 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 
@@ -26,6 +27,8 @@ public class GameManager : MonoBehaviour
     public enum Language { English, Mongolian }
     public Language currentLanguage = Language.English;
     public static int EventIndex;
+    public static UnityAction OnPlayerEatFill;
+    public static UnityAction OnPlayerSleep;
 
     private void Awake()
     {
@@ -35,9 +38,10 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         monsterManager.OnStartWalk += OnMonsterWalk;
+        OnPlayerEatFill += () => PlaySubtitle("eat-fill");
     }
 
-    private void Start()
+    private void Start()    
     {
         // PlaySubtitle("intro");
     }

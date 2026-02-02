@@ -45,6 +45,7 @@ public class Dumpling : Interactable
         {
             Destroy(gameObject);
             PlayerManager.Instance.heldItem = null;
+            PlayerManager.Instance.Eat();
         }
     }
 }

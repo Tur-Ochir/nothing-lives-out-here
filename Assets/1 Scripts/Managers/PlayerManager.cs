@@ -276,7 +276,11 @@ public class PlayerManager : MonoBehaviour
     public void Eat()
     {
         eatenDumplings++;
-        //TODO EATING SFX
+
+        if (eatenDumplings >= 3)
+        {
+            GameManager.OnPlayerEatFill?.Invoke();
+        }
     }
 
     public void DisableCam()

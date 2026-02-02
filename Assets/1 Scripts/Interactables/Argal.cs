@@ -23,12 +23,19 @@ public class Argal : Interactable
         transform.GetChild(r).gameObject.SetActive(true);
         transform.GetChild(r).localPosition = Vector3.zero;
         col = transform.GetChild(r).GetComponent<Collider>();
+        outline.AddMaterials();
+        outline.enabled = false;
     }
 
     public override void Interact()
     {
         if (PlayerManager.Instance.currentContainer != null && PlayerManager.Instance.currentContainer.TryGetComponent(out Arag arag))
         {
+            if (arag.currentCounter >= arag.itemPoints.Length) 
+            {
+                GameManager.Instance.PlaySubtitle("arag-full");
+                return;
+            }
             SetRbColActive(false);
             transform.SetParent(arag.itemPoints[arag.currentCounter]);
             transform.DOLocalJump(Vector3.zero, 2.5f, 1, 0.5f);
