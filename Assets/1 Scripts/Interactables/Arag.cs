@@ -1,68 +1,193 @@
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-public class Arag : Container
+public class Arag : MonoBehaviour, IItemContainer, IHoldableContainer, IHighlightable
 {
-    private List<Outline> itemOutline = new List<Outline>();
-    
+    [Header("Container Settings")]
+    public bool canContainItems = true;
+    public Transform[] itemPoints;
+    public int currentCounter;
+    public List<GameObject> items = new List<GameObject>();
 
-    protected override void Awake()
+    [Header("Hold Settings")]
+    public bool canHold = true;
+    public float moveSpeed = 12f;
+    public Vector3 inHandRotation;
+
+    public Rigidbody rb;
+    public Collider[] colliders;
+    [HideInInspector] public Outline outline;
+
+    private List<Outline> itemOutlines = new List<Outline>();
+    private Transform hand;
+    private Coroutine moveToHandCoroutine;
+
+    public bool CanContainItems => canContainItems;
+    public int ItemCount => currentCounter;
+    public int Capacity => itemPoints != null ? itemPoints.Length : 0;
+    public bool CanHold => canHold;
+    public bool IsHeld => PlayerManager.Instance != null && PlayerManager.Instance.currentContainer == (IHoldableContainer)this;
+
+    private void Awake()
     {
-        base.Awake();
+        colliders = GetComponents<Collider>();
+        rb = GetComponent<Rigidbody>();
+        outline = GetComponent<Outline>();
     }
 
-    public override bool TryContain(Interactable item)
+    public bool TryContain(GameObject item)
     {
-            
-        if (base.TryContain(item))
+        if (!CanContainItems || item == null) return false;
+        if (itemPoints == null || currentCounter >= itemPoints.Length) return false;
+
+        if (item.TryGetComponent(out Argal argal))
         {
-            item.SetRbColActive(false);
-            
-            item.transform.SetParent(itemPoints[currentCounter-1]);
-            item.transform.DOLocalMove(Vector3.zero, 0.5f).OnComplete(() => item.col.enabled = true);
-            item.transform.DOLocalRotate(Vector3.zero, 0.5f);
-            item.outline.OutlineMode = Outline.Mode.OutlineVisible;
-            itemOutline.Add(item.outline);
+            argal.SetRbColActive(false);
+        }
+
+        Transform targetParent = itemPoints[currentCounter];
+        item.transform.SetParent(targetParent);
+        item.transform.DOLocalMove(Vector3.zero, 0.5f).OnComplete(() =>
+        {
+            if (item.TryGetComponent(out Collider c)) c.enabled = true;
+        });
+        item.transform.DOLocalRotate(Vector3.zero, 0.5f);
+
+        if (item.TryGetComponent(out Outline itemOutline))
+        {
+            itemOutline.OutlineMode = Outline.Mode.OutlineVisible;
+            itemOutlines.Add(itemOutline);
+        }
+
+        if (PlayerManager.Instance != null)
+        {
             PlayerManager.Instance.heldItem = null;
-            return true;
         }
-        else
+
+        currentCounter++;
+        items.Add(item);
+        return true;
+    }
+
+    public void Remove(GameObject item)
+    {
+        if (item != null)
         {
-            
-        }
+            currentCounter = Mathf.Max(0, currentCounter - 1);
+            items.Remove(item);
 
-        return false;
+            if (item.TryGetComponent(out Outline itemOutline))
+            {
+                itemOutlines.Remove(itemOutline);
+            }
+        }
     }
 
-    public void SetOutline(bool active)
+    public void Hold(Transform holdTransform)
     {
-        foreach (var io in itemOutline)
+        if (!CanHold || holdTransform == null) return;
+
+        SetActivateCollider(false);
+        hand = holdTransform;
+
+        if (PlayerManager.Instance != null)
         {
-            io.enabled = active;
+            PlayerManager.Instance.currentContainer = this;
         }
-    }
 
-    public override void Remove(Interactable item)
-    {
-        base.Remove(item);
-        
-        if (itemOutline.Contains(item.outline))
+        SetContainedColliders(false);
+
+        if (rb != null)
         {
-            itemOutline.Remove(item.outline);
+            rb.isKinematic = true;
+        }
+
+        if (moveToHandCoroutine != null) StopCoroutine(moveToHandCoroutine);
+        moveToHandCoroutine = StartCoroutine(MoveToHandRoutine());
+    }
+
+    public void Release()
+    {
+        if (!CanHold) return;
+
+        if (moveToHandCoroutine != null)
+        {
+            StopCoroutine(moveToHandCoroutine);
+            moveToHandCoroutine = null;
+        }
+
+        if (rb != null)
+        {
+            rb.isKinematic = false;
+        }
+
+        transform.SetParent(null);
+
+        if (PlayerManager.Instance != null && PlayerManager.Instance.currentContainer == (IHoldableContainer)this)
+        {
+            PlayerManager.Instance.currentContainer = null;
+        }
+
+        SetContainedColliders(true);
+        SetActivateCollider(true);
+        Debug.Log("Release Arag");
+    }
+
+    public bool TryGet(GameObject otherContainer)
+    {
+        return true;
+    }
+
+    public void SetActivateCollider(bool activate)
+    {
+        if (colliders != null)
+        {
+            foreach (var c in colliders)
+            {
+                if (c != null) c.enabled = activate;
+            }
         }
     }
 
-    public override void Hold()
+    private void SetContainedColliders(bool active)
     {
-        base.Hold();
+        foreach (var item in items)
+        {
+            if (item != null && item.TryGetComponent(out Collider c))
+            {
+                c.enabled = active;
+            }
+        }
     }
 
-    public override void Release()
+    public void SetHighlight(bool active)
     {
-        base.Release();
-        
-        rb.isKinematic = false;
-        Debug.Log($"Release Arag");
+        if (outline != null) outline.enabled = active;
+
+        foreach (var io in itemOutlines)
+        {
+            if (io != null) io.enabled = active;
+        }
+    }
+
+    private IEnumerator MoveToHandRoutine()
+    {
+        while (hand != null && Vector3.Distance(transform.position, hand.position) > 0.1f)
+        {
+            transform.position = Vector3.Lerp(transform.position, hand.position, moveSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, hand.rotation, moveSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        if (hand != null)
+        {
+            transform.SetParent(hand);
+            transform.localPosition = Vector3.zero;
+            transform.localRotation = Quaternion.Euler(inHandRotation);
+        }
+
+        moveToHandCoroutine = null;
     }
 }

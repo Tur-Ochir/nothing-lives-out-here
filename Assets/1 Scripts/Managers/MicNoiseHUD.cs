@@ -1,4 +1,3 @@
-using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -60,6 +59,7 @@ public class MicNoiseHUD : MonoBehaviour
             MicSoundDetector.Instance.OnLoudNoiseSpike -= HandleLoudSpike;
             MicSoundDetector.Instance.OnMicrophoneStateChanged -= HandleMicStateChanged;
         }
+        pulseTween?.Kill();
     }
 
     private void Update()
@@ -79,7 +79,6 @@ public class MicNoiseHUD : MonoBehaviour
         {
             volumeBarFill.fillAmount = volume;
 
-            // Gradient color based on intensity
             if (volume >= detector.loudThreshold)
             {
                 volumeBarFill.color = dangerColor;
@@ -176,9 +175,6 @@ public class MicNoiseHUD : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Align the visual threshold marker to match the detector's NoiseThreshold percentage.
-    /// </summary>
     public void UpdateThresholdMarkerPosition()
     {
         if (thresholdMarker == null || MicSoundDetector.Instance == null) return;

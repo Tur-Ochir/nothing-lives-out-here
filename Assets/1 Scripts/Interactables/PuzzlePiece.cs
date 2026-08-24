@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class PuzzlePiece : MonoBehaviour
 {
-    public Rigidbody rb;
-    private Outline outline;
-    
     [Header("Piece Settings")]
+    public Rigidbody rb;
     public float moveSpeed = 5f;
+
+    private Outline outline;
     
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        if (rb == null) rb = GetComponent<Rigidbody>();
         outline = GetComponent<Outline>();
         if (outline != null) outline.enabled = false;
     }
@@ -18,15 +18,12 @@ public class PuzzlePiece : MonoBehaviour
     public void SetSelected(bool isSelected)
     {
         if (outline != null) outline.enabled = isSelected;
-        rb.isKinematic = !isSelected;
+        if (rb != null) rb.isKinematic = !isSelected;
     }
 
     public void Move(Vector3 direction, Transform relativeTo)
     {
         if (rb == null) return;
-
-        // Move relative to the camera/focus point
-        Vector3 moveDir = relativeTo.right * direction.x + relativeTo.up * direction.y;
         rb.linearVelocity = direction * moveSpeed;
     }
 

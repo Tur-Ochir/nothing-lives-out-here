@@ -1,9 +1,9 @@
+using System;
 using UnityEngine;
 using Unity.Cinemachine;
 using UnityEngine.InputSystem;
-using DG.Tweening;
 
-public class Radio : Interactable
+public class Radio : MonoBehaviour, IInteractable, IHighlightable
 {
     [Header("Radio Settings")]
     public CinemachineCamera focusCamera;
@@ -36,17 +36,32 @@ public class Radio : Interactable
     public AudioSource signalSource;
     public float maxVolume = 1.0f;
 
+    [Header("Interactable")]
+    public bool canInteract = true;
+    public string reasonNotInteract;
+    [HideInInspector] public Outline outline;
+
+    public event Action OnInteracted;
+
+    public bool CanInteract => canInteract;
+    public string ReasonCannotInteract => reasonNotInteract;
+
     private bool isFocused = false;
+
+    private void Awake()
+    {
+        outline = GetComponent<Outline>();
+    }
+
     private void OnEnable()
     {
-        // Optionally enable actions if they aren't part of a PlayerInput that is already enabled
         tuneAction.action?.Enable();
         exitAction.action?.Enable();
     }
 
-    public override void Interact()
+    public void Interact()
     {
-        if (!canInteract) return;
+        if (!CanInteract) return;
 
         isFocused = !isFocused;
 
@@ -58,40 +73,53 @@ public class Radio : Interactable
         {
             ExitFocus();
         }
+
+        OnInteracted?.Invoke();
     }
 
     private void EnterFocus()
     {
         if (focusCamera != null) focusCamera.gameObject.SetActive(true);
-        PlayerManager.Instance.canMove = false;
-        PlayerManager.Instance.canCrouch = false;
-        meshRenderer.material.EnableKeyword("_EMISSION");
+
+        if (PlayerManager.Instance != null)
+        {
+            PlayerManager.Instance.canMove = false;
+            PlayerManager.Instance.canCrouch = false;
+        }
+
+        if (meshRenderer != null && meshRenderer.material != null)
+        {
+            meshRenderer.material.EnableKeyword("_EMISSION");
+        }
         
         staticSource?.Play();
         signalSource?.Play();
         UpdateAudio();
-        
-        // Debug.Log("Radio: Focused");
     }
 
     private void ExitFocus()
     {
         if (focusCamera != null) focusCamera.gameObject.SetActive(false);
-        PlayerManager.Instance.canMove = true;
-        PlayerManager.Instance.canCrouch = true;
-        meshRenderer.material.DisableKeyword("_EMISSION");
+
+        if (PlayerManager.Instance != null)
+        {
+            PlayerManager.Instance.canMove = true;
+            PlayerManager.Instance.canCrouch = true;
+        }
+
+        if (meshRenderer != null && meshRenderer.material != null)
+        {
+            meshRenderer.material.DisableKeyword("_EMISSION");
+        }
         
         staticSource?.Stop();
         signalSource?.Stop();
-        
-        // Debug.Log("Radio: Unfocused");
     }
 
     private void Update()
     {
         if (!isFocused) return;
 
-        // Exit focus with Escape/Cancel action
         if (exitAction.action != null && exitAction.action.WasPressedThisFrame())
         {
             ExitFocus();
@@ -99,7 +127,6 @@ public class Radio : Interactable
             return;
         }
 
-        // Handle Tuning via Scroll Action
         if (tuneAction.action != null)
         {
             Vector2 scrollDelta = tuneAction.action.ReadValue<Vector2>();
@@ -120,7 +147,6 @@ public class Radio : Interactable
         float dist = Mathf.Abs(frequency - targetFrequency);
         float signalStrength = 1.0f - Mathf.Clamp01(dist / frequencyThreshold);
 
-        // We use a simple linear blend: signal volume up, static volume down
         signalSource.volume = signalStrength * maxVolume;
         staticSource.volume = (1.0f - signalStrength) * maxVolume;
     }
@@ -129,22 +155,19 @@ public class Radio : Interactable
     {
         float t = Mathf.InverseLerp(minFrequency, maxFrequency, frequency);
 
-        // Update Needle Position
         if (needle != null)
         {
             needle.localPosition = Vector3.Lerp(needleMinPos, needleMaxPos, t);
         }
 
-        // Update Knob Rotation
         if (knob != null)
         {
             knob.localRotation = Quaternion.Euler(Vector3.Lerp(knobMinRotation, knobMaxRotation, t));
         }
     }
 
-    protected override void Start()
+    public void SetHighlight(bool active)
     {
-        base.Start();
-        // Don't play on start, wait for focus
+        if (outline != null) outline.enabled = active;
     }
 }

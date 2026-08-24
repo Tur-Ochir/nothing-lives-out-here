@@ -1,12 +1,16 @@
-using System;
 using UnityEngine;
 
+/// <summary>
+/// Triggers subtitle dialog either on player trigger enter or on interactable activation.
+/// </summary>
 public class SubtitleTrigger : MonoBehaviour
 {
+    [Header("Subtitle Settings")]
     public string subtitleId;
     public int eventIndex;
     public float delay;
     
+    [Header("Trigger Modes")]
     public bool useTrigger = true;
     public bool useInteractable = true;
 
@@ -14,10 +18,20 @@ public class SubtitleTrigger : MonoBehaviour
     {
         if (useInteractable)
         {
-            if (TryGetComponent(out Interactable interactable))
+            if (TryGetComponent(out IInteractable interactable))
             {
-                interactable.OnInteract += DelayedTryPlaySub;
-                // interactable.OnInteract += (() => { Destroy(this);});
+                interactable.OnInteracted += DelayedTryPlaySub;
+            }   
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (useInteractable)
+        {
+            if (TryGetComponent(out IInteractable interactable))
+            {
+                interactable.OnInteracted -= DelayedTryPlaySub;
             }   
         }
     }
@@ -32,13 +46,15 @@ public class SubtitleTrigger : MonoBehaviour
         }
     }
 
-    private void TryPlaySubtitle()
+    public void TryPlaySubtitle()
     {
         if (eventIndex == GameManager.EventIndex)
         {
-            GameManager.Instance.PlaySubtitle(subtitleId);
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.PlaySubtitle(subtitleId);
+            }
             GameManager.EventIndex++;
-            // Destroy(gameObject);
         }
     }
 

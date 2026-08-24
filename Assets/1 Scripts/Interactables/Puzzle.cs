@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+using System;
+using UnityEngine;
 using Unity.Cinemachine;
 using UnityEngine.InputSystem;
 
-public class Puzzle : Interactable
+public class Puzzle : MonoBehaviour, IInteractable, IHighlightable
 {
     [Header("Puzzle Settings")]
     public CinemachineCamera focusCamera;
@@ -20,13 +21,23 @@ public class Puzzle : Interactable
     [Header("Raycast Settings")]
     public LayerMask pieceLayer;
 
+    [Header("Interactable")]
+    public bool canInteract = true;
+    public string reasonNotInteract;
+    [HideInInspector] public Outline outline;
+
+    public event Action OnInteracted;
+
+    public bool CanInteract => canInteract;
+    public string ReasonCannotInteract => reasonNotInteract;
+
     private bool isFocused = false;
     private PuzzlePiece selectedPiece;
     private Camera mainCam;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
+        outline = GetComponent<Outline>();
         mainCam = Camera.main;
     }
 
@@ -38,26 +49,29 @@ public class Puzzle : Interactable
         exitAction.action?.Enable();
     }
 
-    public override void Interact()
+    public void Interact()
     {
-        if (!canInteract) return;
+        if (!CanInteract) return;
 
         isFocused = !isFocused;
 
         if (isFocused) EnterFocus();
         else ExitFocus();
+
+        OnInteracted?.Invoke();
     }
 
     private void EnterFocus()
     {
         if (focusCamera != null) focusCamera.gameObject.SetActive(true);
         
-        // Disable player controls
-        PlayerManager.Instance.canMove = false;
-        PlayerManager.Instance.canCrouch = false;
-        PlayerManager.Instance.DisableCam();
+        if (PlayerManager.Instance != null)
+        {
+            PlayerManager.Instance.canMove = false;
+            PlayerManager.Instance.canCrouch = false;
+            PlayerManager.Instance.DisableCam();
+        }
 
-        // Unlock cursor
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
@@ -66,7 +80,6 @@ public class Puzzle : Interactable
     {
         if (focusCamera != null) focusCamera.gameObject.SetActive(false);
         
-        // Deselect piece
         if (selectedPiece != null)
         {
             selectedPiece.SetSelected(false);
@@ -74,12 +87,13 @@ public class Puzzle : Interactable
             selectedPiece = null;
         }
 
-        // Enable player controls
-        PlayerManager.Instance.canMove = true;
-        PlayerManager.Instance.canCrouch = true;
-        PlayerManager.Instance.EnableCam();
+        if (PlayerManager.Instance != null)
+        {
+            PlayerManager.Instance.canMove = true;
+            PlayerManager.Instance.canCrouch = true;
+            PlayerManager.Instance.EnableCam();
+        }
 
-        // Lock cursor
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -88,7 +102,6 @@ public class Puzzle : Interactable
     {
         if (!isFocused) return;
 
-        // Exit handling
         if (exitAction.action != null && exitAction.action.WasPressedThisFrame())
         {
             isFocused = false;
@@ -96,7 +109,6 @@ public class Puzzle : Interactable
             return;
         }
 
-        // Piece Selection
         if (selectAction.action != null && selectAction.action.WasPressedThisFrame())
         {
             HandleSelection();
@@ -107,13 +119,12 @@ public class Puzzle : Interactable
             Vector2 moveInput = moveAction.action != null ? moveAction.action.ReadValue<Vector2>() : Vector2.zero;
             Vector2 scrollDelta = scrollAction.action != null ? scrollAction.action.ReadValue<Vector2>() : Vector2.zero;
 
-            // Add scroll to vertical movement
-            // float verticalMove = moveInput.y + (scrollDelta.y * scrollSensitivity);
             Vector3 combinedInput = new Vector3(moveInput.y, scrollDelta.y * scrollSensitivity, moveInput.x);
 
             if (combinedInput.magnitude > 0.01f)
             {
-                selectedPiece.Move(combinedInput, focusCamera.transform);
+                Transform refTransform = focusCamera != null ? focusCamera.transform : transform;
+                selectedPiece.Move(combinedInput, refTransform);
             }
             else
             {
@@ -124,22 +135,21 @@ public class Puzzle : Interactable
 
     private void HandleSelection()
     {
+        if (mainCam == null) mainCam = Camera.main;
+        if (mainCam == null || Mouse.current == null) return;
+
         Ray ray = mainCam.ScreenPointToRay(Mouse.current.position.ReadValue());
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, pieceLayer))
         {
             if (hit.transform.TryGetComponent(out PuzzlePiece piece))
             {
-                // Deselect current
                 if (selectedPiece != null) selectedPiece.SetSelected(false);
-
-                // Select new
                 selectedPiece = piece;  
                 selectedPiece.SetSelected(true);
             }
         }
         else
         {
-            // Deselect if clicking on empty space
             if (selectedPiece != null)
             {
                 selectedPiece.SetSelected(false);
@@ -147,5 +157,10 @@ public class Puzzle : Interactable
                 selectedPiece = null;
             }
         }
+    }
+
+    public void SetHighlight(bool active)
+    {
+        if (outline != null) outline.enabled = active;
     }
 }

@@ -1,7 +1,9 @@
-using UnityEngine;
+using System;
+using System.Collections;
 using DG.Tweening;
+using UnityEngine;
 
-public class Gun : Interactable
+public class Gun : MonoBehaviour, IInteractable, IHoldable, IUsable, IHighlightable
 {
     [Header("Gun Settings")]
     public Transform muzzlePoint;
@@ -20,28 +22,58 @@ public class Gun : Interactable
     public float recoilZ = -0.1f;
     public float recoilXRotation = -5f;
     public float recoilDuration = 0.1f;
-    
+
+    [Header("Interactable")]
+    public bool canInteract = true;
+    public bool moveToHand = true;
+    public Vector3 inHandRotation;
+    public float moveSpeed = 12f;
+    public bool dropCurrentItem = true;
+    public string reasonNotInteract;
+
+    [HideInInspector] public Outline outline;
+    [HideInInspector] public Rigidbody rb;
+    [HideInInspector] public Collider col;
+
+    public event Action OnInteracted;
+
+    public bool CanInteract => canInteract;
+    public string ReasonCannotInteract => reasonNotInteract;
+    public bool CanUse => true;
+    public bool IsHeld => PlayerManager.Instance != null && PlayerManager.Instance.heldItem == (IHoldable)this;
+    public bool DropCurrentItemOnInteract => dropCurrentItem;
+
     private float nextFireTime;
     private Vector3 originalLocalPos;
     private Quaternion originalLocalRot;
-    
+    private Transform hand;
+    private Coroutine moveToHandCoroutine;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
-        if (audioSource == null) audioSource = GetComponent<AudioSource>();
-        
-        // canUse is true by default from Interactable
+        outline = GetComponent<Outline>();
+        col = GetComponent<Collider>();
+        rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
         originalLocalPos = new Vector3(0, 0, 0);
         originalLocalRot = Quaternion.Euler(0, 90, 0);
     }
 
-    public override void Use()
+    public void Interact()
+    {
+        if (!CanInteract) return;
+        OnInteracted?.Invoke();
+    }
+
+    public void Use()
     {
         if (Time.time < nextFireTime) return;
 
@@ -51,7 +83,6 @@ public class Gun : Interactable
 
     private void Shoot()
     {
-        // 1. VFX & SFX
         if (muzzleFlashPrefab != null && muzzlePoint != null)
         {
             Instantiate(muzzleFlashPrefab, muzzlePoint.position, muzzlePoint.rotation);
@@ -62,53 +93,105 @@ public class Gun : Interactable
             audioSource.PlayOneShot(fireSound);
         }
 
-        // 2. Recoil Animation
         ApplyRecoil();
 
-        // 3. Raycast Logic
-        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        if (Physics.Raycast(ray, out RaycastHit hit, range))
+        if (Camera.main != null)
         {
-            Debug.Log($"Gun hit: {hit.transform.name}");
-
-            if (hitEffectPrefab != null)
+            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            if (Physics.Raycast(ray, out RaycastHit hit, range))
             {
-                Instantiate(hitEffectPrefab, hit.point, Quaternion.LookRotation(hit.normal));
-            }
+                Debug.Log($"Gun hit: {hit.transform.name}");
 
-            // Future: hit.transform.GetComponent<IDamageable>()?.TakeDamage(damage);
+                if (hitEffectPrefab != null)
+                {
+                    Instantiate(hitEffectPrefab, hit.point, Quaternion.LookRotation(hit.normal));
+                }
+            }
         }
     }
 
     private void ApplyRecoil()
     {
-        // Cancel previous tweens to avoid stacking weirdly
         transform.DOKill();
 
-        // Procedural kickback
         transform.DOLocalMoveZ(originalLocalPos.z + recoilZ, recoilDuration).SetEase(Ease.OutQuad).OnComplete(() =>
         {
             transform.DOLocalMoveZ(originalLocalPos.z, recoilDuration * 2f).SetEase(Ease.InOutSine);
         });
 
-        // Procedural rotation kick
         transform.DOLocalRotate(new Vector3(0, 90, recoilXRotation), recoilDuration).SetEase(Ease.OutQuad).OnComplete(() =>
         {
             transform.DOLocalRotate(new Vector3(0, 90, 0), recoilDuration * 2f).SetEase(Ease.InOutSine);
         });
-        animator.CrossFade("BoltAction", 0.1f);
+
+        if (animator != null)
+        {
+            animator.CrossFade("BoltAction", 0.1f);
+        }
     }
 
-    // Ensure we reset properly when dropped or moved
-    public override void Drop()
+    public void Pickup(Transform holdTransform)
+    {
+        if (holdTransform == null) return;
+
+        SetRbColActive(false);
+        hand = holdTransform;
+
+        if (PlayerManager.Instance != null)
+        {
+            PlayerManager.Instance.heldItem = this;
+        }
+
+        if (moveToHandCoroutine != null) StopCoroutine(moveToHandCoroutine);
+        moveToHandCoroutine = StartCoroutine(MoveToHandRoutine());
+    }
+
+    public void Drop()
     {
         transform.DOKill();
-        base.Drop();
+
+        if (PlayerManager.Instance != null && PlayerManager.Instance.heldItem == (IHoldable)this)
+        {
+            PlayerManager.Instance.heldItem = null;
+        }
+
+        if (moveToHandCoroutine != null)
+        {
+            StopCoroutine(moveToHandCoroutine);
+            moveToHandCoroutine = null;
+        }
+
+        transform.SetParent(null);
+        SetRbColActive(true);
     }
 
-    public override void Interact()
+    public void SetRbColActive(bool active)
     {
-        base.Interact();
-        
+        if (col != null) col.enabled = active;
+        if (rb != null) rb.isKinematic = !active;
+    }
+
+    public void SetHighlight(bool active)
+    {
+        if (outline != null) outline.enabled = active;
+    }
+
+    private IEnumerator MoveToHandRoutine()
+    {
+        while (hand != null && Vector3.Distance(transform.position, hand.position) > 0.1f)
+        {
+            transform.position = Vector3.Lerp(transform.position, hand.position, moveSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, hand.rotation, moveSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        if (hand != null)
+        {
+            transform.SetParent(hand);
+            transform.localPosition = Vector3.zero;
+            transform.localRotation = Quaternion.Euler(inHandRotation);
+        }
+
+        moveToHandCoroutine = null;
     }
 }

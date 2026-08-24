@@ -98,13 +98,11 @@ public class MonsterSoundReactor : MonoBehaviour
 
         if (canReact && isSoundDetected)
         {
-            // Build suspicion scaled by volume intensity
             float gain = volume * suspicionBuildSpeed * suspicionSensitivity * Time.deltaTime;
             currentSuspicion = Mathf.Min(maxSuspicion, currentSuspicion + gain);
         }
         else
         {
-            // Drain suspicion during silence
             currentSuspicion = Mathf.Max(0f, currentSuspicion - (suspicionDecaySpeed * Time.deltaTime));
         }
 
@@ -115,7 +113,6 @@ public class MonsterSoundReactor : MonoBehaviour
             HandleSuspicionBehavior();
         }
 
-        // Smooth monster radius transition if monster manager is present
         if (monsterManager != null)
         {
             monsterManager.radius = Mathf.Lerp(monsterManager.radius, targetRadius, Time.deltaTime * monsterApproachSpeed);
@@ -138,7 +135,6 @@ public class MonsterSoundReactor : MonoBehaviour
         }
         else
         {
-            // Calm state
             targetRadius = initialMonsterRadius;
         }
     }
@@ -164,14 +160,12 @@ public class MonsterSoundReactor : MonoBehaviour
         {
             monsterManager.PlaySnowWalkSFX();
 
-            // Light flicker effect in Ger
             if (gameManager != null && gameManager.gerLight != null)
             {
                 gameManager.gerLight.SetActivate(false);
                 StartCoroutine(gameManager.gerLight.DelayedSetActive(Random.Range(1.0f, 2.5f), true));
             }
 
-            // Chance to laugh menacingly
             if (Random.value < 0.4f)
             {
                 monsterManager.PlayLaughingSFX();
@@ -190,9 +184,7 @@ public class MonsterSoundReactor : MonoBehaviour
         if (Time.time < nextLoudReactionTime) return;
         nextLoudReactionTime = Time.time + loudSpikeCooldown;
 
-        // Instant maximum suspicion spike
         currentSuspicion = Mathf.Min(maxSuspicion, currentSuspicion + 45f);
-
         StartCoroutine(ExecuteDoorAttackSequence());
     }
 
@@ -203,7 +195,6 @@ public class MonsterSoundReactor : MonoBehaviour
 
         targetRadius = aggressiveMonsterRadius;
 
-        // Play menacing laugh or fast snow footsteps
         if (monsterManager != null)
         {
             monsterManager.PlayLaughingSFX();
@@ -211,13 +202,11 @@ public class MonsterSoundReactor : MonoBehaviour
 
         yield return new WaitForSeconds(0.4f);
 
-        // Knock on Ger Door
         if (gameManager != null && gameManager.gerDoor != null)
         {
             gameManager.gerDoor.Knock();
         }
 
-        // Light flickers out
         if (gameManager != null && gameManager.gerLight != null)
         {
             gameManager.gerLight.SetActivate(false);
@@ -227,16 +216,12 @@ public class MonsterSoundReactor : MonoBehaviour
 
         yield return new WaitForSeconds(0.8f);
 
-        // Violent door rattle
         if (gameManager != null && gameManager.gerDoor != null)
         {
             gameManager.gerDoor.TryOpenAnimation();
         }
     }
 
-    /// <summary>
-    /// Reset suspicion meter (e.g. at sunrise or scene reset).
-    /// </summary>
     public void ResetSuspicion()
     {
         currentSuspicion = 0f;

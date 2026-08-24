@@ -209,7 +209,6 @@ public class MicSoundDetector : MonoBehaviour
         int startPosition = micPosition - sampleWindow;
         if (startPosition < 0)
         {
-            // When wrapping near buffer beginning, return last volume
             return rawVolume;
         }
 
@@ -266,7 +265,6 @@ public class MicSoundDetector : MonoBehaviour
             Microphone.End(selectedDevice);
         }
 
-        // Start continuous loop recording without saving to disk
         micClip = Microphone.Start(selectedDevice, true, recordingLength, sampleRate);
         isRecording = micClip != null;
 
@@ -293,9 +291,6 @@ public class MicSoundDetector : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Measures ambient room noise for a given duration and adjusts noise floor automatically.
-    /// </summary>
     public void CalibrateNoiseFloor(float duration = 1.5f)
     {
         if (!isRecording) return;
@@ -340,9 +335,8 @@ public class MicSoundDetector : MonoBehaviour
         if (sampleCount > 0)
         {
             float averageRMS = totalRMS / sampleCount;
-            // Set noise floor slightly above average ambient noise (plus safety margin)
             noiseFloor = Mathf.Clamp(Mathf.Max(averageRMS * 1.25f, peakAmbientRMS * 0.9f), 0.005f, 0.2f);
-            Debug.Log($"[MicSoundDetector] Calibration complete. Noise Floor set to: {noiseFloor:F4} (Peak RMS: {peakAmbientRMS:F4}, Avg RMS: {averageRMS:F4})");
+            Debug.Log($"[MicSoundDetector] Calibration complete. Noise Floor set to: {noiseFloor:F4}");
         }
 
         isCalibrating = false;

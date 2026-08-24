@@ -1,11 +1,10 @@
-using System.Threading;
+using System;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.Events;
 
-public class Cap : Interactable
+public class Cap : MonoBehaviour, IInteractable, IHighlightable
 {
-    [Header("Cap")]
+    [Header("Cap Settings")]
     public bool canCap = true;
     public Vector3 firstPosition;
     public Vector3 firstRotation;
@@ -15,22 +14,32 @@ public class Cap : Interactable
     
     public float duration = 1f;
     public float jumpPower = 1f;
-    
     public bool isCapped = true;
     public bool useJump = true;
 
-    public override void Interact()
+    [Header("Interactable")]
+    public bool canInteract = true;
+    public string reasonNotInteract;
+    [HideInInspector] public Outline outline;
+
+    public event Action OnInteracted;
+
+    public bool CanInteract => canInteract;
+    public string ReasonCannotInteract => reasonNotInteract;
+
+    private void Awake()
     {
-        if (currentLock != null)
-        {
-            if (currentLock.isLocked) return;
-        };
-        
-        base.Interact();
-        if (!canCap) return;
-        
+        outline = GetComponent<Outline>();
+    }
+
+    public void Interact()
+    {
+        if (currentLock != null && currentLock.isLocked) return;
+        if (!canCap || !CanInteract) return;
+
         isCapped = !isCapped;
         Move(isCapped);
+        OnInteracted?.Invoke();
     }
 
     private void Move(bool isFirst)
@@ -38,6 +47,7 @@ public class Cap : Interactable
         var target = isFirst ? firstPosition : secondPosition;
         var targetRot = isFirst ? firstRotation : secondRotation;
 
+        transform.DOKill();
         if (useJump)
         {
             transform.DOLocalJump(target, jumpPower, 1, duration);
@@ -47,5 +57,10 @@ public class Cap : Interactable
             transform.DOLocalMove(target, duration);
         }
         transform.DOLocalRotate(targetRot, duration);
+    }
+
+    public void SetHighlight(bool active)
+    {
+        if (outline != null) outline.enabled = active;
     }
 }

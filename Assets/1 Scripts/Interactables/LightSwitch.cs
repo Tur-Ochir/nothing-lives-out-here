@@ -1,33 +1,65 @@
+using System;
 using UnityEngine;
 
-public class LightSwitch : Interactable
+public class LightSwitch : MonoBehaviour, IInteractable, IHighlightable
 {
+    [Header("Light Switch Settings")]
     public ParticleSystem lightParticles;
-    public Light light;
+    public new Light light;
     public bool isOn = false;
-    
-    public override void Interact()
+
+    [Header("Interactable")]
+    public bool canInteract = true;
+    public string reasonNotInteract;
+    [HideInInspector] public Outline outline;
+
+    public event Action OnInteracted;
+
+    public bool CanInteract => canInteract;
+    public string ReasonCannotInteract => reasonNotInteract;
+
+    private void Awake()
     {
-        base.Interact();
+        outline = GetComponent<Outline>();
+    }
+
+    public void Interact()
+    {
+        if (!CanInteract) return;
+
         if (!isOn)
         {
-            if (PlayerManager.Instance.heldItem == null || !PlayerManager.Instance.heldItem.TryGetComponent(out Match match))
+            var held = PlayerManager.Instance != null ? PlayerManager.Instance.heldItem : null;
+            bool hasMatch = held is Match;
+
+            if (!hasMatch)
             {
-                GameManager.Instance.PlaySubtitle(reasonNotInteract);
+                if (GameManager.Instance != null)
+                {
+                    GameManager.Instance.PlaySubtitle(reasonNotInteract);
+                }
                 return;
-            };
+            }
         }
-        
+
         isOn = !isOn;
-        light.enabled = isOn;
-        if (isOn)
+
+        if (light != null)
         {
-            lightParticles.Play();  
+            light.enabled = isOn;
         }
-        else
+
+        if (lightParticles != null)
         {
-            
-            lightParticles.Stop();  
+            if (isOn) lightParticles.Play();
+            else lightParticles.Stop();
         }
+
+        OnInteracted?.Invoke();
+    }
+
+    public void SetHighlight(bool active)
+    {
+        if (outline != null) outline.enabled = active;
     }
 }

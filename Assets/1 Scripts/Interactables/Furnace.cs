@@ -1,81 +1,112 @@
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
-public class Furnace : Container
+public class Furnace : MonoBehaviour, IItemContainer, IHighlightable
 {
-    [Header("Furnace")] public ParticleSystem fireParticles;
+    [Header("Container Settings")]
+    public bool canContainItems = true;
+    public Transform[] itemPoints;
+    public int currentCounter;
+    public List<GameObject> items = new List<GameObject>();
+
+    [Header("Furnace Settings")]
+    public ParticleSystem fireParticles;
     public float burnTime = 0f;
     public bool isBurning = false;
     public Vector3 togooPoint;
     public Cap cap;
     public Door am;
+
+    [HideInInspector] public Outline outline;
     private Togoo currentTogoo;
 
-    protected override void Update()
-    {
-        base.Update();
+    public bool CanContainItems => canContainItems;
+    public int ItemCount => currentCounter;
+    public int Capacity => itemPoints != null ? itemPoints.Length : 0;
 
+    private void Awake()
+    {
+        outline = GetComponent<Outline>();
+    }
+
+    private void Update()
+    {
         if (!isBurning) return;
 
         burnTime -= Time.deltaTime;
-        if (burnTime <= 0)
+        if (burnTime <= 0f)
         {
             SetFire(false);
             burnTime = 0f;
         }
     }
 
-    public override bool TryContain(Interactable item)
+    public bool TryContain(GameObject item)
     {
-        if (!canContainItems) return false;
-        if (!am.isOpen) return false;
+        if (!CanContainItems || item == null) return false;
+        if (am != null && !am.isOpen) return false;
 
+        // 1. Fuel items (Argal)
         if (item.TryGetComponent(out Argal argal))
         {
-            var d = argal.burnDur;
-            burnTime += d;
-            argal.transform.SetParent(itemPoints[currentCounter]);
-            argal.transform.DOLocalMove(Vector3.zero, 0.5f).OnComplete((() =>
+            burnTime += argal.burnDur;
+
+            Transform targetParent = (itemPoints != null && itemPoints.Length > 0) ? itemPoints[0] : transform;
+            item.transform.SetParent(targetParent);
+            item.transform.DOLocalRotate(Vector3.zero, 0.5f);
+            item.transform.DOLocalMove(Vector3.zero, 0.5f).OnComplete(() =>
             {
-                argal.gameObject.SetActive(false);
-                GameManager.Instance.PlaySubtitle("match");
-            }));
-            argal.transform.DOLocalRotate(Vector3.zero, 0.5f);
-            // currentCounter++;
-            item.container = this;
+                item.gameObject.SetActive(false);
+                if (GameManager.Instance != null)
+                {
+                    GameManager.Instance.PlaySubtitle("match");
+                }
+            });
+
             items.Add(item);
             return true;
         }
 
-        if (item.TryGetComponent(out Match match))
+        // 2. Igniter items (Match)
+        if (item.TryGetComponent(out Match _))
         {
-            if (burnTime > 0)
+            if (burnTime > 0f)
             {
                 SetFire(true);
-                GameManager.Instance.PlaySubtitle("fire");
+                if (GameManager.Instance != null)
+                {
+                    GameManager.Instance.PlaySubtitle("fire");
+                }
             }
             return true;
         }
 
-        // SetFire(true);
-        // Remove(item);
         return false;
     }
 
-    public override bool TryGet(Container container)
+    public bool TryGet(GameObject container)
     {
-        if (!base.TryGet(container)) return false;
+        if (container == null) return false;
 
         if (container.TryGetComponent(out Togoo togoo))
         {
-            if (cap.isCapped) return false;
+            if (cap != null && cap.isCapped) return false;
 
             togoo.transform.SetParent(transform);
-            togoo.transform.DOLocalMove(togooPoint, 0.5f).OnComplete((() => { togoo.SetActivateCollider(true); }));
+            togoo.transform.DOLocalMove(togooPoint, 0.5f).OnComplete(() => togoo.SetActivateCollider(true));
             togoo.transform.DOLocalRotate(Vector3.zero, 0.5f);
-            PlayerManager.Instance.currentContainer = null;
-            cap.canCap = false;
+
+            if (PlayerManager.Instance != null)
+            {
+                PlayerManager.Instance.currentContainer = null;
+            }
+
+            if (cap != null)
+            {
+                cap.canCap = false;
+            }
+
             togoo.furnace = this;
             currentTogoo = togoo;
             return true;
@@ -84,27 +115,33 @@ public class Furnace : Container
         return false;
     }
 
-    public override void Remove(Interactable item)
+    public void Remove(GameObject item)
     {
-        base.Remove(item);
-        Destroy(item.gameObject);
+        if (item != null)
+        {
+            items.Remove(item);
+            Destroy(item);
+        }
     }
-    
+
     public void SetFire(bool active)
     {
-        if (active)
+        isBurning = active;
+
+        if (fireParticles != null)
         {
-            isBurning = true;
-            fireParticles.Play();
-            if (currentTogoo != null)
-            {
-                currentTogoo.TryCook();
-            }
+            if (active) fireParticles.Play();
+            else fireParticles.Stop();
         }
-        else
+
+        if (active && currentTogoo != null)
         {
-            fireParticles.Stop();
-            isBurning = false;
+            currentTogoo.TryCook();
         }
+    }
+
+    public void SetHighlight(bool active)
+    {
+        if (outline != null) outline.enabled = active;
     }
 }

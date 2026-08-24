@@ -1,22 +1,22 @@
 using System;
-using DG.Tweening;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerManager : MonoBehaviour
 {
-    public static PlayerManager Instance;
-    [Header("Movement")]
+    public static PlayerManager Instance { get; private set; }
+
+    [Header("Movement Settings")]
     public bool canMove = true;
     public bool canCrouch = true;
-    public float speed;
+    public float speed = 5f;
     public float crouchSpeedMultiplier = 0.5f;
     public Vector3 standingOffset;
     public Vector3 crouchingOffset;
-    private bool crouching;
 
-    [Header("Camera")] public Transform camTarget;
+    [Header("Camera & HeadBob")]
+    public Transform camTarget;
     public CinemachineVirtualCameraBase vcam;
     public CinemachineBasicMultiChannelPerlin camNoise;
     public bool useHeadBob = true;
@@ -24,14 +24,20 @@ public class PlayerManager : MonoBehaviour
     public float walkingBobAmplitude = 2f;
     public float walkingBobFrequency = 0.02f;
 
-    [Header("Interact")] public Transform handPoint;
+    [Header("Interaction & Hands")]
+    public Transform handPoint;
     public Transform twoHandPoint;
-    public float maxDistance = 5;
+    public float maxDistance = 5f;
     public bool IsHoldingItem => heldItem != null;
-    public Interactable heldItem;
-    public Container currentContainer;
-    public Container seeingContainer;
+    public IHoldable heldItem;
+    public IHoldableContainer currentContainer;
+
+    [Header("Stats")]
     public int eatenDumplings = 0;
+
+    [Header("Components")]
+    public PlayerMovement movement;
+    public PlayerInteractionHandler interaction;
 
     private PlayerInput input;
     private CharacterController controller;
@@ -42,234 +48,134 @@ public class PlayerManager : MonoBehaviour
     private InputAction eatAction;
     private InputAction fireAction;
     private Transform camTransform;
-    private bool isInteracting;
-    private Interactable currentInteractable;
-    private Vector3 moveDirection;
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
-
 
         controller = GetComponent<CharacterController>();
         input = GetComponent<PlayerInput>();
 
+        if (Camera.main != null)
+        {
+            camTransform = Camera.main.transform;
+        }
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
-        camTransform = Camera.main.transform;
+        SetupSubsystems();
     }
 
-    private void Start()
+    private void SetupSubsystems()
     {
-        // DisableCam();
-        // Invoke(nameof(EnableCam), 3f);
+        // 1. Movement & Headbob Subsystem
+        if (movement == null)
+        {
+            movement = GetComponent<PlayerMovement>();
+            if (movement == null) movement = gameObject.AddComponent<PlayerMovement>();
+        }
+        movement.canMove = canMove;
+        movement.canCrouch = canCrouch;
+        movement.speed = speed;
+        movement.crouchSpeedMultiplier = crouchSpeedMultiplier;
+        movement.standingOffset = standingOffset;
+        movement.crouchingOffset = crouchingOffset;
+        movement.camTarget = camTarget;
+        movement.vcam = vcam;
+        movement.camNoise = camNoise;
+        movement.useHeadBob = useHeadBob;
+        movement.bobTransSpeed = bobTransSpeed;
+        movement.walkingBobAmplitude = walkingBobAmplitude;
+        movement.walkingBobFrequency = walkingBobFrequency;
+        movement.Initialize(controller, camTransform);
+
+        // 2. Interaction Subsystem
+        if (interaction == null)
+        {
+            interaction = GetComponent<PlayerInteractionHandler>();
+            if (interaction == null) interaction = gameObject.AddComponent<PlayerInteractionHandler>();
+        }
+        interaction.maxDistance = maxDistance;
+        interaction.Initialize(camTransform);
     }
 
     private void OnEnable()
     {
-        input.actions.Enable();
+        if (input != null && input.actions != null)
+        {
+            input.actions.Enable();
 
-        moveAction = input.actions["Move"];
-        interactAction = input.actions["Interact"];
-        dropAction = input.actions["Drop"];
-        crouchAction = input.actions["Crouch"];
-        eatAction = input.actions["Eat"];
-        fireAction = input.actions["Fire"];
+            moveAction = input.actions["Move"];
+            interactAction = input.actions["Interact"];
+            dropAction = input.actions["Drop"];
+            crouchAction = input.actions["Crouch"];
+            eatAction = input.actions["Eat"];
+            fireAction = input.actions["Fire"];
+        }
     }
 
     private void OnDisable()
     {
-        input.actions.Disable();
+        if (input != null && input.actions != null)
+        {
+            input.actions.Disable();
+        }
     }
 
     private void Update()
     {
-        var moveInput = moveAction.ReadValue<Vector2>();
-        Move(moveInput);
-        HandleHeadBob();
-
-        if (interactAction.WasPressedThisFrame())
+        // Sync dynamic inspector flags
+        if (movement != null)
         {
-            if (HandleInteraction()) return;
+            movement.canMove = canMove;
+            movement.canCrouch = canCrouch;
         }
 
-        if (dropAction.WasPressedThisFrame())
+        // Process Movement
+        if (moveAction != null && movement != null)
         {
-            HandleDrop();
+            Vector2 moveInput = moveAction.ReadValue<Vector2>();
+            movement.ProcessMove(moveInput);
+            movement.ProcessHeadBob();
         }
 
-        if (crouchAction.WasPressedThisFrame())
+        // Process Interactions
+        if (interactAction != null && interactAction.WasPressedThisFrame())
         {
-            Crouch();
+            interaction.TryInteract(this);
         }
 
-        if (fireAction.WasPressedThisFrame())
+        // Process Drop
+        if (dropAction != null && dropAction.WasPressedThisFrame())
         {
-            if (heldItem != null && heldItem.canUse)
+            interaction.HandleDrop(this);
+        }
+
+        // Process Crouch
+        if (crouchAction != null && crouchAction.WasPressedThisFrame())
+        {
+            movement.ToggleCrouch();
+        }
+
+        // Process Fire / Item Use
+        if (fireAction != null && fireAction.WasPressedThisFrame())
+        {
+            if (heldItem is IUsable usable && usable.CanUse)
             {
-                heldItem.Use();
+                usable.Use();
             }
         }
 
-        HandleLookAtInteractable();
-    }
-
-    private void HandleDrop()
-    {
-        if (currentContainer != null)
+        // Highlight look-at target
+        if (interaction != null)
         {
-            currentContainer.Release();
-        }
-
-        if (IsHoldingItem)
-        {
-            heldItem.Drop();
-        }
-    }
-
-    private bool HandleInteraction()
-    {
-        if (Physics.Raycast(camTransform.position, camTransform.forward, out RaycastHit hit, maxDistance))
-        {
-            if (hit.transform.TryGetComponent(out Container container))
-            {
-                if (currentContainer != null)
-                {
-                    if (container.TryGet(currentContainer))
-                    {
-                        return true;
-                    }
-                }
-
-                if (IsHoldingItem)
-                {
-                    if (container.TryContain(heldItem))
-                    {
-                        return true;
-                    }
-                }
-                else
-                {
-                    container.Hold();
-                    // currentContainer = container;
-                }
-            }
-
-            if (hit.transform.TryGetComponent(out Interactable interactable))
-            {
-                if (IsHoldingItem && interactable.dropCurrentItem)
-                {
-                    heldItem.Drop();
-                }
-
-                interactable.Interact();
-            }
-        }
-
-        return false;
-    }
-
-    private void Move(Vector2 moveInput)
-    {
-        if (!canMove) return;
-        
-        moveDirection = camTransform.right * moveInput.x + camTransform.forward * moveInput.y;
-        controller.SimpleMove(moveDirection * speed);
-    }
-
-    void HandleLookAtInteractable()
-    {
-        if (Physics.Raycast(camTransform.position, camTransform.forward,
-                out RaycastHit hit, maxDistance))
-        {
-            if (hit.transform.TryGetComponent(out Interactable interactable))
-            {
-                // New interactable
-                if (currentInteractable != interactable)
-                {
-                    ClearCurrentInteractable();
-                    ClearCurrentContainer();
-                    currentInteractable = interactable;
-                    currentInteractable.SetOutline(true);
-                }
-
-                return;
-            }
-            if (hit.transform.TryGetComponent(out Container container))
-            {
-                // New interactable
-                if (seeingContainer != container)
-                {
-                    ClearCurrentInteractable();
-                    ClearCurrentContainer();
-                    seeingContainer = container;
-                    seeingContainer.SetOutline(true);
-                }
-
-                return;
-            }
-        }
-
-        // Nothing hit or not interactable
-        ClearCurrentInteractable();
-        ClearCurrentContainer();
-    }
-
-    void ClearCurrentInteractable()
-    {
-        if (currentInteractable != null)
-        {
-            currentInteractable.SetOutline(false);
-            currentInteractable = null;
-        }
-    }
-    void ClearCurrentContainer()
-    {
-        if (seeingContainer != null)
-        {
-            seeingContainer.SetOutline(false);
-            seeingContainer = null;
-        }
-    }
-
-    private void Crouch()
-    {
-        if (!canCrouch) return;
-        
-        crouching = !crouching;
-
-        var target = crouching ? crouchingOffset : standingOffset;
-        camTarget.DOLocalMove(target, 0.3f);
-        if (crouching)
-        {
-            speed *= crouchSpeedMultiplier;
-        }
-        else
-        {
-            speed /= crouchSpeedMultiplier;
-        }
-    }
-
-    private void HandleHeadBob()
-    {
-        if (!useHeadBob)
-        {
-            camNoise.AmplitudeGain = 0;
-            camNoise.FrequencyGain = 0;
-            return;
-        }
-        if (moveDirection.magnitude > 0.1f)
-        {
-            camNoise.AmplitudeGain =
-                Mathf.Lerp(camNoise.AmplitudeGain, walkingBobAmplitude, Time.deltaTime * bobTransSpeed);
-            camNoise.FrequencyGain =
-                Mathf.Lerp(camNoise.FrequencyGain, walkingBobFrequency, Time.deltaTime * bobTransSpeed);
-        }
-        else
-        {
-            camNoise.AmplitudeGain = Mathf.Lerp(camNoise.AmplitudeGain, 0, Time.deltaTime * bobTransSpeed);
-            camNoise.FrequencyGain = Mathf.Lerp(camNoise.FrequencyGain, 0, Time.deltaTime * bobTransSpeed);
+            interaction.ProcessLookAtTarget();
         }
     }
 
@@ -285,12 +191,17 @@ public class PlayerManager : MonoBehaviour
 
     public void DisableCam()
     {
-        var ac = vcam.GetComponent<CinemachineInputAxisController>();
-        ac.enabled = false;
+        if (movement != null)
+        {
+            movement.SetCamControllerActive(false);
+        }
     }
+
     public void EnableCam()
     {
-        var ac = vcam.GetComponent<CinemachineInputAxisController>();
-        ac.enabled = true;
+        if (movement != null)
+        {
+            movement.SetCamControllerActive(true);
+        }
     }
 }

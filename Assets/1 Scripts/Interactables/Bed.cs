@@ -1,51 +1,89 @@
+using System;
 using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
-public class Bed : Interactable
+public class Bed : MonoBehaviour, IInteractable, IUsable
 {
+    [Header("Bed Settings")]
     public bool canEnterBed = true;
     public bool canExitBed = true;
     public bool canSleep;
     public CinemachineCamera inBedCam;
 
-    protected override void OnEnable()
+    [Header("Interactable")]
+    public bool canInteract = true;
+    public string reasonNotInteract;
+
+    public event Action OnInteracted;
+
+    public bool CanInteract => canInteract;
+    public string ReasonCannotInteract => reasonNotInteract;
+    public bool CanUse => isInBed && canExitBed;
+
+    private bool isInBed = false;
+
+    private void OnEnable()
     {
-        base.OnEnable();
-        
-        GameManager.OnPlayerEatFill += (() =>
-        {
-            canEnterBed = true;
-            canSleep = true;
-        });
+        GameManager.OnPlayerEatFill += HandlePlayerEatFill;
     }
 
-    public override void Interact()
+    private void OnDisable()
     {
-        base.Interact();
-        if (!canEnterBed)
+        GameManager.OnPlayerEatFill -= HandlePlayerEatFill;
+    }
+
+    private void HandlePlayerEatFill()
+    {
+        canEnterBed = true;
+        canSleep = true;
+    }
+
+    public void Interact()
+    {
+        if (isInBed)
         {
-            GameManager.Instance.PlaySubtitle(reasonNotInteract);
+            Use();
             return;
         }
-        
+
+        if (!canEnterBed || !CanInteract)
+        {
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.PlaySubtitle(reasonNotInteract);
+            }
+            return;
+        }
+
         EnterBed();
+        OnInteracted?.Invoke();
     }
-    public override void Use()
+
+    public void Use()
     {
-        base.Interact();
-        if (!canExitBed) return;
-        
+        if (!CanUse) return;
         ExitBed();
     }
 
     private void EnterBed()
     {
-        inBedCam.gameObject.SetActive(true);
-        PlayerManager.Instance.canMove = false;
-        PlayerManager.Instance.canCrouch = false;
-        CanvasManager.Instance.BlackScreen(0.8f);
-        PlayerManager.Instance.heldItem = this;
+        isInBed = true;
+
+        if (inBedCam != null)
+        {
+            inBedCam.gameObject.SetActive(true);
+        }
+
+        if (PlayerManager.Instance != null)
+        {
+            PlayerManager.Instance.canMove = false;
+            PlayerManager.Instance.canCrouch = false;
+        }
+
+        if (CanvasManager.Instance != null)
+        {
+            CanvasManager.Instance.BlackScreen(0.8f);
+        }
 
         if (canSleep)
         {
@@ -53,12 +91,25 @@ public class Bed : Interactable
             GameManager.OnPlayerSleep?.Invoke();
         }
     }
+
     private void ExitBed()
     {
-        inBedCam.gameObject.SetActive(false);
-        PlayerManager.Instance.canMove = true;
-        PlayerManager.Instance.canCrouch = true;
-        CanvasManager.Instance.BlackScreen(0.8f);
-        PlayerManager.Instance.heldItem = null;
+        isInBed = false;
+
+        if (inBedCam != null)
+        {
+            inBedCam.gameObject.SetActive(false);
+        }
+
+        if (PlayerManager.Instance != null)
+        {
+            PlayerManager.Instance.canMove = true;
+            PlayerManager.Instance.canCrouch = true;
+        }
+
+        if (CanvasManager.Instance != null)
+        {
+            CanvasManager.Instance.BlackScreen(0.8f);
+        }
     }
 }

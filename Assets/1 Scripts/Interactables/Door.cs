@@ -2,63 +2,90 @@ using System;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-public class Door : Interactable
+public class Door : MonoBehaviour, IInteractable, IHighlightable
 {
+    [Header("Lock / Key Reference")]
     public DoorKey doorKey;
+
     [Header("Animation")]
-    public float rotationDuration = 1;
+    public float rotationDuration = 1f;
     public Vector3 closedRotation;
     public Vector3 openRotation;
+
     [Header("SFX")]
     public AudioClip openSFX;
     public AudioClip closeSFX;
     public AudioClip[] knockSFX;
-    public bool isOpen;
-    private AudioSource audioSource;
 
-    protected override void Awake()
+    [Header("State")]
+    public bool isOpen;
+
+    [Header("Interactable")]
+    public bool canInteract = true;
+    public string reasonNotInteract;
+    [HideInInspector] public Outline outline;
+
+    public event Action OnInteracted;
+
+    public bool CanInteract => canInteract;
+    public string ReasonCannotInteract => reasonNotInteract;
+
+    private AudioSource audioSource;
+    private Tween rotateTween;
+
+    private void Awake()
     {
-        base.Awake();
+        outline = GetComponent<Outline>();
         audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
-    public override void Interact()
+    public void Interact()
     {
         if (doorKey != null && doorKey.atA)
         {
-            GameManager.Instance.PlaySubtitle(reasonNotInteract);
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.PlaySubtitle(reasonNotInteract);
+            }
             return;
         }
-        
-        base.Interact();
-        // Debug.Log($"Haalga interacting");
+
+        if (!CanInteract) return;
+
         isOpen = !isOpen;
         HandleRotate(isOpen);
         PlaySFX(isOpen);
+        OnInteracted?.Invoke();
     }
 
     private void HandleRotate(bool open)
     {
         Vector3 targetRotation = open ? openRotation : closedRotation;
-        transform.DOLocalRotate(targetRotation, rotationDuration);
-        // transform
+        rotateTween?.Kill();
+        rotateTween = transform.DOLocalRotate(targetRotation, rotationDuration);
     }
 
     private void PlaySFX(bool open)
     {
         if (audioSource == null) return;
-        
-        var target = open ? openSFX : closeSFX;
-        audioSource.PlayOneShot(target);
+        var clip = open ? openSFX : closeSFX;
+        if (clip != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
     }
 
     public void Knock()
     {
-        StartCoroutine(StartKnockingSFX());
+        StartCoroutine(StartKnockingSFXRoutine());
     }
-    private IEnumerator StartKnockingSFX()
+
+    private IEnumerator StartKnockingSFXRoutine()
     {
         for (int i = 0; i < 4; i++)
         {
@@ -69,22 +96,23 @@ public class Door : Interactable
 
     private void PlayKnockSFX()
     {
+        if (audioSource == null || knockSFX == null || knockSFX.Length == 0) return;
         audioSource.PlayOneShot(knockSFX[UnityEngine.Random.Range(0, knockSFX.Length)]);
     }
 
     public void TryOpenAnimation()
     {
         var sequence = DOTween.Sequence();
-
         for (int i = 0; i < 8; i++)
         {
-            float target = Random.Range(1f, 5f);
-            if (i  % 2 == 1)
-            {
-                target = 0;
-            }
-            float dur = Random.Range(0.1f, 0.25f);
+            float target = (i % 2 == 1) ? 0f : UnityEngine.Random.Range(1f, 5f);
+            float dur = UnityEngine.Random.Range(0.1f, 0.25f);
             sequence.Append(transform.DORotate(new Vector3(openRotation.x, target, openRotation.z), dur));
         }
+    }
+
+    public void SetHighlight(bool active)
+    {
+        if (outline != null) outline.enabled = active;
     }
 }

@@ -1,27 +1,47 @@
-using UnityEngine;
+using System;
 using DG.Tweening;
+using UnityEngine;
 
-public class DoorKey : Interactable
+public class DoorKey : MonoBehaviour, IInteractable, IHighlightable
 {
     [Header("Key Movement")]
     public Vector3 posA;
     public Vector3 posB;
     public float toggleSpeed = 0.5f;
-    
     public bool atA = true;
 
-    public override void Interact()
+    [Header("Interactable")]
+    public bool canInteract = true;
+    public string reasonNotInteract;
+    [HideInInspector] public Outline outline;
+
+    public event Action OnInteracted;
+
+    public bool CanInteract => canInteract;
+    public string ReasonCannotInteract => reasonNotInteract;
+
+    private Tween moveTween;
+
+    private void Awake()
     {
-        if (!canInteract) return;
+        outline = GetComponent<Outline>();
+    }
 
-        // Toggle position between A and B
+    public void Interact()
+    {
+        if (!CanInteract) return;
+
         Vector3 target = atA ? posB : posA;
-        transform.DOLocalMove(target, toggleSpeed).SetEase(Ease.InOutSine);
-        
-        atA = !atA;
+        moveTween?.Kill();
+        moveTween = transform.DOLocalMove(target, toggleSpeed).SetEase(Ease.InOutSine);
 
-        // Note: Not calling base.Interact() to avoid pickup logic if unintended
-        // If pickup is needed later, this can be adjusted.
+        atA = !atA;
+        OnInteracted?.Invoke();
         Debug.Log($"Key toggled to {(atA ? "Position A" : "Position B")}");
+    }
+
+    public void SetHighlight(bool active)
+    {
+        if (outline != null) outline.enabled = active;
     }
 }

@@ -1,33 +1,39 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Controls the monster's circular pathing and audio cues outside the Ger.
+/// </summary>
 public class MonsterManager : MonoBehaviour
 {
     [Header("Circle Settings")]
-    public Transform centerPoint;   // Point to rotate around
-    public float radius = 2f;        // Circle radius
+    public Transform centerPoint;
+    public float radius = 2f;
     public float speed = 3f; 
-    private float angle;
+
     [Header("SFX")]
     public AudioClip[] snowWalkSFX;
     public AudioClip[] laughingSFX;
-    private AudioSource audioSource;
+
     public UnityAction OnStartWalk;
+
+    private float angle;
+    private AudioSource audioSource;
 
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-    }
-
-    private void Start()
-    {
-        // StartCoroutine(StartRandomWalk());
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     private void Update()
     {
+        if (centerPoint == null) return;
+
         angle += speed * Time.deltaTime;
 
         float x = Mathf.Cos(angle) * radius;
@@ -36,25 +42,15 @@ public class MonsterManager : MonoBehaviour
         transform.position = centerPoint.position + new Vector3(x, 0, z);
     }
 
-    private IEnumerator StartRandomWalk()
-    {
-            OnStartWalk?.Invoke();
-            for (int i = 0; i < 4; i++)
-            {
-                PlaySnowWalkSFX();
-                yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f, 1.5f));
-            }
-            yield return new WaitForSeconds(UnityEngine.Random.Range(7f, 14f));
-            StartCoroutine(StartRandomWalk());
-    }
-
     public void PlaySnowWalkSFX()
     {
-        audioSource.PlayOneShot(snowWalkSFX[UnityEngine.Random.Range(0, snowWalkSFX.Length)]);
+        if (audioSource == null || snowWalkSFX == null || snowWalkSFX.Length == 0) return;
+        audioSource.PlayOneShot(snowWalkSFX[Random.Range(0, snowWalkSFX.Length)]);
     }
+
     public void PlayLaughingSFX()
     {
-        audioSource.PlayOneShot(laughingSFX[UnityEngine.Random.Range(0, laughingSFX.Length)]);
+        if (audioSource == null || laughingSFX == null || laughingSFX.Length == 0) return;
+        audioSource.PlayOneShot(laughingSFX[Random.Range(0, laughingSFX.Length)]);
     }
-    
 }
