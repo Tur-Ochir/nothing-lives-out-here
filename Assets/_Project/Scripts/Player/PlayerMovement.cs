@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -32,10 +33,10 @@ public class PlayerMovement : MonoBehaviour
     public bool IsCrouching => isCrouching;
     public Vector3 MoveDirection => moveDirection;
 
-    public void Initialize(CharacterController characterController, Transform mainCameraTransform)
+    private void Awake()
     {
-        controller = characterController;
-        camTransform = mainCameraTransform;
+        controller = GetComponent<CharacterController>();
+        camTransform = Camera.main != null ? Camera.main.transform : null;
     }
 
     public void ProcessMove(Vector2 input)

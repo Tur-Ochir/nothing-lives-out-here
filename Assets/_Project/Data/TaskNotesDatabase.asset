@@ -1,0 +1,253 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e494cd81e8eea049818592b6aef5990, type: 3}
+  m_Name: TaskNotesDatabase
+  m_EditorClassIdentifier: Dev.TodoNotes.Editor::Dev.TodoNotes.Editor.TaskNotesDatabase
+  m_Tasks:
+  - m_Id: 05736471-73b8-404d-b7e4-1c178336a2e5
+    m_Title: Aluurchin
+    m_Description: 
+    m_Priority: 2
+    m_Status: 0
+    m_Category: Model
+    m_LinkedObject: {fileID: 0}
+    m_CreatedDate: 2026-08-26 17:01
+    m_CompletedDate: 
+    m_DueDate: 
+    m_Tags: []
+    m_IsExpanded: 0
+  - m_Id: cff2d1cc-1bac-4b7d-91de-c06aba8ba438
+    m_Title: Haalga SFX
+    m_Description: 
+    m_Priority: 1
+    m_Status: 0
+    m_Category: Audio
+    m_LinkedObject: {fileID: 0}
+    m_CreatedDate: 2026-08-26 16:51
+    m_CompletedDate: 
+    m_DueDate: 
+    m_Tags: []
+    m_IsExpanded: 0
+  - m_Id: 43830193-b336-4c99-b08b-b891bde9a4fa
+    m_Title: Footstep SFX
+    m_Description: 
+    m_Priority: 1
+    m_Status: 0
+    m_Category: Audio
+    m_LinkedObject: {fileID: 0}
+    m_CreatedDate: 2026-08-26 16:53
+    m_CompletedDate: 
+    m_DueDate: 
+    m_Tags: []
+    m_IsExpanded: 0
+  - m_Id: 3899f611-9d5b-426c-8869-f350820aa3ba
+    m_Title: Shiree
+    m_Description: 
+    m_Priority: 1
+    m_Status: 0
+    m_Category: Model
+    m_LinkedObject: {fileID: 0}
+    m_CreatedDate: 2026-08-26 16:56
+    m_CompletedDate: 
+    m_DueDate: 
+    m_Tags: []
+    m_IsExpanded: 0
+  - m_Id: c4b3ad88-d60c-4fe9-819f-14275271083f
+    m_Title: Sandal
+    m_Description: 
+    m_Priority: 1
+    m_Status: 0
+    m_Category: Model
+    m_LinkedObject: {fileID: 0}
+    m_CreatedDate: 2026-08-26 16:56
+    m_CompletedDate: 
+    m_DueDate: 
+    m_Tags: []
+    m_IsExpanded: 0
+  - m_Id: 19b5f9a6-19f9-4046-a7e8-8ec4a6528a9d
+    m_Title: Starting cutscene
+    m_Description: 
+    m_Priority: 2
+    m_Status: 0
+    m_Category: General
+    m_LinkedObject: {fileID: 0}
+    m_CreatedDate: 2026-08-26 17:02
+    m_CompletedDate: 
+    m_DueDate: 
+    m_Tags: []
+    m_IsExpanded: 0
+  - m_Id: 1a933640-f176-460b-aa2f-da2238b092ca
+    m_Title: Story
+    m_Description: 
+    m_Priority: 3
+    m_Status: 1
+    m_Category: General
+    m_LinkedObject: {fileID: 0}
+    m_CreatedDate: 2026-08-26 17:03
+    m_CompletedDate: 
+    m_DueDate: 
+    m_Tags: []
+    m_IsExpanded: 0
+  - m_Id: b03f3695-4f55-4859-84c1-cbdd745548dd
+    m_Title: Nuugdah
+    m_Description: 
+    m_Priority: 3
+    m_Status: 0
+    m_Category: Gameplay
+    m_LinkedObject: {fileID: 0}
+    m_CreatedDate: 2026-08-26 17:36
+    m_CompletedDate: 
+    m_DueDate: 
+    m_Tags: []
+    m_IsExpanded: 0
+  - m_Id: 7a50a406-d9bd-4318-82ce-c68bf5f061e8
+    m_Title: Shuugee
+    m_Description: 
+    m_Priority: 0
+    m_Status: 0
+    m_Category: Model
+    m_LinkedObject: {fileID: 0}
+    m_CreatedDate: 2026-08-26 17:37
+    m_CompletedDate: 
+    m_DueDate: 
+    m_Tags: []
+    m_IsExpanded: 0
+  - m_Id: c99a6155-6e3a-490a-9901-4fcdb25614f6
+    m_Title: 40iin biton
+    m_Description: 
+    m_Priority: 0
+    m_Status: 0
+    m_Category: Model
+    m_LinkedObject: {fileID: 0}
+    m_CreatedDate: 2026-08-26 18:02
+    m_CompletedDate: 
+    m_DueDate: 
+    m_Tags: []
+    m_IsExpanded: 0
+  m_Notes:
+  - m_Id: f9a572f8-a1fe-4eb9-a368-130fec2ad323
+    m_Title: Story
+    m_Content: "\u041C\u0430\u043B\u0430\u0430 \u0445\u0430\u0440\u0438\u0443\u043B\u0436
+      \u044F\u0432\u0430\u0430\u0434 \u0448\u0443\u0443\u0440\u0433\u0430\u043D\u0434
+      \u04E9\u0440\u0442\u04E9\u04E9\u0434 \u0442\u04E9\u04E9\u0440\u0441\u04E9\u043D.
+      \u0410\u0440\u0430\u0439 \u0433\u044D\u0436 \u043D\u044D\u0433 \u0433\u044D\u0440
+      \u043E\u043B\u043E\u043E\u0434 \u043E\u0440\u0436 \u0438\u0440\u0441\u044D\u043D.
+      (\u0445\u0430\u0440\u0438\u0443\u043B\u0436 \u0431\u0430\u0439\u0433\u0430\u0430
+      \u0445\u043E\u043D\u044C, \u0443\u043D\u0430\u0436 \u0431\u0430\u0439\u0433\u0430\u0430
+      \u043C\u043E\u0440\u044C?)\n\u0425\u044D\u0440\u0432\u044D\u044D \u0431\u0430\u0440\u0438\u0433\u0434\u0441\u0430\u043D
+      \u0445\u04AF\u043D \u043D\u0430\u0439\u0437 \u043E\u0445\u0438\u043D \u043D\u044C
+      \u0431\u043E\u043B - \u0428\u0443\u0443\u0440\u0433\u0430\u043D\u0434 \u0442\u04E9\u04E9\u0440\u04E9\u04E9\u0434
+      \u043C\u0430\u0448\u0438\u043D \u043D\u044C \u0433\u0430\u0446\u0441\u0430\u043D
+      \u043D\u0430\u0439\u0437 \u043E\u0445\u0438\u043D\u043E\u043E \u043C\u0430\u0448\u0438\u043D\u0434\u0430\u0430
+      \u04AF\u043B\u0434\u044D\u044D\u0433\u044D\u044D\u0434 \u0442\u0443\u0441\u043B\u0430\u043C\u0436
+      \u043E\u043B\u043E\u0445\u043E\u043E\u0440 \u044F\u0432\u043D\u0430.\n\n-\u0413\u044D\u0440
+      \u043E\u043B\u043D\u043E\r\n- \u0413\u044D\u0440\u044D\u043B \u0430\u0441\u0430\u0430\u0445\r\n-
+      \u0410\u0440\u0433\u0430\u043B \u0442\u04AF\u04AF\u0445\r\n- \u0413\u0430\u043B
+      \u0430\u0441\u0430\u0430\u0445\n\u04E8\u043B\u0441\u0441\u04E9\u043D \u0442\u0443\u043B
+      \u0445\u04E9\u043B\u0434\u04E9\u04E9\u0433\u0447\u0438\u0439\u043D \u043E\u043D\u0433\u043E\u0439\u043B\u0433\u043E\u0436
+      \u04AF\u0437\u043D\u044D. \u042D\u0432\u0433\u04AF\u0439 \u044E\u0443\u043D\u044B\u0445
+      \u043D\u044C \u043C\u044D\u0434\u044D\u0433\u0434\u044D\u0445\u0433\u04AF\u0439
+      \u044F\u0441 \u043C\u0430\u0445 \u0431\u0430\u0439\u043D\u0430.\r\n- \u0411\u0443\u0443\u0437
+      \u0447\u0430\u043D\u0430\u0445\n- \u0420\u0430\u0434\u0438\u043E \u0442\u0430\u0430\u0440\u0443\u0443\u043B\u0430\u0436
+      \u043C\u044D\u0434\u044D\u044D \u0441\u043E\u043D\u0441\u043E\u0445\n\u041C\u044D\u0434\u044D\u044D\u0433\u044D\u044D\u0440
+      \u0448\u0443\u0443\u0440\u0433\u0430 \u043C\u0430\u0440\u0433\u0430\u0430\u0448
+      \u0431\u043E\u043B\u0442\u043E\u043B \u0437\u043E\u0433\u0441\u043E\u0445\u0433\u04AF\u0439
+      \u0433\u044D\u043D\u044D. \u0425\u04AF\u043D \u0430\u043B\u0433\u0430 \u0431\u043E\u043B\u0441\u043E\u043D
+      \u0442\u0430\u043B\u0430\u0430\u0440 \u043C\u044D\u0434\u044D\u044D\u043B\u044D\u043B\u043D\u044D.\n-\u0411\u0443\u0443\u0437
+      \u0438\u0434\u044D\u0445\r\n- \u0423\u043D\u0442\u0430\u0445\r\n\r\n\u0413\u044D\u043D\u044D\u0442
+      \u0445\u0430\u0448\u0438\u0440\u0433\u0430\u0430\u043D\u044B \u0447\u0438\u043C\u044D\u044D\u043D\u044D\u044D\u0440
+      \u0446\u043E\u0447\u0438\u0436 \u0441\u044D\u0440\u044D\u0445. \r\n\u0425\u043E\u043B\u043E\u043E\u0441
+      \u0445\u04AF\u043D\u0438\u0439 \u0438\u0440\u0436 \u0431\u0430\u0439\u0433\u0430\u0430
+      \u0447\u0438\u043C\u044D\u044D \u0433\u0430\u0440\u0430\u0445. (\u0443\u0439\u043B\u0430\u0436
+      \u0431\u0430\u0439\u0433\u0430\u0430?)\n\r\n- \u041D\u0443\u0443\u0433\u0434\u0430\u0445\r\n\u041D\u0443\u0443\u0433\u0434\u0430\u0430\u0433\u04AF\u0439
+      \u0431\u0430\u0439\u0445\u0430\u0434 \u0430\u043B\u0443\u0443\u0440\u0447\u0438\u043D
+      \u043E\u0440\u043E\u043E\u0434 \u0438\u0440\u0432\u044D\u043B\u2192 **Bad Ending**\n\u0410\u043B\u0443\u0443\u0440\u0447\u0438\u043D
+      \u0433\u044D\u0440\u0442 \u0431\u0430\u0439\u0445\u0430\u0434 \u043D\u0443\u0443\u0433\u0434\u0430\u0445\u0430\u0430
+      \u0431\u043E\u043B\u0438\u0432\u043E\u043B\u2192 **Bad Ending** \r\n\n\u0410\u043B\u0443\u0443\u0440\u0447\u0438\u043D
+      \u0445\u04AF\u043D \u0447\u0438\u0440\u0446\u044D\u043D \u043E\u0440\u0436
+      \u0438\u0440\u043D\u044D.  (\u041D\u0430\u0439\u0437 \u043E\u0445\u0438\u043D
+      \u043D\u044C \u0431\u0430\u0439\u0436 \u0431\u043E\u043B\u043D\u043E?)\n\u0410\u043B\u0443\u0443\u0440\u0447\u0438\u043D
+      \u0445\u04AF\u043D\u0438\u0439 \u0445\u04E9\u043B\u0438\u0439\u043D \u0442\u0430\u0441\u0434\u0430\u043D\u0430.
+      \u0425\u043E\u043E\u043B\u043D\u044B \u043C\u0430\u0445 \u0431\u044D\u043B\u0434\u044D\u043D\u044D.
+      \u0425\u04E9\u0440\u0433\u04E9\u0433\u0447\u0438\u043D\u0434 \u0445\u0438\u0439\u043D\u044D.\n\u042D\u043D\u044D
+      \u0445\u044D\u0441\u044D\u0433\u0442 \u0447\u0438\u043C\u044D\u044D\u0433\u04AF\u0439
+      \u0431\u0430\u0439\u0445 \u0445\u044D\u0440\u044D\u0433\u0442\u044D\u0439 -Voice
+      detection\n\u0427\u0438\u043C\u044D\u044D \u0433\u0430\u0440\u0433\u0430\u0432\u0430\u043B\u2192
+      **Bad Ending**\n\n\u0410\u043B\u0443\u0443\u0440\u0447\u0438\u043D \u0430\u0440\u0433\u0430\u043B
+      \u0442\u04AF\u04AF\u0445\u044D\u044D\u0440 \u0433\u0430\u0440\u0430\u0430\u0434
+      \u044F\u0432\u043D\u0430.\n\u0410\u0440\u0430\u0430\u0441 \u043D\u044C \u0433\u0430\u0440\u0432\u0430\u043B\u2192
+      **Bad Ending**\n\n-\u0425\u04E9\u043B\u04E9\u04E9 \u0442\u0430\u0441\u0434\u0443\u0443\u043B\u0441\u0430\u043D
+      \u0445\u04AF\u043D\u0438\u0439\u0433 checkleh \u0430\u043C\u044C\u0434 \u0431\u0430\u0439\u043D\u0430
+      \u043D\u0430\u0434\u0430\u0434 \u0442\u0443\u0441\u043B\u0430\u0430\u0447 \u0433\u044D\u043D\u044D.
+      \u041C\u0430\u0448\u0438\u043D \u043D\u044C \u0431\u0430\u0439\u0433\u0430\u0430
+      \u0433\u044D\u043D\u044D. \u0413\u044D\u0445\u0434\u044D\u044D \u0442\u04AF\u043B\u0445\u04AF\u04AF\u0440
+      \u043D\u044C \u0430\u043B\u0443\u0443\u0440\u0447\u0438\u043D\u0434 \u0431\u0430\u0439\u0433\u0430\u0430.\n\n*\u0417\u044D\u0432\u0441\u044D\u0433
+      \u043E\u043B\u043E\u0445\n-\u0410\u0432\u0434\u0430\u0440 \u043E\u043D\u0433\u043E\u0439\u043B\u0433\u043E\u0436
+      \u0431\u0443\u0443 \u0430\u0432\u0430\u0445 (puzzle?)\n-\u0417\u0430\u0430\u0437\u0443\u0443\u0440\u044B\u043D
+      \u0430\u0432\u0430\u0445\n\n\u0410\u043B\u0443\u0443\u0440\u0447\u0438\u043D
+      \u0431\u0443\u0446\u0430\u0436 \u043E\u0440\u0436 \u0438\u0440\u043D\u044D.
+      \n-\u0411\u0443\u0443\u0442\u0430\u0439 \u0431\u043E\u043B \u0431\u0443\u0443\u0434\u0430\u0436
+      \u0443\u043D\u0430\u0433\u0430\u0430\u0436 \u0447\u0430\u0434\u043D\u0430.\n-melee
+      weapon-\u0442\u044D\u0439 \u0431\u043E\u043B \u0442\u0443\u043B\u0430\u043B\u0434\u0430\u043D\u0430.
+      (Very hard)\n\u042D\u0441\u0432\u044D\u043B \u043D\u0443\u0443\u0433\u0434\u0430\u0430\u0434
+      \u0430\u043B\u0443\u0443\u0440\u0447\u0438\u043D\u0433 \u0443\u043D\u0442\u0430\u0445\u044B\u0433
+      \u0445\u04AF\u043B\u044D\u044D\u043D\u044D.\n\n\u041C\u0430\u0448\u0438\u043D\u0438\u0439
+      \u0442\u04AF\u043B\u0445\u04AF\u04AF\u0440 \u0430\u0432\u043D\u0430.\n-\u0410\u043B\u0443\u0443\u0440\u0447\u0438\u043D\u0433
+      \u0443\u043D\u0430\u0433\u0430\u0430\u0433\u04AF\u0439 \u04AF\u0435\u0434 \u0445\u04AF\u043D\u0438\u0439\u0433
+      \u0430\u0432\u0440\u0430\u0445 \u0433\u044D\u0436 \u043E\u0440\u043E\u043B\u0434\u0432\u043E\u043B
+      \u0430\u043B\u0443\u0443\u0440\u0447\u0438\u043D \u0441\u044D\u0440\u043D\u044D,
+      \u0431\u0430\u0440\u0438\u0433\u0434\u0430\u043D\u0430. \u2192**Grey Ending**\n-\u0425\u04AF\u043D\u0438\u0439\u0433
+      \u0430\u0432\u0440\u0430\u0445\u0433\u04AF\u0439 \u0437\u0443\u0433\u0442\u0430\u0445
+      \u2192**Grey Ending** (\u0437\u0443\u0433\u0442\u0430\u0436 \u0447\u0430\u0434\u043D\u0430.
+      \u043C\u044D\u0434\u044D\u044D\u0433\u044D\u044D\u0440 \u0430\u043B\u0443\u0443\u0440\u0447\u0438\u043D\u0433
+      \u0431\u0430\u0440\u044C\u0441\u0430\u043D \u0433\u044D\u0445\u0434\u044D\u044D
+      \u0445\u04AF\u043D \u04AF\u0445\u0441\u044D\u043D\u0433 \u043E\u043B\u043E\u0432
+      \u0433\u044D\u043D\u044D. )\n\n\u0410\u043B\u0443\u0443\u0440\u0447\u0438\u043D\u0433
+      \u0443\u043D\u0433\u0430\u0430\u0433\u0430\u0430\u0434 \u0445\u04AF\u043D\u044D\u044D
+      \u0430\u0432\u0440\u0430\u0430\u0434 \u0437\u0443\u0433\u0442\u0430\u0445\u2192**Good
+      Ending**\n-\u042F\u0433 \u0437\u0443\u0433\u0442\u0430\u0445 \u0433\u044D\u0436
+      \u0431\u0430\u0439\u0445\u0430\u0434 \u0430\u043B\u0443\u0443\u0440\u0447\u0438\u043D
+      \u0430\u0440\u0430\u0430\u0441 \u0445\u04AF\u0440\u044D\u044D\u0434 \u0438\u0440\u043D\u044D.
+      \n-Last battle"
+    m_Category: General
+    m_ColorTag: 3
+    m_IsPinned: 1
+    m_CreatedDate: 2026-08-26 16:32
+    m_LastModifiedDate: 2026-08-26 18:40
+    m_LinkedObjects: []
+    m_Tags: []
+  - m_Id: 7aa23239-641b-4d60-9279-1ea973577feb
+    m_Title: GDD
+    m_Content: 
+    m_Category: General
+    m_ColorTag: 1
+    m_IsPinned: 1
+    m_CreatedDate: 2026-08-26 17:57
+    m_LastModifiedDate: 2026-08-26 17:57
+    m_LinkedObjects: []
+    m_Tags: []
+  m_Scratchpad: 
+  m_CustomCategories:
+  - General
+  - Gameplay
+  - UI
+  - Model
+  - Sprite
+  - Audio
+  - Bug
+  - Optimization
+  - Refactor
+  m_AutoSave: 1
+  m_ShowDoneTasksAtBottom: 1
+  m_ShowProgressBar: 1
+  m_SortMode: 0
+  m_ViewMode: 1

@@ -1,0 +1,22 @@
+{
+  "name": "com.dev.todonotes",
+  "version": "1.0.0",
+  "displayName": "Editor Tasks & Notes Manager",
+  "description": "A comprehensive in-editor productivity suite for Unity: To-Do lists, design notes, scratchpads, and in-scene sticky note pins with asset linking and markdown/JSON export.",
+  "unity": "2021.3",
+  "unityRelease": "0f1",
+  "keywords": [
+    "utility",
+    "tasks",
+    "todo",
+    "notes",
+    "editor",
+    "productivity",
+    "project-management"
+  ],
+  "author": {
+    "name": "Dev Toolkit",
+    "email": "support@devtoolkit.local"
+  },
+  "dependencies": {}
+}

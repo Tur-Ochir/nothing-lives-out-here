@@ -6608,10 +6608,10 @@ GameObject:
   m_Component:
   - component: {fileID: 421483717}
   - component: {fileID: 421483716}
-  - component: {fileID: 421483715}
   - component: {fileID: 421483714}
   - component: {fileID: 421483718}
   - component: {fileID: 421483719}
+  - component: {fileID: 421483715}
   - component: {fileID: 421483721}
   - component: {fileID: 421483720}
   m_Layer: 0
@@ -6658,8 +6658,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edaf3817c1574ab41a630a9f11447b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  handPoint: {fileID: 1173326908}
-  twoHandPoint: {fileID: 910178594}
   eatenDumplings: 0
   movement: {fileID: 0}
   interaction: {fileID: 0}
@@ -6720,13 +6718,13 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 421483713}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: ab989f16a63d8da4e8b48e6ef663db1b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -6874,6 +6872,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8643786ede8de344a7ec47a2561a532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractionHandler
+  handPoint: {fileID: 1173326908}
+  twoHandPoint: {fileID: 910178594}
   maxDistance: 5
 --- !u!1 &423341852
 GameObject:
@@ -7113,7 +7113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6ea6dbf5189514eb1408fcb09daf2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  doorKey: {fileID: 0}
+  doorKey: {fileID: 75144585}
   rotationDuration: 1
   closedRotation: {x: -90, y: 0, z: 0}
   openRotation: {x: -90, y: 120, z: 0}
@@ -27048,13 +27048,13 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132149301541866}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: e03bf4c7ef271a449a21a45d2089cbc3, type: 3}
+  m_Resource: {fileID: 8300000, guid: 0fae8abc95181af4398ddf6d28d35b4a, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -51080,6 +51080,6 @@ SceneRoots:
   - {fileID: 543450653560807760}
   - {fileID: 1653631654}
   - {fileID: 2074623819}
-  - {fileID: 328459298}
   - {fileID: 421483717}
+  - {fileID: 328459298}
   - {fileID: 636781309}

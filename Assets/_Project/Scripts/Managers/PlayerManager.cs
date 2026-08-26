@@ -6,10 +6,6 @@ using UnityEngine.InputSystem;
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance { get; private set; }
-
-    [Header("Interaction & Hands")]
-    public Transform handPoint;
-    public Transform twoHandPoint;
     public bool IsHoldingItem => heldItem != null;
     public IHoldable heldItem;
     public IHoldableContainer currentContainer;
@@ -27,9 +23,7 @@ public class PlayerManager : MonoBehaviour
     private InputAction interactAction;
     private InputAction dropAction;
     private InputAction crouchAction;
-    private InputAction eatAction;
-    private InputAction fireAction;
-    private Transform camTransform;
+    private InputAction useAction;
 
     private void Awake()
     {
@@ -42,34 +36,11 @@ public class PlayerManager : MonoBehaviour
 
         controller = GetComponent<CharacterController>();
         input = GetComponent<PlayerInput>();
-
-        if (Camera.main != null)
-        {
-            camTransform = Camera.main.transform;
-        }
-
+        movement = GetComponent<PlayerMovement>();
+        interaction = GetComponent<PlayerInteractionHandler>();
+        
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-
-        SetupSubsystems();
-    }
-
-    private void SetupSubsystems()
-    {
-        // 1. Movement & Headbob Subsystem
-        if (movement == null)
-        {
-            movement = GetComponent<PlayerMovement>();
-            if (movement == null) movement = gameObject.AddComponent<PlayerMovement>();
-        }
-
-        // 2. Interaction Subsystem
-        if (interaction == null)
-        {
-            interaction = GetComponent<PlayerInteractionHandler>();
-            if (interaction == null) interaction = gameObject.AddComponent<PlayerInteractionHandler>();
-        }
-        interaction.Initialize(camTransform);
     }
 
     private void OnEnable()
@@ -79,11 +50,10 @@ public class PlayerManager : MonoBehaviour
             input.actions.Enable();
 
             moveAction = input.actions["Move"];
-            interactAction = input.actions["Interact"];
+            interactAction = input.actions["Use"];
+            useAction = input.actions["Fire"];
             dropAction = input.actions["Drop"];
             crouchAction = input.actions["Crouch"];
-            eatAction = input.actions["Eat"];
-            fireAction = input.actions["Fire"];
         }
     }
 
@@ -124,7 +94,7 @@ public class PlayerManager : MonoBehaviour
         }
 
         // Process Fire / Item Use
-        if (fireAction != null && fireAction.WasPressedThisFrame())
+        if (useAction.WasPressedThisFrame())
         {
             if (heldItem is IUsable usable && usable.CanUse)
             {

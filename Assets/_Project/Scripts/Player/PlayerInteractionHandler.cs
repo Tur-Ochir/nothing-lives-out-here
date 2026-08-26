@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -6,14 +7,16 @@ using UnityEngine;
 public class PlayerInteractionHandler : MonoBehaviour
 {
     [Header("Interaction Settings")]
+    public Transform handPoint;
+    public Transform twoHandPoint;
     public float maxDistance = 5f;
 
     private Transform camTransform;
     private IHighlightable currentHighlight;
 
-    public void Initialize(Transform mainCameraTransform)
+    private void Awake()
     {
-        camTransform = mainCameraTransform;
+        camTransform = Camera.main != null ? Camera.main.transform : null;
     }
 
     public void ProcessLookAtTarget()
@@ -76,7 +79,7 @@ public class PlayerInteractionHandler : MonoBehaviour
 
             if (hit.transform.TryGetComponent(out IHoldableContainer holdableContainer) && !player.IsHoldingItem && player.currentContainer == null)
             {
-                holdableContainer.Hold(player.twoHandPoint);
+                holdableContainer.Hold(twoHandPoint);
                 return true;
             }
 
@@ -93,7 +96,7 @@ public class PlayerInteractionHandler : MonoBehaviour
                 // Pick up holdable item if player hand is free
                 if (!player.IsHoldingItem && interactable is IHoldable pickupable)
                 {
-                    pickupable.Pickup(player.handPoint);
+                    pickupable.Pickup(handPoint);
                 }
 
                 return true;
