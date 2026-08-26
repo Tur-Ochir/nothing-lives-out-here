@@ -13,6 +13,10 @@ public class PlayerManager : MonoBehaviour
     [Header("Stats")]
     public int eatenDumplings = 0;
 
+    [Header("Hiding State")]
+    public HidingSpot currentHidingSpot;
+    public bool IsHidden => currentHidingSpot != null;
+
     [Header("Components")]
     public PlayerMovement movement;
     public PlayerInteractionHandler interaction;
@@ -78,7 +82,14 @@ public class PlayerManager : MonoBehaviour
         // Process Interactions
         if (interactAction != null && interactAction.WasPressedThisFrame())
         {
-            interaction.TryInteract(this);
+            if (IsHidden)
+            {
+                currentHidingSpot.ExitHiding();
+            }
+            else
+            {
+                interaction.TryInteract(this);
+            }
         }
 
         // Process Drop
@@ -103,7 +114,7 @@ public class PlayerManager : MonoBehaviour
         }
 
         // Highlight look-at target
-        if (interaction != null)
+        if (interaction != null && !IsHidden)
         {
             interaction.ProcessLookAtTarget();
         }

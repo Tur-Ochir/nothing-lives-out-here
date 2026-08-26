@@ -98,7 +98,13 @@ public class MonsterSoundReactor : MonoBehaviour
 
         if (canReact && isSoundDetected)
         {
-            float gain = volume * suspicionBuildSpeed * suspicionSensitivity * Time.deltaTime;
+            float dampening = 1f;
+            if (PlayerManager.Instance != null && PlayerManager.Instance.IsHidden && PlayerManager.Instance.currentHidingSpot != null)
+            {
+                dampening = PlayerManager.Instance.currentHidingSpot.noiseDampeningMultiplier;
+            }
+
+            float gain = volume * suspicionBuildSpeed * suspicionSensitivity * dampening * Time.deltaTime;
             currentSuspicion = Mathf.Min(maxSuspicion, currentSuspicion + gain);
         }
         else
@@ -184,7 +190,13 @@ public class MonsterSoundReactor : MonoBehaviour
         if (Time.time < nextLoudReactionTime) return;
         nextLoudReactionTime = Time.time + loudSpikeCooldown;
 
-        currentSuspicion = Mathf.Min(maxSuspicion, currentSuspicion + 45f);
+        float addedSuspicion = 45f;
+        if (PlayerManager.Instance != null && PlayerManager.Instance.IsHidden && PlayerManager.Instance.currentHidingSpot != null)
+        {
+            addedSuspicion *= PlayerManager.Instance.currentHidingSpot.noiseDampeningMultiplier;
+        }
+
+        currentSuspicion = Mathf.Min(maxSuspicion, currentSuspicion + addedSuspicion);
         StartCoroutine(ExecuteDoorAttackSequence());
     }
 

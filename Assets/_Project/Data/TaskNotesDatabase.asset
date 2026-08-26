@@ -101,7 +101,7 @@ MonoBehaviour:
     m_Title: Nuugdah
     m_Description: 
     m_Priority: 3
-    m_Status: 0
+    m_Status: 1
     m_Category: Gameplay
     m_LinkedObject: {fileID: 0}
     m_CreatedDate: 2026-08-26 17:36
@@ -133,6 +133,30 @@ MonoBehaviour:
     m_DueDate: 
     m_Tags: []
     m_IsExpanded: 0
+  - m_Id: 4ccc88c7-79fd-41ff-a888-1900d3a20c86
+    m_Title: victim
+    m_Description: 
+    m_Priority: 2
+    m_Status: 0
+    m_Category: Model
+    m_LinkedObject: {fileID: 0}
+    m_CreatedDate: 2026-08-26 23:36
+    m_CompletedDate: 
+    m_DueDate: 
+    m_Tags: []
+    m_IsExpanded: 0
+  - m_Id: 22063962-490c-4bee-b1ff-59ec10f9abcc
+    m_Title: Car
+    m_Description: 
+    m_Priority: 2
+    m_Status: 0
+    m_Category: Model
+    m_LinkedObject: {fileID: 0}
+    m_CreatedDate: 2026-08-26 23:37
+    m_CompletedDate: 
+    m_DueDate: 
+    m_Tags: []
+    m_IsExpanded: 1
   m_Notes:
   - m_Id: f9a572f8-a1fe-4eb9-a368-130fec2ad323
     m_Title: Story
