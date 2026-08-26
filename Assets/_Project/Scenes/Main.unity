@@ -222,6 +222,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &6808912
 MeshFilter:
@@ -316,6 +317,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &10394746
 MeshFilter:
@@ -428,6 +430,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &11119643
 MeshFilter:
@@ -540,6 +543,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &15745368
 MeshFilter:
@@ -652,6 +656,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &18262334
 MeshFilter:
@@ -839,6 +844,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &23790619
 MeshFilter:
@@ -951,6 +957,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &25816281
 MeshFilter:
@@ -1063,6 +1070,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &29516187
 MeshFilter:
@@ -1250,6 +1258,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &39095498
 MeshFilter:
@@ -1388,6 +1397,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &40951989
 MeshFilter:
@@ -1505,6 +1515,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &45634221
 MeshFilter:
@@ -1697,6 +1708,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &58946173
 MeshFilter:
@@ -1847,6 +1859,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &75144582
 MeshFilter:
@@ -1908,23 +1921,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76ca3b8829a30fd4da95d47aa0f9e3de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  canInteract: 1
-  canUse: 0
-  moveToHand: 0
-  inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 0
-  moveSpeed: 12
-  container: {fileID: 0}
-  reasonNotInteract: 
-  outline: {fileID: 0}
-  rb: {fileID: 0}
-  col: {fileID: 0}
   posA: {x: -0.044832084, y: -1.192, z: 0.336}
   posB: {x: -0.044832084, y: -1.1558, z: 0.336}
   toggleSpeed: 0.25
   atA: 1
+  canInteract: 1
+  reasonNotInteract: 
+  outline: {fileID: 0}
 --- !u!65 &75144586
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2049,6 +2052,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &75229955
 MeshFilter:
@@ -2161,6 +2165,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &75680150
 MeshFilter:
@@ -2273,6 +2278,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &78128333
 MeshFilter:
@@ -2443,20 +2449,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 81735979}
   rb: {fileID: 81735980}
   col: {fileID: 1522829742}
-  burnDur: 60
 --- !u!1 &90902269
 GameObject:
   m_ObjectHideFlags: 0
@@ -2560,6 +2562,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &90902273
 MeshFilter:
@@ -2672,6 +2675,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &98428951
 MeshFilter:
@@ -2784,6 +2788,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &104266059
 MeshFilter:
@@ -2873,6 +2878,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &109262750
 MeshFilter:
@@ -3073,14 +3079,14 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 132642466}
   m_Enabled: 1
-  serializedVersion: 11
+  serializedVersion: 12
   m_Type: 0
   m_Color: {r: 0.9803922, g: 0.9803922, b: 0.8235295, a: 1}
   m_Intensity: 20
   m_Range: 9
   m_SpotAngle: 160
   m_InnerSpotAngle: 0
-  m_CookieSize: 10
+  m_CookieSize2D: {x: 10, y: 10}
   m_Shadows:
     m_Type: 2
     m_Resolution: -1
@@ -3205,14 +3211,14 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 140864348}
   m_Enabled: 1
-  serializedVersion: 11
+  serializedVersion: 12
   m_Type: 0
   m_Color: {r: 0.85490197, g: 0.9491707, b: 1, a: 1}
   m_Intensity: 0.04
   m_Range: 0.45
   m_SpotAngle: 179
   m_InnerSpotAngle: 179
-  m_CookieSize: 10
+  m_CookieSize2D: {x: 10, y: 10}
   m_Shadows:
     m_Type: 2
     m_Resolution: -1
@@ -3348,6 +3354,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &141410001
 MeshFilter:
@@ -3517,6 +3524,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &149032546
 MeshFilter:
@@ -3663,6 +3671,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &165014945
 MeshFilter:
@@ -3775,6 +3784,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &173025264
 MeshFilter:
@@ -4024,6 +4034,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &231576605
 MeshFilter:
@@ -4136,6 +4147,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &241270743
 MeshFilter:
@@ -4248,6 +4260,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &252081422
 MeshFilter:
@@ -4450,20 +4463,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 263564569}
   rb: {fileID: 263564570}
   col: {fileID: 953184716}
-  burnDur: 60
 --- !u!1 &266643967
 GameObject:
   m_ObjectHideFlags: 0
@@ -4567,6 +4576,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &266643971
 MeshFilter:
@@ -4719,6 +4729,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &281687345
 MeshFilter:
@@ -4831,6 +4842,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &294019656
 MeshFilter:
@@ -5018,6 +5030,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &297243011
 MeshFilter:
@@ -5192,6 +5205,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &312586559
 MeshFilter:
@@ -5304,6 +5318,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &312673483
 MeshFilter:
@@ -5474,6 +5489,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &329959557
 MeshFilter:
@@ -5756,6 +5772,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &331459439
 MeshFilter:
@@ -5925,6 +5942,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &380876354
 MeshFilter:
@@ -6127,20 +6145,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 390828619}
   rb: {fileID: 390828620}
   col: {fileID: 1996779036}
-  burnDur: 60
 --- !u!1 &391200569
 GameObject:
   m_ObjectHideFlags: 0
@@ -6244,6 +6258,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &391200573
 MeshFilter:
@@ -6279,14 +6294,14 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410087039}
   m_Enabled: 1
-  serializedVersion: 11
+  serializedVersion: 12
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 0.1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
-  m_CookieSize: 10
+  m_CookieSize2D: {x: 10, y: 10}
   m_Shadows:
     m_Type: 2
     m_Resolution: -1
@@ -6483,6 +6498,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &419819601
 MeshFilter:
@@ -6572,6 +6588,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &420305051
 MeshFilter:
@@ -6595,6 +6612,8 @@ GameObject:
   - component: {fileID: 421483714}
   - component: {fileID: 421483718}
   - component: {fileID: 421483719}
+  - component: {fileID: 421483721}
+  - component: {fileID: 421483720}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -6639,26 +6658,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edaf3817c1574ab41a630a9f11447b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  canMove: 1
-  canCrouch: 1
-  speed: 3
-  crouchSpeedMultiplier: 0.5
-  standingOffset: {x: 0, y: 0.5, z: 0}
-  crouchingOffset: {x: 0, y: -0.3, z: 0}
-  camTarget: {fileID: 1775948843}
-  vcam: {fileID: 1027998759}
-  camNoise: {fileID: 1027998761}
-  useHeadBob: 1
-  bobTransSpeed: 5
-  walkingBobAmplitude: 1
-  walkingBobFrequency: 0.1
   handPoint: {fileID: 1173326908}
   twoHandPoint: {fileID: 910178594}
-  maxDistance: 2.5
-  heldItem: {fileID: 0}
-  currentContainer: {fileID: 0}
-  seeingContainer: {fileID: 0}
   eatenDumplings: 0
+  movement: {fileID: 0}
+  interaction: {fileID: 0}
 --- !u!114 &421483716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6833,6 +6837,44 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &421483720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421483713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0f02baa90c88f849baa0c05a6f5d1b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  canMove: 1
+  canCrouch: 1
+  speed: 3
+  crouchSpeedMultiplier: 0.5
+  standingOffset: {x: 0, y: 0.5, z: 0}
+  crouchingOffset: {x: 0, y: -0.3, z: 0}
+  camTarget: {fileID: 1775948843}
+  vcam: {fileID: 1027998759}
+  camNoise: {fileID: 1027998761}
+  useHeadBob: 1
+  bobTransSpeed: 5
+  walkingBobAmplitude: 1
+  walkingBobFrequency: 0.1
+--- !u!114 &421483721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421483713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8643786ede8de344a7ec47a2561a532, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractionHandler
+  maxDistance: 5
 --- !u!1 &423341852
 GameObject:
   m_ObjectHideFlags: 0
@@ -6936,6 +6978,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &423341856
 MeshFilter:
@@ -7048,6 +7091,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &426850150
 MeshFilter:
@@ -7069,19 +7113,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6ea6dbf5189514eb1408fcb09daf2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  canInteract: 1
-  canUse: 1
-  moveToHand: 0
-  inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
-  moveSpeed: 12
-  container: {fileID: 0}
-  reasonNotInteract: locked-door
-  outline: {fileID: 0}
-  rb: {fileID: 0}
-  col: {fileID: 0}
   doorKey: {fileID: 0}
   rotationDuration: 1
   closedRotation: {x: -90, y: 0, z: 0}
@@ -7090,6 +7121,9 @@ MonoBehaviour:
   closeSFX: {fileID: 0}
   knockSFX: []
   isOpen: 0
+  canInteract: 1
+  reasonNotInteract: locked-door
+  outline: {fileID: 0}
 --- !u!65 &431145532
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7321,20 +7355,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 440187322}
   rb: {fileID: 440187323}
   col: {fileID: 1201103967}
-  burnDur: 60
 --- !u!1 &444258805
 GameObject:
   m_ObjectHideFlags: 0
@@ -7430,6 +7460,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -7574,6 +7605,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &450852049
 MeshFilter:
@@ -7686,6 +7718,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &457945050
 MeshFilter:
@@ -7855,6 +7888,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &475041854
 MeshFilter:
@@ -7967,6 +8001,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &476298858
 MeshFilter:
@@ -8079,6 +8114,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &492756730
 MeshFilter:
@@ -8104,24 +8140,14 @@ MonoBehaviour:
   itemPoints:
   - {fileID: 1707488634}
   currentCounter: 0
-  canHold: 0
-  moveDuration: 0.5
-  isMovingToHand: 0
-  moveSpeed: 12
-  inHandRotation: {x: 0, y: 0, z: 0}
-  groundCheckDistance: 1
   items: []
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  rb: {fileID: 0}
-  colliders: []
   fireParticles: {fileID: 1707488633}
   burnTime: 0
   isBurning: 0
   togooPoint: {x: 0, y: 0, z: 1}
   cap: {fileID: 875479559}
   am: {fileID: 1222103520}
+  outline: {fileID: 0}
 --- !u!65 &493550588
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8229,19 +8255,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a9223de9e5493fbaeb75fde7d1fc39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Puzzle
-  canInteract: 1
-  canUse: 0
-  moveToHand: 0
-  inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 0
-  moveSpeed: 12
-  container: {fileID: 0}
-  reasonNotInteract: 
-  outline: {fileID: 0}
-  rb: {fileID: 0}
-  col: {fileID: 0}
   focusCamera: {fileID: 2022461700}
   pieces:
   - {fileID: 623642120}
@@ -8363,6 +8376,9 @@ MonoBehaviour:
   pieceLayer:
     serializedVersion: 2
     m_Bits: 128
+  canInteract: 1
+  reasonNotInteract: 
+  outline: {fileID: 0}
 --- !u!65 &519200692
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8431,6 +8447,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &519200694
 MeshFilter:
@@ -8543,6 +8560,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &526063244
 MeshFilter:
@@ -8713,20 +8731,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 533391268}
   rb: {fileID: 533391269}
   col: {fileID: 619396770}
-  burnDur: 60
 --- !u!4 &553848924 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3956096102713533248, guid: ab8fd756e825c6f47a8c571c8711d8a4, type: 3}
@@ -8893,20 +8907,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 562561631}
   rb: {fileID: 562561632}
   col: {fileID: 1229928706}
-  burnDur: 60
 --- !u!4 &568284610 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3956096102713533248, guid: ab8fd756e825c6f47a8c571c8711d8a4, type: 3}
@@ -9291,20 +9301,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 596907219}
   rb: {fileID: 596907220}
   col: {fileID: 1710976256}
-  burnDur: 60
 --- !u!1001 &597461599
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9522,6 +9528,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &603426765
 MeshFilter:
@@ -9681,6 +9688,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &618075723
 MeshFilter:
@@ -9814,6 +9822,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &619396772
 MeshFilter:
@@ -10061,20 +10070,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 644610540}
   rb: {fileID: 644610541}
   col: {fileID: 1294546905}
-  burnDur: 60
 --- !u!1 &656860981
 GameObject:
   m_ObjectHideFlags: 0
@@ -10178,6 +10183,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &656860985
 MeshFilter:
@@ -10348,20 +10354,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 660443116}
   rb: {fileID: 660443117}
   col: {fileID: 1817290911}
-  burnDur: 60
 --- !u!1 &662873896
 GameObject:
   m_ObjectHideFlags: 0
@@ -10432,14 +10434,14 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 662873896}
   m_Enabled: 1
-  serializedVersion: 11
+  serializedVersion: 12
   m_Type: 0
   m_Color: {r: 0.85490197, g: 0.9490196, b: 1, a: 1}
   m_Intensity: 0.04
   m_Range: 0.45
   m_SpotAngle: 179
   m_InnerSpotAngle: 179
-  m_CookieSize: 10
+  m_CookieSize2D: {x: 10, y: 10}
   m_Shadows:
     m_Type: 2
     m_Resolution: -1
@@ -10592,6 +10594,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &663589953
 MeshFilter:
@@ -10632,6 +10635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe561733fb4f42748443d599952c7956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  environmentManager: {fileID: 0}
   mainLight: {fileID: 410087040}
   gerLight: {fileID: 1220286522}
   monsterManager: {fileID: 1703457085}
@@ -10840,6 +10844,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &676828502
 MeshFilter:
@@ -10952,6 +10957,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &679833222
 MeshFilter:
@@ -11064,6 +11070,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &681090549
 MeshFilter:
@@ -11220,6 +11227,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &720613244
 MeshFilter:
@@ -11332,6 +11340,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &727775028
 MeshFilter:
@@ -11502,20 +11511,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 729004336}
   rb: {fileID: 729004337}
   col: {fileID: 2018798611}
-  burnDur: 60
 --- !u!1 &729388341
 GameObject:
   m_ObjectHideFlags: 0
@@ -11619,6 +11624,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &729388345
 MeshFilter:
@@ -11731,6 +11737,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &733916880
 MeshFilter:
@@ -11835,6 +11842,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -12041,6 +12049,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &751687487
 MeshFilter:
@@ -12120,14 +12129,14 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 757131124}
   m_Enabled: 1
-  serializedVersion: 11
+  serializedVersion: 12
   m_Type: 2
   m_Color: {r: 1, g: 0.2705882, b: 0, a: 1}
   m_Intensity: 0.09
   m_Range: 3.71
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
-  m_CookieSize: 10
+  m_CookieSize2D: {x: 10, y: 10}
   m_Shadows:
     m_Type: 0
     m_Resolution: -1
@@ -12280,6 +12289,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &769688016
 MeshFilter:
@@ -12397,6 +12407,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &787284096
 MeshFilter:
@@ -12509,6 +12520,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &789878255
 MeshFilter:
@@ -12657,18 +12669,10 @@ MonoBehaviour:
   - {fileID: 1332142464}
   - {fileID: 1917528915}
   currentCounter: 0
+  items: []
   canHold: 1
-  moveDuration: 0.5
-  isMovingToHand: 0
   moveSpeed: 12
   inHandRotation: {x: 0, y: 0, z: 90}
-  groundCheckDistance: 0.3
-  items: []
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  rb: {fileID: 0}
-  colliders: []
   tagPoint: {x: 0, y: 0, z: 0.237}
   tag: {fileID: 0}
   steamingDumpling: 0
@@ -12676,6 +12680,9 @@ MonoBehaviour:
   steamingDuration: 2
   minDumplings: 1
   furnace: {fileID: 0}
+  rb: {fileID: 0}
+  colliders: []
+  outline: {fileID: 0}
 --- !u!23 &798070618
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -12723,6 +12730,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &798070619
 MeshFilter:
@@ -12835,6 +12843,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &800271674
 MeshFilter:
@@ -13004,6 +13013,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &806498885
 MeshFilter:
@@ -13116,6 +13126,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &808810107
 MeshFilter:
@@ -13281,6 +13292,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &815665727
 MeshFilter:
@@ -13393,6 +13405,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &817104885
 MeshFilter:
@@ -13505,6 +13518,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &817911002
 MeshFilter:
@@ -13617,6 +13631,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &822902866
 MeshFilter:
@@ -13729,6 +13744,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &829774759
 MeshFilter:
@@ -13841,6 +13857,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &829972257
 MeshFilter:
@@ -14089,6 +14106,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &835369583
 MeshFilter:
@@ -14201,6 +14219,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &841309710
 MeshFilter:
@@ -14313,6 +14332,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &842125972
 MeshFilter:
@@ -14425,6 +14445,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &843822551
 MeshFilter:
@@ -14529,6 +14550,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -14731,20 +14753,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 861802563}
   rb: {fileID: 861802564}
   col: {fileID: 933710015}
-  burnDur: 60
 --- !u!1 &864477010
 GameObject:
   m_ObjectHideFlags: 0
@@ -14868,19 +14886,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94e7000e974185d40a2972bd0349261d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  canInteract: 1
-  canUse: 1
-  moveToHand: 0
-  inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
-  moveSpeed: 12
-  container: {fileID: 0}
-  reasonNotInteract: 
-  outline: {fileID: 0}
-  rb: {fileID: 0}
-  col: {fileID: 0}
   canCap: 1
   firstPosition: {x: 0.084, y: -0.137, z: -0.00000020915026}
   firstRotation: {x: -89.98, y: 0, z: 0}
@@ -14891,6 +14896,9 @@ MonoBehaviour:
   jumpPower: 0.5
   isCapped: 1
   useJump: 1
+  canInteract: 1
+  reasonNotInteract: 
+  outline: {fileID: 0}
 --- !u!65 &875479560
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15104,6 +15112,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &876610033
 MeshFilter:
@@ -15216,6 +15225,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &880880781
 MeshFilter:
@@ -15328,6 +15338,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &882404384
 MeshFilter:
@@ -15440,6 +15451,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &886101098
 MeshFilter:
@@ -15552,6 +15564,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &895869996
 MeshFilter:
@@ -15664,6 +15677,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &896195194
 MeshFilter:
@@ -15776,6 +15790,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &896499964
 MeshFilter:
@@ -15888,6 +15903,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &908521926
 MeshFilter:
@@ -16012,6 +16028,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &914832552
 MeshFilter:
@@ -16054,21 +16071,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0acb95e8ff2350b47baaf51463a13add, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  canInteract: 1
-  canUse: 1
-  moveToHand: 0
-  inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 0
-  moveSpeed: 12
-  container: {fileID: 0}
-  reasonNotInteract: 
-  outline: {fileID: 0}
-  rb: {fileID: 0}
-  col: {fileID: 0}
   isLocked: 1
   lockId: awdar01
+  canInteract: 1
+  reasonNotInteract: 
+  outline: {fileID: 0}
 --- !u!114 &914832555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16217,6 +16224,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &917370471
 MeshFilter:
@@ -16387,20 +16395,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 926176185}
   rb: {fileID: 926176186}
   col: {fileID: 331459437}
-  burnDur: 60
 --- !u!1 &928764577
 GameObject:
   m_ObjectHideFlags: 0
@@ -16504,6 +16508,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &928764581
 MeshFilter:
@@ -16616,6 +16621,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &933710017
 MeshFilter:
@@ -16702,7 +16708,7 @@ GameObject:
   m_IsActive: 1
 --- !u!199 &936197429
 ParticleSystemRenderer:
-  serializedVersion: 6
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -16748,6 +16754,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 1
@@ -16779,7 +16786,6 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
-  m_MaskInteraction: 0
 --- !u!198 &936197430
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -21558,6 +21564,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -21641,6 +21648,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &953184714
 GameObject:
@@ -21745,6 +21753,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &953184718
 MeshFilter:
@@ -21857,6 +21866,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &954053357
 MeshFilter:
@@ -22026,6 +22036,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &966957645
 MeshFilter:
@@ -22138,6 +22149,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &969125252
 MeshFilter:
@@ -22250,6 +22262,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &990458557
 MeshFilter:
@@ -22362,6 +22375,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &994104696
 MeshFilter:
@@ -22612,6 +22626,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1006364198
 MeshFilter:
@@ -22729,6 +22744,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1014657026
 MeshFilter:
@@ -22843,6 +22859,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1016897306
 MeshFilter:
@@ -22909,20 +22926,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 926b041895104edd95d3b6157cebc1b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Key
+  keyId: awdar01
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 60, y: 180, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 0}
   rb: {fileID: 0}
   col: {fileID: 0}
-  keyId: awdar01
 --- !u!1 &1027006402
 GameObject:
   m_ObjectHideFlags: 0
@@ -23026,6 +23039,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1027006406
 MeshFilter:
@@ -23305,6 +23319,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1033591310
 MeshFilter:
@@ -23526,6 +23541,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1059846998
 MeshFilter:
@@ -23638,6 +23654,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1060607687
 MeshFilter:
@@ -23750,6 +23767,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1062956286
 MeshFilter:
@@ -23862,6 +23880,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1072165397
 MeshFilter:
@@ -23974,6 +23993,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1077944341
 MeshFilter:
@@ -24086,6 +24106,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1080657247
 MeshFilter:
@@ -24277,6 +24298,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1087484220
 MeshFilter:
@@ -24389,6 +24411,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1097806859
 MeshFilter:
@@ -24558,6 +24581,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1113756665
 MeshFilter:
@@ -24670,6 +24694,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1117110165
 MeshFilter:
@@ -24863,6 +24888,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1131104776
 MeshFilter:
@@ -25033,20 +25059,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 1131802339}
   rb: {fileID: 1131802340}
   col: {fileID: 1117110163}
-  burnDur: 60
 --- !u!1 &1146839677
 GameObject:
   m_ObjectHideFlags: 0
@@ -25271,6 +25293,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1152898152
 MeshFilter:
@@ -25441,20 +25464,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 1156047279}
   rb: {fileID: 1156047280}
   col: {fileID: 676828500}
-  burnDur: 60
 --- !u!1 &1156079968
 GameObject:
   m_ObjectHideFlags: 0
@@ -25508,19 +25527,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aca3c51030c5f44ab1b65f6645d60a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Radio
-  canInteract: 1
-  canUse: 0
-  moveToHand: 0
-  inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
-  moveSpeed: 12
-  container: {fileID: 0}
-  reasonNotInteract: 
-  outline: {fileID: 0}
-  rb: {fileID: 0}
-  col: {fileID: 0}
   focusCamera: {fileID: 1454260320}
   tuneAction:
     m_UseReference: 0
@@ -25578,6 +25584,9 @@ MonoBehaviour:
   staticSource: {fileID: 1156079974}
   signalSource: {fileID: 1156079973}
   maxVolume: 0.1
+  canInteract: 1
+  reasonNotInteract: 
+  outline: {fileID: 0}
 --- !u!65 &1156079971
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -25971,6 +25980,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1164160511
 MeshFilter:
@@ -26141,20 +26151,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 1170055990}
   rb: {fileID: 1170055991}
   col: {fileID: 1758208740}
-  burnDur: 60
 --- !u!1 &1173326907
 GameObject:
   m_ObjectHideFlags: 0
@@ -26313,6 +26319,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1177149152
 MeshFilter:
@@ -26425,6 +26432,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1184450854
 MeshFilter:
@@ -26595,20 +26603,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 1188204849}
   rb: {fileID: 1188204850}
   col: {fileID: 1684571302}
-  burnDur: 60
 --- !u!4 &1188437062 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3956096102713533248, guid: ab8fd756e825c6f47a8c571c8711d8a4, type: 3}
@@ -26780,20 +26784,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 1192780373}
   rb: {fileID: 1192780374}
   col: {fileID: 1618222439}
-  burnDur: 60
 --- !u!1 &1199323095
 GameObject:
   m_ObjectHideFlags: 0
@@ -26897,6 +26897,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1199323099
 MeshFilter:
@@ -27030,6 +27031,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1201103969
 MeshFilter:
@@ -27239,6 +27241,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1215109703
 MeshFilter:
@@ -27351,6 +27354,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1216329978
 MeshFilter:
@@ -27411,25 +27415,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c603f627c6038f24faf1164d3a88adba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  canInteract: 1
-  canUse: 1
-  moveToHand: 0
-  inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
-  moveSpeed: 12
-  container: {fileID: 0}
-  reasonNotInteract: 
-  outline: {fileID: 0}
-  rb: {fileID: 0}
-  col: {fileID: 0}
   lights:
   - {fileID: 132642469}
   - {fileID: 1932154426}
   meshRenderer: {fileID: 715494886}
   lightMatIndex: 1
   isOn: 1
+  canInteract: 1
+  reasonNotInteract: 
+  outline: {fileID: 0}
 --- !u!114 &1220286526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27513,19 +27507,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6ea6dbf5189514eb1408fcb09daf2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
-  canInteract: 1
-  canUse: 1
-  moveToHand: 0
-  inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
-  moveSpeed: 12
-  container: {fileID: 0}
-  reasonNotInteract: 
-  outline: {fileID: 0}
-  rb: {fileID: 0}
-  col: {fileID: 0}
   doorKey: {fileID: 0}
   rotationDuration: 0.7
   closedRotation: {x: 0, y: 0, z: 0}
@@ -27534,6 +27515,9 @@ MonoBehaviour:
   closeSFX: {fileID: 0}
   knockSFX: []
   isOpen: 0
+  canInteract: 1
+  reasonNotInteract: 
+  outline: {fileID: 0}
 --- !u!65 &1222103521
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27602,6 +27586,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1222103523
 MeshFilter:
@@ -27714,6 +27699,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1227682035
 MeshFilter:
@@ -27826,6 +27812,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1229928708
 MeshFilter:
@@ -28069,20 +28056,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 1236536284}
   rb: {fileID: 1236536285}
   col: {fileID: 1867533162}
-  burnDur: 60
 --- !u!1 &1238772131
 GameObject:
   m_ObjectHideFlags: 0
@@ -28510,6 +28493,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1238772136
 MeshFilter:
@@ -28622,6 +28606,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1245918692
 MeshFilter:
@@ -28701,14 +28686,14 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1251906680}
   m_Enabled: 0
-  serializedVersion: 11
+  serializedVersion: 12
   m_Type: 2
   m_Color: {r: 1, g: 0.64137924, b: 0, a: 1}
   m_Intensity: 0.1
   m_Range: 5
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
-  m_CookieSize: 10
+  m_CookieSize2D: {x: 10, y: 10}
   m_Shadows:
     m_Type: 0
     m_Resolution: -1
@@ -28918,6 +28903,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1264109717
 MeshFilter:
@@ -29030,6 +29016,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1265592400
 MeshFilter:
@@ -29200,20 +29187,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 1268452654}
   rb: {fileID: 1268452655}
   col: {fileID: 6808910}
-  burnDur: 60
 --- !u!1 &1272464498
 GameObject:
   m_ObjectHideFlags: 0
@@ -29317,6 +29300,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1272464502
 MeshFilter:
@@ -29429,6 +29413,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1273650762
 MeshFilter:
@@ -29546,6 +29531,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1286512663
 MeshFilter:
@@ -29658,6 +29644,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1294546907
 MeshFilter:
@@ -29770,6 +29757,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1304723823
 MeshFilter:
@@ -29882,6 +29870,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1313042854
 MeshFilter:
@@ -29991,6 +29980,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -30135,6 +30125,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1320077036
 MeshFilter:
@@ -30247,6 +30238,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1329807414
 MeshFilter:
@@ -30447,6 +30439,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1343099242
 MeshFilter:
@@ -30574,18 +30567,13 @@ MonoBehaviour:
   - {fileID: 514821581}
   - {fileID: 1662995003}
   currentCounter: 0
+  items: []
   canHold: 1
-  moveDuration: 0.5
-  isMovingToHand: 0
   moveSpeed: 12
   inHandRotation: {x: 0, y: 0, z: 0}
-  groundCheckDistance: 0.5
-  items: []
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
   rb: {fileID: 0}
   colliders: []
+  outline: {fileID: 0}
 --- !u!114 &1361761394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30921,6 +30909,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1374375886
 MeshFilter:
@@ -31033,6 +31022,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1374746861
 MeshFilter:
@@ -31202,6 +31192,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1388648414
 MeshFilter:
@@ -31372,20 +31363,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 1393853508}
   rb: {fileID: 1393853509}
   col: {fileID: 1781714571}
-  burnDur: 60
 --- !u!1 &1401981055
 GameObject:
   m_ObjectHideFlags: 0
@@ -31523,6 +31510,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1403629835
 MeshFilter:
@@ -31693,20 +31681,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 1408281984}
   rb: {fileID: 1408281985}
   col: {fileID: 1216329976}
-  burnDur: 60
 --- !u!1 &1413324858
 GameObject:
   m_ObjectHideFlags: 0
@@ -31899,20 +31883,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 1417451226}
   rb: {fileID: 1417451227}
   col: {fileID: 733916878}
-  burnDur: 60
 --- !u!1 &1421011030
 GameObject:
   m_ObjectHideFlags: 0
@@ -32016,6 +31996,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1421011034
 MeshFilter:
@@ -32186,20 +32167,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 1425899840}
   rb: {fileID: 1425899841}
   col: {fileID: 1993038307}
-  burnDur: 60
 --- !u!1 &1437638426
 GameObject:
   m_ObjectHideFlags: 0
@@ -32361,20 +32338,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 1437638428}
   rb: {fileID: 1437638429}
   col: {fileID: 1113756663}
-  burnDur: 60
 --- !u!1 &1439109054
 GameObject:
   m_ObjectHideFlags: 0
@@ -32459,6 +32432,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1439109057
 MeshFilter:
@@ -32498,20 +32472,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 684bace178c19354db17d54848a755b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  togoo: {fileID: 0}
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: -90, y: -35, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 0}
   rb: {fileID: 0}
   col: {fileID: 0}
-  togoo: {fileID: 0}
 --- !u!64 &1439109060
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -32790,6 +32760,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1447805613
 MeshFilter:
@@ -32902,6 +32873,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1453187145
 MeshFilter:
@@ -33202,6 +33174,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1458587918
 MeshFilter:
@@ -33371,6 +33344,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1460400983
 MeshFilter:
@@ -33540,6 +33514,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1480737895
 MeshFilter:
@@ -33710,20 +33685,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 1487232681}
   rb: {fileID: 1487232682}
   col: {fileID: 1643936816}
-  burnDur: 60
 --- !u!1 &1489863641
 GameObject:
   m_ObjectHideFlags: 0
@@ -33885,20 +33856,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 1489863643}
   rb: {fileID: 1489863644}
   col: {fileID: 1403629833}
-  burnDur: 60
 --- !u!1 &1497862607
 GameObject:
   m_ObjectHideFlags: 0
@@ -34002,6 +33969,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1497862611
 MeshFilter:
@@ -34119,6 +34087,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1514966479
 MeshFilter:
@@ -34236,6 +34205,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1522829744
 MeshFilter:
@@ -34348,6 +34318,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1524457037
 MeshFilter:
@@ -34569,6 +34540,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1545055396
 MeshFilter:
@@ -34739,20 +34711,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 1545935436}
   rb: {fileID: 1545935437}
   col: {fileID: 1639331925}
-  burnDur: 60
 --- !u!1 &1550127906
 GameObject:
   m_ObjectHideFlags: 0
@@ -34856,6 +34824,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1550127910
 MeshFilter:
@@ -34968,6 +34937,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1569705089
 MeshFilter:
@@ -35080,6 +35050,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1573896755
 MeshFilter:
@@ -35192,6 +35163,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1587873282
 MeshFilter:
@@ -35281,6 +35253,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1597254199
 MeshFilter:
@@ -35393,6 +35366,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1597428555
 MeshFilter:
@@ -35563,20 +35537,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 1599433897}
   rb: {fileID: 1599433898}
   col: {fileID: 165014943}
-  burnDur: 60
 --- !u!1 &1607124059
 GameObject:
   m_ObjectHideFlags: 0
@@ -35672,14 +35642,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: -135, y: 20, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 0}
   rb: {fileID: 0}
@@ -35752,6 +35718,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1607124066
 MeshFilter:
@@ -35921,6 +35888,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1610418670
 MeshFilter:
@@ -36091,20 +36059,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 1612460202}
   rb: {fileID: 1612460203}
   col: {fileID: 2076566191}
-  burnDur: 60
 --- !u!4 &1617992515 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3956096102713533248, guid: ab8fd756e825c6f47a8c571c8711d8a4, type: 3}
@@ -36213,6 +36177,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1618222441
 MeshFilter:
@@ -36292,14 +36257,14 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1618227022}
   m_Enabled: 1
-  serializedVersion: 11
+  serializedVersion: 12
   m_Type: 0
   m_Color: {r: 0.85490197, g: 0.9491707, b: 1, a: 1}
   m_Intensity: 0.05
   m_Range: 0.5
   m_SpotAngle: 127.13661
   m_InnerSpotAngle: 127.1366
-  m_CookieSize: 10
+  m_CookieSize2D: {x: 10, y: 10}
   m_Shadows:
     m_Type: 2
     m_Resolution: -1
@@ -36529,6 +36494,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1632663323
 MeshFilter:
@@ -36568,19 +36534,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94e7000e974185d40a2972bd0349261d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Cap
-  canInteract: 1
-  canUse: 1
-  moveToHand: 0
-  inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
-  moveSpeed: 12
-  container: {fileID: 0}
-  reasonNotInteract: 
-  outline: {fileID: 0}
-  rb: {fileID: 0}
-  col: {fileID: 0}
   canCap: 1
   firstPosition: {x: 0, y: 0, z: 0}
   firstRotation: {x: 0, y: 0, z: 0}
@@ -36591,6 +36544,9 @@ MonoBehaviour:
   jumpPower: 1
   isCapped: 1
   useJump: 0
+  canInteract: 1
+  reasonNotInteract: 
+  outline: {fileID: 0}
 --- !u!1 &1635614467
 GameObject:
   m_ObjectHideFlags: 0
@@ -36694,6 +36650,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1635614471
 MeshFilter:
@@ -36806,6 +36763,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1636462173
 MeshFilter:
@@ -36918,6 +36876,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1639331927
 MeshFilter:
@@ -37030,6 +36989,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1643936818
 MeshFilter:
@@ -37202,6 +37162,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1653631653
 MeshFilter:
@@ -37414,20 +37375,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 1657060345}
   rb: {fileID: 1657060346}
   col: {fileID: 679833220}
-  burnDur: 60
 --- !u!1 &1662995002
 GameObject:
   m_ObjectHideFlags: 0
@@ -37554,6 +37511,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -37703,6 +37661,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1681469423
 MeshFilter:
@@ -37894,6 +37853,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1682260863
 MeshFilter:
@@ -38037,6 +37997,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1684571304
 MeshFilter:
@@ -38149,6 +38110,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1690587702
 MeshFilter:
@@ -38261,6 +38223,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1690921128
 MeshFilter:
@@ -38431,20 +38394,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 1692258989}
   rb: {fileID: 1692258990}
   col: {fileID: 990458555}
-  burnDur: 60
 --- !u!4 &1701109350 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3956096102713533248, guid: ab8fd756e825c6f47a8c571c8711d8a4, type: 3}
@@ -38722,6 +38681,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1710976258
 MeshFilter:
@@ -38856,6 +38816,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1713534990
 MeshFilter:
@@ -38968,6 +38929,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1714849637
 MeshFilter:
@@ -39080,6 +39042,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1715433721
 MeshFilter:
@@ -39192,6 +39155,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1717444017
 MeshFilter:
@@ -39480,6 +39444,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1754835107
 MeshFilter:
@@ -39592,6 +39557,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1758208742
 MeshFilter:
@@ -39704,6 +39670,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1768212837
 MeshFilter:
@@ -39816,6 +39783,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1773133409
 MeshFilter:
@@ -39959,6 +39927,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1781714573
 MeshFilter:
@@ -40071,6 +40040,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1784395282
 MeshFilter:
@@ -40246,20 +40216,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 1792955732}
   rb: {fileID: 1792955733}
   col: {fileID: 896499962}
-  burnDur: 60
 --- !u!1001 &1798902677
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40425,6 +40391,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1806666074
 MeshFilter:
@@ -40774,6 +40741,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1817290913
 MeshFilter:
@@ -40886,6 +40854,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1822960827
 MeshFilter:
@@ -40998,6 +40967,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1829593214
 MeshFilter:
@@ -41230,6 +41200,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1841050256
 MeshFilter:
@@ -41367,20 +41338,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 684bace178c19354db17d54848a755b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  togoo: {fileID: 0}
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 0}
   rb: {fileID: 0}
   col: {fileID: 0}
-  togoo: {fileID: 0}
 --- !u!64 &1849954750
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -41477,6 +41444,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1849954753
 MeshFilter:
@@ -41647,20 +41615,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 1860198048}
   rb: {fileID: 1860198049}
   col: {fileID: 727775026}
-  burnDur: 60
 --- !u!1 &1863072997
 GameObject:
   m_ObjectHideFlags: 0
@@ -41764,6 +41728,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1863073001
 MeshFilter:
@@ -41876,6 +41841,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1867533164
 MeshFilter:
@@ -42045,6 +42011,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1873553040
 MeshFilter:
@@ -42157,6 +42124,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1880662718
 MeshFilter:
@@ -42305,6 +42273,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1888415433
 MeshFilter:
@@ -42417,6 +42386,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1889637893
 MeshFilter:
@@ -42587,20 +42557,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 1904562575}
   rb: {fileID: 1904562576}
   col: {fileID: 526063242}
-  burnDur: 60
 --- !u!1 &1905597826
 GameObject:
   m_ObjectHideFlags: 0
@@ -42704,6 +42670,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1905597830
 MeshFilter:
@@ -42862,14 +42829,14 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1932154423}
   m_Enabled: 1
-  serializedVersion: 11
+  serializedVersion: 12
   m_Type: 2
   m_Color: {r: 0.9803922, g: 0.9803922, b: 0.8235295, a: 1}
   m_Intensity: 0.09
   m_Range: 1.53
   m_SpotAngle: 157.1979
   m_InnerSpotAngle: 0
-  m_CookieSize: 10
+  m_CookieSize2D: {x: 10, y: 10}
   m_Shadows:
     m_Type: 0
     m_Resolution: -1
@@ -43038,6 +43005,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1938460759
 MeshFilter:
@@ -43150,6 +43118,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1942173373
 MeshFilter:
@@ -43209,19 +43178,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a302cd4d64566ee4db6cf7cd6354fd01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Gun
-  canInteract: 1
-  canUse: 1
-  moveToHand: 1
-  inHandRotation: {x: 0, y: 90, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
-  moveSpeed: 12
-  container: {fileID: 0}
-  reasonNotInteract: 
-  outline: {fileID: 0}
-  rb: {fileID: 0}
-  col: {fileID: 0}
   muzzlePoint: {fileID: 382001158}
   muzzleFlashPrefab: {fileID: 7790606644849493849, guid: 7c5399af97edd5848ae015512f13f652, type: 3}
   hitEffectPrefab: {fileID: 1936032059195924, guid: e5448bf09bf80c84683234d05d3ccf91, type: 3}
@@ -43234,6 +43190,15 @@ MonoBehaviour:
   recoilZ: -0.1
   recoilXRotation: -5
   recoilDuration: 0.1
+  canInteract: 1
+  moveToHand: 1
+  inHandRotation: {x: 0, y: 90, z: 0}
+  moveSpeed: 12
+  dropCurrentItem: 1
+  reasonNotInteract: 
+  outline: {fileID: 0}
+  rb: {fileID: 0}
+  col: {fileID: 0}
 --- !u!4 &1947826545
 Transform:
   m_ObjectHideFlags: 0
@@ -43586,20 +43551,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 1955566036}
   rb: {fileID: 1955566037}
   col: {fileID: 681090547}
-  burnDur: 60
 --- !u!1001 &1959607550
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43876,6 +43837,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1964923068
 MeshFilter:
@@ -43988,6 +43950,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1969503660
 MeshFilter:
@@ -44100,6 +44063,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1969544270
 MeshFilter:
@@ -44212,6 +44176,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1973326221
 MeshFilter:
@@ -44302,6 +44267,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1975084622
 MeshFilter:
@@ -44472,20 +44438,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 1982627764}
   rb: {fileID: 1982627765}
   col: {fileID: 1077944339}
-  burnDur: 60
 --- !u!1 &1993038305
 GameObject:
   m_ObjectHideFlags: 0
@@ -44589,6 +44551,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1993038309
 MeshFilter:
@@ -44701,6 +44664,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &1996779038
 MeshFilter:
@@ -44870,6 +44834,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &2018798613
 MeshFilter:
@@ -44945,19 +44910,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6ea6dbf5189514eb1408fcb09daf2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
-  canInteract: 1
-  canUse: 1
-  moveToHand: 0
-  inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
-  moveSpeed: 12
-  container: {fileID: 0}
-  reasonNotInteract: 
-  outline: {fileID: 0}
-  rb: {fileID: 0}
-  col: {fileID: 0}
   doorKey: {fileID: 0}
   rotationDuration: 0.35
   closedRotation: {x: 0, y: 0, z: 0}
@@ -44966,6 +44918,9 @@ MonoBehaviour:
   closeSFX: {fileID: 0}
   knockSFX: []
   isOpen: 0
+  canInteract: 1
+  reasonNotInteract: 
+  outline: {fileID: 0}
 --- !u!65 &2019929525
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -45034,6 +44989,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &2019929527
 MeshFilter:
@@ -45360,20 +45316,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 2022922283}
   rb: {fileID: 2022922284}
   col: {fileID: 603426763}
-  burnDur: 60
 --- !u!1 &2038220553
 GameObject:
   m_ObjectHideFlags: 0
@@ -45476,6 +45428,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &2038220557
 MeshFilter:
@@ -45696,20 +45649,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 2038651556}
   rb: {fileID: 2038651557}
   col: {fileID: 1569705087}
-  burnDur: 60
 --- !u!1 &2043334406
 GameObject:
   m_ObjectHideFlags: 0
@@ -45813,6 +45762,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &2043334410
 MeshFilter:
@@ -45983,20 +45933,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 2046107022}
   rb: {fileID: 2046107023}
   col: {fileID: 1072165395}
-  burnDur: 60
 --- !u!1 &2047617422
 GameObject:
   m_ObjectHideFlags: 0
@@ -46100,6 +46046,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &2047617426
 MeshFilter:
@@ -46270,20 +46217,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 2049407679}
   rb: {fileID: 2049407680}
   col: {fileID: 2047617424}
-  burnDur: 60
 --- !u!1 &2052857307
 GameObject:
   m_ObjectHideFlags: 0
@@ -46418,6 +46361,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &2060202745
 MeshFilter:
@@ -46530,6 +46474,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &2060383413
 MeshFilter:
@@ -46717,6 +46662,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &2064098785
 MeshFilter:
@@ -46861,6 +46807,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &2073122938
 MeshFilter:
@@ -47003,6 +46950,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &2074623818
 MeshFilter:
@@ -47130,6 +47078,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &2076566193
 MeshFilter:
@@ -47242,6 +47191,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &2092387024
 MeshFilter:
@@ -47331,6 +47281,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &2094491011
 MeshFilter:
@@ -47501,20 +47452,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
   moveToHand: 1
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 2096374654}
   rb: {fileID: 2096374655}
   col: {fileID: 2073122936}
-  burnDur: 60
 --- !u!1 &2102319624
 GameObject:
   m_ObjectHideFlags: 0
@@ -47618,6 +47565,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &2102319628
 MeshFilter:
@@ -47730,6 +47678,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &2105728604
 MeshFilter:
@@ -47842,6 +47791,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &2106279931
 MeshFilter:
@@ -47954,6 +47904,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &2111163538
 MeshFilter:
@@ -48353,6 +48304,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &2122161320
 MeshFilter:
@@ -48465,6 +48417,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &2123053060
 MeshFilter:
@@ -48577,6 +48530,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &2125881776
 MeshFilter:
@@ -48689,6 +48643,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &2128250939
 MeshFilter:
@@ -48801,6 +48756,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &2129435123
 MeshFilter:
@@ -48913,6 +48869,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &2129835834
 MeshFilter:
@@ -49060,23 +49017,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee7ee3457f209f342a50d6ae1f9a681f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  canInteract: 1
-  canUse: 1
-  moveToHand: 0
-  inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 0
-  moveSpeed: 12
-  container: {fileID: 0}
-  reasonNotInteract: not-bed-time
-  outline: {fileID: 0}
-  rb: {fileID: 0}
-  col: {fileID: 0}
   canEnterBed: 1
   canExitBed: 1
   canSleep: 1
   inBedCam: {fileID: 583878118}
+  canInteract: 1
+  reasonNotInteract: not-bed-time
 --- !u!1 &2141314478
 GameObject:
   m_ObjectHideFlags: 0
@@ -49252,6 +49198,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &2143448632
 MeshFilter:
@@ -49364,6 +49311,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &2145084004
 MeshFilter:
@@ -49573,6 +49521,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!4 &1601123859995383592
 Transform:
@@ -49637,6 +49586,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1803894231107490539
 GameObject:
@@ -49822,6 +49772,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!4 &2430216999902758305
 Transform:
@@ -49960,6 +49911,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &3008477040282158851
 GameObject:
@@ -50063,6 +50015,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!23 &3786746221258406818
 MeshRenderer:
@@ -50112,6 +50065,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &3833796293830490313
 MeshFilter:
@@ -50168,6 +50122,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!23 &3906135259980011473
 MeshRenderer:
@@ -50216,6 +50171,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!23 &4048373412732365783
 MeshRenderer:
@@ -50264,6 +50220,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &4111131418940001926
 MeshFilter:
@@ -50322,6 +50279,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &4541547625398406592
 GameObject:
@@ -50391,6 +50349,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &5115115977851996090
 MeshFilter:
@@ -50511,6 +50470,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &6381751306972885398
 MeshFilter:
@@ -50591,6 +50551,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &6849862242671431609
 MeshFilter:
@@ -50648,6 +50609,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &6939028862179526369
 MeshFilter:
@@ -50715,22 +50677,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a4e9647b7c515246985ade5e133087d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LightSwitch
-  canInteract: 1
-  canUse: 0
-  moveToHand: 0
-  inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 0
-  moveSpeed: 12
-  container: {fileID: 0}
-  reasonNotInteract: tsogts
-  outline: {fileID: 0}
-  rb: {fileID: 0}
-  col: {fileID: 0}
   lightParticles: {fileID: 876147883}
   light: {fileID: 1251906683}
   isOn: 0
+  canInteract: 1
+  reasonNotInteract: tsogts
+  outline: {fileID: 0}
 --- !u!114 &7020296842295500425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50868,6 +50820,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &7471191686273986958
 GameObject:
@@ -51022,6 +50975,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!4 &8489795743293849283
 Transform:

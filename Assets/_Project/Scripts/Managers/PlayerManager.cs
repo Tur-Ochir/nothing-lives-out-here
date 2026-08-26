@@ -7,27 +7,9 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance { get; private set; }
 
-    [Header("Movement Settings")]
-    public bool canMove = true;
-    public bool canCrouch = true;
-    public float speed = 5f;
-    public float crouchSpeedMultiplier = 0.5f;
-    public Vector3 standingOffset;
-    public Vector3 crouchingOffset;
-
-    [Header("Camera & HeadBob")]
-    public Transform camTarget;
-    public CinemachineVirtualCameraBase vcam;
-    public CinemachineBasicMultiChannelPerlin camNoise;
-    public bool useHeadBob = true;
-    public float bobTransSpeed = 5f;
-    public float walkingBobAmplitude = 2f;
-    public float walkingBobFrequency = 0.02f;
-
     [Header("Interaction & Hands")]
     public Transform handPoint;
     public Transform twoHandPoint;
-    public float maxDistance = 5f;
     public bool IsHoldingItem => heldItem != null;
     public IHoldable heldItem;
     public IHoldableContainer currentContainer;
@@ -80,20 +62,6 @@ public class PlayerManager : MonoBehaviour
             movement = GetComponent<PlayerMovement>();
             if (movement == null) movement = gameObject.AddComponent<PlayerMovement>();
         }
-        movement.canMove = canMove;
-        movement.canCrouch = canCrouch;
-        movement.speed = speed;
-        movement.crouchSpeedMultiplier = crouchSpeedMultiplier;
-        movement.standingOffset = standingOffset;
-        movement.crouchingOffset = crouchingOffset;
-        movement.camTarget = camTarget;
-        movement.vcam = vcam;
-        movement.camNoise = camNoise;
-        movement.useHeadBob = useHeadBob;
-        movement.bobTransSpeed = bobTransSpeed;
-        movement.walkingBobAmplitude = walkingBobAmplitude;
-        movement.walkingBobFrequency = walkingBobFrequency;
-        movement.Initialize(controller, camTransform);
 
         // 2. Interaction Subsystem
         if (interaction == null)
@@ -101,7 +69,6 @@ public class PlayerManager : MonoBehaviour
             interaction = GetComponent<PlayerInteractionHandler>();
             if (interaction == null) interaction = gameObject.AddComponent<PlayerInteractionHandler>();
         }
-        interaction.maxDistance = maxDistance;
         interaction.Initialize(camTransform);
     }
 
@@ -130,13 +97,6 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        // Sync dynamic inspector flags
-        if (movement != null)
-        {
-            movement.canMove = canMove;
-            movement.canCrouch = canCrouch;
-        }
-
         // Process Movement
         if (moveAction != null && movement != null)
         {

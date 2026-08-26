@@ -76,8 +76,8 @@ public class Bed : MonoBehaviour, IInteractable, IUsable
 
         if (PlayerManager.Instance != null)
         {
-            PlayerManager.Instance.canMove = false;
-            PlayerManager.Instance.canCrouch = false;
+            PlayerManager.Instance.movement.canMove = false;
+            PlayerManager.Instance.movement.canCrouch = false;
         }
 
         if (CanvasManager.Instance != null)
@@ -103,8 +103,8 @@ public class Bed : MonoBehaviour, IInteractable, IUsable
 
         if (PlayerManager.Instance != null)
         {
-            PlayerManager.Instance.canMove = true;
-            PlayerManager.Instance.canCrouch = true;
+            PlayerManager.Instance.movement.canMove = true;
+            PlayerManager.Instance.movement.canCrouch = true;
         }
 
         if (CanvasManager.Instance != null)

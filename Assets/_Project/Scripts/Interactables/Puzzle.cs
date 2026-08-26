@@ -67,8 +67,8 @@ public class Puzzle : MonoBehaviour, IInteractable, IHighlightable
         
         if (PlayerManager.Instance != null)
         {
-            PlayerManager.Instance.canMove = false;
-            PlayerManager.Instance.canCrouch = false;
+            PlayerManager.Instance.movement.canMove = false;
+            PlayerManager.Instance.movement.canCrouch = false;
             PlayerManager.Instance.DisableCam();
         }
 
@@ -89,8 +89,8 @@ public class Puzzle : MonoBehaviour, IInteractable, IHighlightable
 
         if (PlayerManager.Instance != null)
         {
-            PlayerManager.Instance.canMove = true;
-            PlayerManager.Instance.canCrouch = true;
+            PlayerManager.Instance.movement.canMove = true;
+            PlayerManager.Instance.movement.canCrouch = true;
             PlayerManager.Instance.EnableCam();
         }
 
