@@ -25,18 +25,6 @@ MonoBehaviour:
     m_DueDate: 
     m_Tags: []
     m_IsExpanded: 0
-  - m_Id: 4ccc88c7-79fd-41ff-a888-1900d3a20c86
-    m_Title: Victim
-    m_Description: 
-    m_Priority: 2
-    m_Status: 0
-    m_Category: Model
-    m_LinkedObject: {fileID: 0}
-    m_CreatedDate: 2026-08-26 23:36
-    m_CompletedDate: 
-    m_DueDate: 
-    m_Tags: []
-    m_IsExpanded: 0
   - m_Id: 19b5f9a6-19f9-4046-a7e8-8ec4a6528a9d
     m_Title: Opening cutscene
     m_Description: 
@@ -69,6 +57,18 @@ MonoBehaviour:
     m_Category: Gameplay
     m_LinkedObject: {fileID: 0}
     m_CreatedDate: 2026-08-27 15:37
+    m_CompletedDate: 
+    m_DueDate: 
+    m_Tags: []
+    m_IsExpanded: 0
+  - m_Id: 4ccc88c7-79fd-41ff-a888-1900d3a20c86
+    m_Title: Victim
+    m_Description: 
+    m_Priority: 2
+    m_Status: 0
+    m_Category: Model
+    m_LinkedObject: {fileID: 0}
+    m_CreatedDate: 2026-08-26 23:36
     m_CompletedDate: 
     m_DueDate: 
     m_Tags: []
