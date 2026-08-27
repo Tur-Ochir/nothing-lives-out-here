@@ -9,9 +9,12 @@ namespace Dev.TodoNotes.Editor
 {
     /// <summary>
     /// Interactive Kanban Board view for managing tasks across columns (To Do, In Progress, Blocked, Done).
+    /// Supports drag-and-drop reordering within columns and moving between columns.
     /// </summary>
     public class KanbanBoardView
     {
+        private const string k_DragGenericDataKey = "KanbanTaskItem";
+
         private readonly TaskNotesDatabase m_Database;
         private readonly EditorWindow m_ParentWindow;
 
@@ -23,6 +26,13 @@ namespace Dev.TodoNotes.Editor
         private string m_NewInlineTitle = "";
 
         private TaskItem m_TaskToDelete = null;
+
+        // Drag and Drop State
+        private TaskItem m_PotentialDragTask = null;
+        private Vector2 m_MouseDownPos = Vector2.zero;
+        private TaskItem m_DropTargetTask = null;
+        private bool m_DropInsertBefore = true;
+        private TaskStatus? m_DropTargetColumnStatus = null;
 
         public KanbanBoardView(TaskNotesDatabase database, EditorWindow parentWindow)
         {
@@ -38,6 +48,15 @@ namespace Dev.TodoNotes.Editor
         public void Draw(string searchText, string categoryFilter, int priorityFilterIndex)
         {
             if (m_Database == null) return;
+
+            Event evt = Event.current;
+
+            // Handle global drag exited
+            if (evt.type == EventType.DragExited)
+            {
+                ClearDragState();
+                m_ParentWindow?.Repaint();
+            }
 
             // Get filtered tasks
             var filteredTasks = FilterTasks(m_Database.Tasks, searchText, categoryFilter, priorityFilterIndex);
@@ -69,7 +88,7 @@ namespace Dev.TodoNotes.Editor
         {
             var columnTasks = allFilteredTasks.FindAll(t => t.Status == status);
 
-            EditorGUILayout.BeginVertical(EditorStyles.helpBox, GUILayout.MinWidth(220), GUILayout.MaxWidth(320), GUILayout.ExpandHeight(true));
+            Rect columnRect = EditorGUILayout.BeginVertical(EditorStyles.helpBox, GUILayout.MinWidth(230), GUILayout.MaxWidth(340), GUILayout.ExpandHeight(true));
 
             // Column Header Banner
             DrawColumnHeader(columnTitle, status, headerColor, columnTasks.Count);
@@ -92,9 +111,9 @@ namespace Dev.TodoNotes.Editor
 
             if (columnTasks.Count == 0)
             {
-                GUILayout.Space(15);
-                GUILayout.Label("No tasks in this column", EditorStyles.centeredGreyMiniLabel);
-                GUILayout.Space(15);
+                GUILayout.Space(25);
+                GUILayout.Label("Drag tasks here\nor click + to add", EditorStyles.centeredGreyMiniLabel);
+                GUILayout.Space(25);
             }
             else
             {
@@ -105,8 +124,21 @@ namespace Dev.TodoNotes.Editor
                 }
             }
 
+            // Empty drop zone at bottom of scroll view
+            Rect dropZoneRect = GUILayoutUtility.GetRect(GUIContent.none, GUIStyle.none, GUILayout.ExpandWidth(true), GUILayout.MinHeight(30));
+            HandleColumnDropZone(dropZoneRect, status);
+
             EditorGUILayout.EndScrollView();
+
             EditorGUILayout.EndVertical();
+
+            // Highlight column if dragging over it
+            Event evt = Event.current;
+            if (evt.type == EventType.Repaint && m_DropTargetColumnStatus == status && m_DropTargetTask == null && DragAndDrop.GetGenericData(k_DragGenericDataKey) != null)
+            {
+                Color highlightColor = new Color(0.3f, 0.7f, 1f, 0.15f);
+                EditorGUI.DrawRect(columnRect, highlightColor);
+            }
         }
 
         private void DrawColumnHeader(string title, TaskStatus status, Color headerColor, int count)
@@ -188,8 +220,11 @@ namespace Dev.TodoNotes.Editor
             EditorGUILayout.BeginVertical(TaskNotesStyles.CardStyle);
             GUI.backgroundColor = prevBg;
 
-            // Card Top Row: Priority Strip + Title + Context Menu
+            // Card Top Row: Drag Handle + Priority Strip + Title + Context Menu
             EditorGUILayout.BeginHorizontal();
+
+            // Drag handle icon / button
+            GUILayout.Label("*", EditorStyles.miniLabel, GUILayout.Width(12));
 
             // Priority Left Border
             Rect priorityRect = GUILayoutUtility.GetRect(4, 20, GUILayout.Width(4));
@@ -241,6 +276,162 @@ namespace Dev.TodoNotes.Editor
             }
 
             EditorGUILayout.EndVertical();
+
+            // Handle Drag & Drop on this card
+            Rect cardRect = GUILayoutUtility.GetLastRect();
+            HandleCardDragAndDrop(cardRect, task);
+        }
+
+        private void HandleCardDragAndDrop(Rect cardRect, TaskItem task)
+        {
+            Event evt = Event.current;
+            Vector2 mousePos = evt.mousePosition;
+
+            // 1. Initiate Drag Start
+            if (evt.type == EventType.MouseDown && evt.button == 0 && cardRect.Contains(mousePos))
+            {
+                m_PotentialDragTask = task;
+                m_MouseDownPos = mousePos;
+            }
+            else if (evt.type == EventType.MouseDrag && m_PotentialDragTask == task)
+            {
+                if (Vector2.Distance(mousePos, m_MouseDownPos) > 4f)
+                {
+                    DragAndDrop.PrepareStartDrag();
+                    DragAndDrop.SetGenericData(k_DragGenericDataKey, task);
+                    DragAndDrop.StartDrag(task.Title);
+                    m_PotentialDragTask = null;
+                    evt.Use();
+                }
+            }
+            else if (evt.type == EventType.MouseUp)
+            {
+                if (m_PotentialDragTask == task)
+                {
+                    m_PotentialDragTask = null;
+                }
+            }
+
+            // 2. Drag Hover & Drop Target Check
+            var draggedItem = DragAndDrop.GetGenericData(k_DragGenericDataKey) as TaskItem;
+            if (draggedItem != null && cardRect.Contains(mousePos))
+            {
+                bool insertBefore = mousePos.y < cardRect.center.y;
+
+                if (evt.type == EventType.DragUpdated)
+                {
+                    DragAndDrop.visualMode = DragAndDropVisualMode.Move;
+                    m_DropTargetTask = task;
+                    m_DropInsertBefore = insertBefore;
+                    m_DropTargetColumnStatus = task.Status;
+                    m_ParentWindow?.Repaint();
+                    evt.Use();
+                }
+                else if (evt.type == EventType.DragPerform)
+                {
+                    DragAndDrop.AcceptDrag();
+                    PerformDropOnTask(draggedItem, task, insertBefore);
+                    ClearDragState();
+                    m_ParentWindow?.Repaint();
+                    evt.Use();
+                }
+            }
+
+            // 3. Draw Insertion Line on Repaint
+            if (evt.type == EventType.Repaint && m_DropTargetTask == task && draggedItem != null)
+            {
+                float lineY = m_DropInsertBefore ? cardRect.yMin - 1f : cardRect.yMax + 1f;
+                Rect lineRect = new Rect(cardRect.x, lineY, cardRect.width, 3f);
+                EditorGUI.DrawRect(lineRect, new Color(0.2f, 0.65f, 1f, 1f));
+            }
+        }
+
+        private void HandleColumnDropZone(Rect dropZoneRect, TaskStatus status)
+        {
+            Event evt = Event.current;
+            var draggedItem = DragAndDrop.GetGenericData(k_DragGenericDataKey) as TaskItem;
+
+            if (draggedItem != null && dropZoneRect.Contains(evt.mousePosition))
+            {
+                if (evt.type == EventType.DragUpdated)
+                {
+                    DragAndDrop.visualMode = DragAndDropVisualMode.Move;
+                    m_DropTargetTask = null;
+                    m_DropTargetColumnStatus = status;
+                    m_ParentWindow?.Repaint();
+                    evt.Use();
+                }
+                else if (evt.type == EventType.DragPerform)
+                {
+                    DragAndDrop.AcceptDrag();
+                    PerformDropOnColumn(draggedItem, status);
+                    ClearDragState();
+                    m_ParentWindow?.Repaint();
+                    evt.Use();
+                }
+            }
+        }
+
+        private void PerformDropOnTask(TaskItem draggedItem, TaskItem targetTask, bool insertBefore)
+        {
+            if (draggedItem == null || targetTask == null) return;
+            if (draggedItem == targetTask) return;
+
+            Undo.RecordObject(m_Database, "Reorder Task via Drag and Drop");
+
+            // Update status if changing column
+            if (draggedItem.Status != targetTask.Status)
+            {
+                draggedItem.Status = targetTask.Status;
+            }
+
+            // Reorder in database list
+            m_Database.Tasks.Remove(draggedItem);
+            int targetIdx = m_Database.Tasks.IndexOf(targetTask);
+            if (targetIdx < 0)
+            {
+                m_Database.Tasks.Add(draggedItem);
+            }
+            else
+            {
+                int insertIdx = insertBefore ? targetIdx : targetIdx + 1;
+                insertIdx = Mathf.Clamp(insertIdx, 0, m_Database.Tasks.Count);
+                m_Database.Tasks.Insert(insertIdx, draggedItem);
+            }
+
+            m_Database.MarkDirty();
+        }
+
+        private void PerformDropOnColumn(TaskItem draggedItem, TaskStatus targetStatus)
+        {
+            if (draggedItem == null) return;
+
+            Undo.RecordObject(m_Database, "Move Task to Column via Drag and Drop");
+
+            draggedItem.Status = targetStatus;
+
+            // Move to bottom of that column in list
+            m_Database.Tasks.Remove(draggedItem);
+
+            // Find last task in target column
+            int lastColumnTaskIdx = m_Database.Tasks.FindLastIndex(t => t.Status == targetStatus);
+            if (lastColumnTaskIdx >= 0 && lastColumnTaskIdx < m_Database.Tasks.Count)
+            {
+                m_Database.Tasks.Insert(lastColumnTaskIdx + 1, draggedItem);
+            }
+            else
+            {
+                m_Database.Tasks.Add(draggedItem);
+            }
+
+            m_Database.MarkDirty();
+        }
+
+        private void ClearDragState()
+        {
+            m_PotentialDragTask = null;
+            m_DropTargetTask = null;
+            m_DropTargetColumnStatus = null;
         }
 
         private void DrawStatusShiftButtons(TaskItem task)

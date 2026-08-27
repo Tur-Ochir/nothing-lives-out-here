@@ -9,6 +9,9 @@ public class PlayerManager : MonoBehaviour
     public bool IsHoldingItem => heldItem != null;
     public IHoldable heldItem;
     public IHoldableContainer currentContainer;
+    [Header("Flashlight")]
+    public bool flashlightOn = true;
+    public Light flashlight;
 
     [Header("Stats")]
     public int eatenDumplings = 0;
@@ -22,12 +25,12 @@ public class PlayerManager : MonoBehaviour
     public PlayerInteractionHandler interaction;
 
     private PlayerInput input;
-    private CharacterController controller;
     private InputAction moveAction;
     private InputAction interactAction;
     private InputAction dropAction;
     private InputAction crouchAction;
     private InputAction useAction;
+    private InputAction flashlightAction;
 
     private void Awake()
     {
@@ -37,8 +40,7 @@ public class PlayerManager : MonoBehaviour
             return;
         }
         Instance = this;
-
-        controller = GetComponent<CharacterController>();
+        
         input = GetComponent<PlayerInput>();
         movement = GetComponent<PlayerMovement>();
         interaction = GetComponent<PlayerInteractionHandler>();
@@ -58,6 +60,7 @@ public class PlayerManager : MonoBehaviour
             useAction = input.actions["Fire"];
             dropAction = input.actions["Drop"];
             crouchAction = input.actions["Crouch"];
+            flashlightAction = input.actions["Flashlight"];
         }
     }
 
@@ -67,6 +70,11 @@ public class PlayerManager : MonoBehaviour
         {
             input.actions.Disable();
         }
+    }
+
+    private void Start()
+    {
+        SetFlashlightState(flashlightOn);
     }
 
     private void Update()
@@ -118,6 +126,11 @@ public class PlayerManager : MonoBehaviour
         {
             interaction.ProcessLookAtTarget();
         }
+
+        if (flashlightAction.WasPressedThisFrame())
+        {
+            SetFlashlightState(!flashlightOn);
+        }
     }
 
     public void Eat()
@@ -143,6 +156,14 @@ public class PlayerManager : MonoBehaviour
         if (movement != null)
         {
             movement.SetCamControllerActive(true);
+        }
+    }
+    public void SetFlashlightState(bool state)
+    {
+        flashlightOn = state;
+        if (flashlight != null)
+        {
+            flashlight.enabled = flashlightOn;
         }
     }
 }

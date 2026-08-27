@@ -6,7 +6,7 @@ using UnityEngine;
 public class Door : MonoBehaviour, IInteractable, IHighlightable
 {
     [Header("Lock / Key Reference")]
-    public DoorKey doorKey;
+    public DoorLock doorLock;
 
     [Header("Animation")]
     public float rotationDuration = 1f;
@@ -46,7 +46,7 @@ public class Door : MonoBehaviour, IInteractable, IHighlightable
 
     public void Interact()
     {
-        if (doorKey != null && doorKey.atA)
+        if (doorLock != null && doorLock.isLocked)
         {
             if (GameManager.Instance != null)
             {

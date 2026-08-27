@@ -27,7 +27,7 @@ public class LightBulb : MonoBehaviour, IInteractable, IHighlightable
 
     private void Start()
     {
-        Interact();
+        SetActivate(isOn);
     }
 
     public void Interact()
