@@ -12,6 +12,7 @@ public class PlayerManager : MonoBehaviour
     [Header("Flashlight")]
     public bool flashlightOn = true;
     public Light flashlight;
+    public GameObject lightCone;
 
     [Header("Stats")]
     public int eatenDumplings = 0;
@@ -165,5 +166,6 @@ public class PlayerManager : MonoBehaviour
         {
             flashlight.enabled = flashlightOn;
         }
+        lightCone.SetActive(flashlightOn);
     }
 }

@@ -27,9 +27,9 @@ MonoBehaviour:
     m_IsExpanded: 0
   - m_Id: 19b5f9a6-19f9-4046-a7e8-8ec4a6528a9d
     m_Title: Opening cutscene
-    m_Description: 
+    m_Description: blocked by victim task
     m_Priority: 2
-    m_Status: 0
+    m_Status: 3
     m_Category: General
     m_LinkedObject: {fileID: 0}
     m_CreatedDate: 2026-08-26 17:02
@@ -53,11 +53,11 @@ MonoBehaviour:
     m_Title: Flashlight
     m_Description: 
     m_Priority: 1
-    m_Status: 1
+    m_Status: 2
     m_Category: Gameplay
     m_LinkedObject: {fileID: 0}
     m_CreatedDate: 2026-08-27 15:37
-    m_CompletedDate: 
+    m_CompletedDate: 2026-08-28 01:20
     m_DueDate: 
     m_Tags: []
     m_IsExpanded: 0
@@ -65,7 +65,7 @@ MonoBehaviour:
     m_Title: Victim
     m_Description: 
     m_Priority: 2
-    m_Status: 0
+    m_Status: 1
     m_Category: Model
     m_LinkedObject: {fileID: 0}
     m_CreatedDate: 2026-08-26 23:36
@@ -73,26 +73,15 @@ MonoBehaviour:
     m_DueDate: 
     m_Tags: []
     m_IsExpanded: 0
-  - m_Id: cff2d1cc-1bac-4b7d-91de-c06aba8ba438
-    m_Title: Haalga SFX
-    m_Description: 
-    m_Priority: 1
+  - m_Id: c02b152e-46a4-4999-b2d1-b13f3d66f1fb
+    m_Title: SFXs
+    m_Description: 'Haalga, footstep, gerel, zuuhni am, horgogch, togoo, buuz chanaj
+      bga, '
+    m_Priority: 2
     m_Status: 0
-    m_Category: Audio
+    m_Category: General
     m_LinkedObject: {fileID: 0}
-    m_CreatedDate: 2026-08-26 16:51
-    m_CompletedDate: 
-    m_DueDate: 
-    m_Tags: []
-    m_IsExpanded: 0
-  - m_Id: 43830193-b336-4c99-b08b-b891bde9a4fa
-    m_Title: Footstep SFX
-    m_Description: 
-    m_Priority: 1
-    m_Status: 0
-    m_Category: Audio
-    m_LinkedObject: {fileID: 0}
-    m_CreatedDate: 2026-08-26 16:53
+    m_CreatedDate: 2026-08-28 01:21
     m_CompletedDate: 
     m_DueDate: 
     m_Tags: []
@@ -178,6 +167,18 @@ MonoBehaviour:
     m_LinkedObject: {fileID: 0}
     m_CreatedDate: 2026-08-27 17:46
     m_CompletedDate: 2026-08-27 18:54
+    m_DueDate: 
+    m_Tags: []
+    m_IsExpanded: 0
+  - m_Id: 266f366c-b6a6-4910-87df-425da50245d5
+    m_Title: Driving
+    m_Description: 
+    m_Priority: 1
+    m_Status: 0
+    m_Category: Gameplay
+    m_LinkedObject: {fileID: 0}
+    m_CreatedDate: 2026-08-28 01:28
+    m_CompletedDate: 
     m_DueDate: 
     m_Tags: []
     m_IsExpanded: 0
