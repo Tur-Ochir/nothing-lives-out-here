@@ -11,6 +11,9 @@ public class PlayerInteractionHandler : MonoBehaviour
     public Transform twoHandPoint;
     public float maxDistance = 5f;
 
+    [Tooltip("Layer mask to filter which objects can be raycasted for interaction.")]
+    public LayerMask interactionLayer = ~0;
+
     private Transform camTransform;
     private IHighlightable currentHighlight;
 
@@ -23,9 +26,10 @@ public class PlayerInteractionHandler : MonoBehaviour
     {
         if (camTransform == null) return;
 
-        if (Physics.Raycast(camTransform.position, camTransform.forward, out RaycastHit hit, maxDistance))
+        if (Physics.Raycast(camTransform.position, camTransform.forward, out RaycastHit hit, maxDistance, interactionLayer, QueryTriggerInteraction.Ignore))
         {
-            if (hit.transform.TryGetComponent(out IHighlightable highlightable))
+            var highlightable = hit.transform.GetComponent<IHighlightable>() ?? hit.transform.GetComponentInParent<IHighlightable>();
+            if (highlightable != null)
             {
                 if (currentHighlight != highlightable)
                 {
@@ -53,10 +57,11 @@ public class PlayerInteractionHandler : MonoBehaviour
     {
         if (camTransform == null || player == null) return false;
 
-        if (Physics.Raycast(camTransform.position, camTransform.forward, out RaycastHit hit, maxDistance))
+        if (Physics.Raycast(camTransform.position, camTransform.forward, out RaycastHit hit, maxDistance, interactionLayer, QueryTriggerInteraction.Ignore))
         {
             // 1. Container Interaction
-            if (hit.transform.TryGetComponent(out IItemContainer itemContainer))
+            var itemContainer = hit.transform.GetComponent<IItemContainer>() ?? hit.transform.GetComponentInParent<IItemContainer>();
+            if (itemContainer != null)
             {
                 // Transfer between containers if holding a container
                 if (player.currentContainer is MonoBehaviour heldContainerMb && itemContainer is IHoldableContainer targetHoldableContainer)
@@ -77,14 +82,16 @@ public class PlayerInteractionHandler : MonoBehaviour
                 }
             }
 
-            if (hit.transform.TryGetComponent(out IHoldableContainer holdableContainer) && !player.IsHoldingItem && player.currentContainer == null)
+            var holdableContainer = hit.transform.GetComponent<IHoldableContainer>() ?? hit.transform.GetComponentInParent<IHoldableContainer>();
+            if (holdableContainer != null && !player.IsHoldingItem && player.currentContainer == null)
             {
                 holdableContainer.Hold(twoHandPoint);
                 return true;
             }
 
             // 2. Interactable Interaction
-            if (hit.transform.TryGetComponent(out IInteractable interactable))
+            var interactable = hit.transform.GetComponent<IInteractable>() ?? hit.transform.GetComponentInParent<IInteractable>();
+            if (interactable != null)
             {
                 if (player.IsHoldingItem && interactable is IHoldable targetHoldable && targetHoldable.DropCurrentItemOnInteract)
                 {

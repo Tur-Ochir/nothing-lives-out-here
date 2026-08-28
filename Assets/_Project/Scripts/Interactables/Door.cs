@@ -24,7 +24,7 @@ public class Door : MonoBehaviour, IInteractable, IHighlightable
     [Header("Interactable")]
     public bool canInteract = true;
     public string reasonNotInteract;
-    [HideInInspector] public Outline outline;
+    public Outline outline;
 
     public event Action OnInteracted;
 
@@ -44,6 +44,13 @@ public class Door : MonoBehaviour, IInteractable, IHighlightable
         }
     }
 
+    public void SetOpen(bool open)
+    {
+        isOpen = open;
+        HandleRotate(isOpen);
+        PlaySFX(isOpen);
+    }
+
     public void Interact()
     {
         if (doorLock != null && doorLock.isLocked)
@@ -56,11 +63,12 @@ public class Door : MonoBehaviour, IInteractable, IHighlightable
         }
 
         if (!CanInteract) return;
-
+        
         isOpen = !isOpen;
         HandleRotate(isOpen);
         PlaySFX(isOpen);
         OnInteracted?.Invoke();
+        Debug.Log($"Door {gameObject.name} interacted. Current state: {(isOpen ? "Open" : "Closed")}");
     }
 
     private void HandleRotate(bool open)

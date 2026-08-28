@@ -30,7 +30,14 @@ namespace Dev.TodoNotes.Editor
             m_ScrollPos = EditorGUILayout.BeginScrollView(m_ScrollPos);
 
             string currentContent = m_Database.Scratchpad;
-            string newContent = EditorGUILayout.TextArea(currentContent, TaskNotesStyles.RichTextAreaStyle, GUILayout.ExpandHeight(true), GUILayout.MinHeight(350));
+
+            // Dynamically calculate height based on content so ScrollView can scroll all the way down
+            GUIContent scratchContentGUI = new GUIContent(string.IsNullOrEmpty(currentContent) ? " " : currentContent);
+            float availableWidth = Mathf.Max(200f, m_ParentWindow != null ? (m_ParentWindow.position.width - 30f) : 500f);
+            float calcHeight = TaskNotesStyles.RichTextAreaStyle.CalcHeight(scratchContentGUI, availableWidth);
+            float targetHeight = Mathf.Max(350f, calcHeight + 40f);
+
+            string newContent = EditorGUILayout.TextArea(currentContent, TaskNotesStyles.RichTextAreaStyle, GUILayout.Height(targetHeight));
 
             if (newContent != currentContent)
             {

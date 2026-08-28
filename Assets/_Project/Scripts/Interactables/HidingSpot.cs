@@ -6,7 +6,7 @@ using UnityEngine;
 /// Allows the player to hide inside or under objects (e.g., under bed, wardrobe, chest).
 /// Disables movement, switches camera perspective, and dampens microphone noise detection.
 /// </summary>
-public class HidingSpot : MonoBehaviour, IInteractable, IHighlightable, IUsable
+public class HidingSpot : MonoBehaviour, IOccupiable, IHighlightable, IUsable
 {
     [Header("Hiding Camera & Positions")]
     [Tooltip("Cinemachine camera activated when the player enters this hiding spot.")]
@@ -44,6 +44,7 @@ public class HidingSpot : MonoBehaviour, IInteractable, IHighlightable, IUsable
     public string ReasonCannotInteract => reasonNotInteract;
     public bool CanUse => isHiding && canExitHiding;
     public bool IsHidden => isHiding;
+    public bool IsOccupied => isHiding;
 
     private bool isHiding = false;
     private AudioSource audioSource;
@@ -94,12 +95,23 @@ public class HidingSpot : MonoBehaviour, IInteractable, IHighlightable, IUsable
         }
     }
 
+    public void Enter(PlayerManager player)
+    {
+        EnterHiding(player);
+    }
+
+    public void Exit()
+    {
+        ExitHiding();
+    }
+
     public void EnterHiding(PlayerManager player)
     {
         if (player == null || isHiding) return;
 
         isHiding = true;
         player.currentHidingSpot = this;
+        player.currentOccupied = this;
 
         // Disable player movement & crouch
         if (player.movement != null)
@@ -157,6 +169,10 @@ public class HidingSpot : MonoBehaviour, IInteractable, IHighlightable, IUsable
         {
             var player = PlayerManager.Instance;
             player.currentHidingSpot = null;
+            if (player.currentOccupied == (IOccupiable)this)
+            {
+                player.currentOccupied = null;
+            }
 
             // Reposition player to exit point
             if (exitPoint != null)

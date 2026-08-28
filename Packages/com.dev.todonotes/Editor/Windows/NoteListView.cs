@@ -257,7 +257,14 @@ namespace Dev.TodoNotes.Editor
 
             // Content Body Text Area
             EditorGUILayout.LabelField("Content / Markdown:", EditorStyles.miniBoldLabel);
-            string newContent = EditorGUILayout.TextArea(m_SelectedNote.Content, TaskNotesStyles.RichTextAreaStyle, GUILayout.ExpandHeight(true), GUILayout.MinHeight(260));
+
+            // Dynamically calculate height based on content so ScrollView can scroll all the way down
+            GUIContent noteContentGUI = new GUIContent(string.IsNullOrEmpty(m_SelectedNote.Content) ? " " : m_SelectedNote.Content);
+            float availableWidth = Mathf.Max(200f, m_ParentWindow != null ? (m_ParentWindow.position.width - 270f) : 400f);
+            float calcHeight = TaskNotesStyles.RichTextAreaStyle.CalcHeight(noteContentGUI, availableWidth);
+            float targetHeight = Mathf.Max(280f, calcHeight + 40f);
+
+            string newContent = EditorGUILayout.TextArea(m_SelectedNote.Content, TaskNotesStyles.RichTextAreaStyle, GUILayout.Height(targetHeight));
             if (newContent != m_SelectedNote.Content)
             {
                 Undo.RecordObject(m_Database, "Edit Note Content");

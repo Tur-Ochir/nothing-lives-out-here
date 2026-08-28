@@ -88,6 +88,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &8164967774427900567
 GameObject:
@@ -104,7 +105,7 @@ GameObject:
   - component: {fileID: 8427226229681554351}
   - component: {fileID: 5970134323801110231}
   - component: {fileID: 2864216661321501123}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Dumpling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -182,6 +183,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!136 &5888647866221430363
 CapsuleCollider:
@@ -218,21 +220,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f8853935658faa42b04ae30f6482699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  cooked: 0
+  cookedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+  eatenVer1: {fileID: 5539954588854849223}
+  counter: 2
   canInteract: 1
   moveToHand: 1
   inHandRotation: {x: -120, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
   outline: {fileID: 0}
   rb: {fileID: 0}
   col: {fileID: 0}
-  cooked: 0
-  cookedColor: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
-  eatenVer1: {fileID: 5539954588854849223}
 --- !u!114 &5970134323801110231
 MonoBehaviour:
   m_ObjectHideFlags: 0

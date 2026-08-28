@@ -9,6 +9,16 @@ public interface IInteractable
     event Action OnInteracted;
 }
 
+/// <summary>
+/// Represents an object or spot that the player can enter/occupy (e.g. CarSeat, HidingSpot) and exit with the interact key (E).
+/// </summary>
+public interface IOccupiable : IInteractable
+{
+    bool IsOccupied { get; }
+    void Enter(PlayerManager player);
+    void Exit();
+}
+
 public interface IUsable
 {
     bool CanUse { get; }

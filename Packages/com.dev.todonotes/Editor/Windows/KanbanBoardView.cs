@@ -213,18 +213,11 @@ namespace Dev.TodoNotes.Editor
             Color priorityColor = TaskNotesStyles.GetPriorityColor(task.Priority);
 
             Color prevBg = GUI.backgroundColor;
-            GUI.backgroundColor = task.IsDone ?
-                (EditorGUIUtility.isProSkin ? TaskNotesStyles.CardCompletedDark : TaskNotesStyles.CardCompletedLight) :
-                (EditorGUIUtility.isProSkin ? TaskNotesStyles.CardBgDark : TaskNotesStyles.CardBgLight);
-
             EditorGUILayout.BeginVertical(TaskNotesStyles.CardStyle);
             GUI.backgroundColor = prevBg;
 
-            // Card Top Row: Drag Handle + Priority Strip + Title + Context Menu
+            // Card Top Row: Priority Strip + Title (click to toggle expand) + Context Menu
             EditorGUILayout.BeginHorizontal();
-
-            // Drag handle icon / button
-            GUILayout.Label("*", EditorStyles.miniLabel, GUILayout.Width(12));
 
             // Priority Left Border
             Rect priorityRect = GUILayoutUtility.GetRect(4, 20, GUILayout.Width(4));
@@ -232,11 +225,16 @@ namespace Dev.TodoNotes.Editor
 
             GUILayout.Space(4);
 
-            // Title
+            // Title (Clicking anywhere or foldout toggles expand)
             GUIStyle titleStyle = task.IsDone ? TaskNotesStyles.TitleDoneStyle : TaskNotesStyles.TitleStyle;
-            if (GUILayout.Button(task.Title, titleStyle, GUILayout.ExpandWidth(true)))
+            string foldoutSymbol = task.IsExpanded ? "▾ " : "▸ ";
+            if (GUILayout.Button(foldoutSymbol + task.Title, titleStyle, GUILayout.ExpandWidth(true)))
             {
-                task.IsExpanded = !task.IsExpanded;
+                // Only toggle if not starting a drag
+                if (m_PotentialDragTask == null || Vector2.Distance(Event.current.mousePosition, m_MouseDownPos) < 4f)
+                {
+                    task.IsExpanded = !task.IsExpanded;
+                }
             }
 
             // Options menu

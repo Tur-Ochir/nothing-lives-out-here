@@ -9,7 +9,9 @@ public class PlayerManager : MonoBehaviour
     public bool IsHoldingItem => heldItem != null;
     public IHoldable heldItem;
     public IHoldableContainer currentContainer;
+
     [Header("Flashlight")]
+    public bool canUseflashlight = true;
     public bool flashlightOn = true;
     public Light flashlight;
     public GameObject lightCone;
@@ -17,13 +19,19 @@ public class PlayerManager : MonoBehaviour
     [Header("Stats")]
     public int eatenDumplings = 0;
 
-    [Header("Hiding State")]
+    [Header("Occupied / Hiding State")]
+    public IOccupiable currentOccupied;
     public HidingSpot currentHidingSpot;
     public bool IsHidden => currentHidingSpot != null;
+    public bool IsOccupying => currentOccupied != null;
 
     [Header("Components")]
     public PlayerMovement movement;
     public PlayerInteractionHandler interaction;
+    public PlayerDriver driver;
+    public CinemachineCamera playerCam;
+
+    public bool IsDriving => driver != null && driver.IsDriving;
 
     private PlayerInput input;
     private InputAction moveAction;
@@ -32,6 +40,7 @@ public class PlayerManager : MonoBehaviour
     private InputAction crouchAction;
     private InputAction useAction;
     private InputAction flashlightAction;
+    private InputAction sprintAction;
 
     private void Awake()
     {
@@ -45,6 +54,11 @@ public class PlayerManager : MonoBehaviour
         input = GetComponent<PlayerInput>();
         movement = GetComponent<PlayerMovement>();
         interaction = GetComponent<PlayerInteractionHandler>();
+        driver = GetComponent<PlayerDriver>();
+        if (driver == null)
+        {
+            driver = gameObject.AddComponent<PlayerDriver>();
+        }
         
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -62,6 +76,7 @@ public class PlayerManager : MonoBehaviour
             dropAction = input.actions["Drop"];
             crouchAction = input.actions["Crouch"];
             flashlightAction = input.actions["Flashlight"];
+            sprintAction = input.actions["Sprint"];
         }
     }
 
@@ -80,7 +95,19 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        // Process Movement
+        // 1. Process Driving Mode
+        if (IsDriving)
+        {
+            Vector2 moveInput = moveAction != null ? moveAction.ReadValue<Vector2>() : Vector2.zero;
+            bool interactPressed = interactAction != null && interactAction.WasPressedThisFrame();
+            bool flashlightPressed = flashlightAction != null && flashlightAction.WasPressedThisFrame();
+            bool sprintPressed = sprintAction != null && sprintAction.IsPressed();
+
+            driver.ProcessDriveInput(moveInput, interactPressed, flashlightPressed, sprintPressed);
+            return;
+        }
+
+        // 2. Process Normal Walking Movement
         if (moveAction != null && movement != null)
         {
             Vector2 moveInput = moveAction.ReadValue<Vector2>();
@@ -88,10 +115,14 @@ public class PlayerManager : MonoBehaviour
             movement.ProcessHeadBob();
         }
 
-        // Process Interactions
+        // 3. Process Interactions & Exit Occupied Spots (Hiding Spot, Car Seat, etc.)
         if (interactAction != null && interactAction.WasPressedThisFrame())
         {
-            if (IsHidden)
+            if (currentOccupied != null)
+            {
+                currentOccupied.Exit();
+            }
+            else if (IsHidden)
             {
                 currentHidingSpot.ExitHiding();
             }
@@ -101,20 +132,20 @@ public class PlayerManager : MonoBehaviour
             }
         }
 
-        // Process Drop
+        // 4. Process Drop
         if (dropAction != null && dropAction.WasPressedThisFrame())
         {
             interaction.HandleDrop(this);
         }
 
-        // Process Crouch
+        // 5. Process Crouch
         if (crouchAction != null && crouchAction.WasPressedThisFrame())
         {
             movement.ToggleCrouch();
         }
 
-        // Process Fire / Item Use
-        if (useAction.WasPressedThisFrame())
+        // 6. Process Fire / Item Use
+        if (useAction != null && useAction.WasPressedThisFrame())
         {
             if (heldItem is IUsable usable && usable.CanUse)
             {
@@ -122,13 +153,14 @@ public class PlayerManager : MonoBehaviour
             }
         }
 
-        // Highlight look-at target
-        if (interaction != null && !IsHidden)
+        // 7. Highlight look-at target
+        if (interaction != null && !IsHidden && currentOccupied == null)
         {
             interaction.ProcessLookAtTarget();
         }
 
-        if (flashlightAction.WasPressedThisFrame())
+        // 8. Flashlight Toggle
+        if (flashlightAction != null && flashlightAction.WasPressedThisFrame())
         {
             SetFlashlightState(!flashlightOn);
         }
@@ -159,13 +191,54 @@ public class PlayerManager : MonoBehaviour
             movement.SetCamControllerActive(true);
         }
     }
+
     public void SetFlashlightState(bool state)
     {
+        if (!canUseflashlight) return;
+        
         flashlightOn = state;
         if (flashlight != null)
         {
             flashlight.enabled = flashlightOn;
         }
-        lightCone.SetActive(flashlightOn);
+        if (lightCone != null)
+        {
+            lightCone.SetActive(flashlightOn);
+        }
+    }
+
+    public void SetDrivingState(bool state, CarSeat seat = null)
+    {
+        if (driver == null) return;
+
+        if (state)
+        {
+            if (seat != null)
+            {
+                var car = seat.carController != null ? seat.carController : seat.GetComponentInParent<CarController>();
+                if (car != null)
+                {
+                    driver.EnterCar(car, seat);
+                }
+            }
+        }
+        else
+        {
+            driver.ExitCar();
+        }
+    }
+    public void HideItems(bool hide)
+    {
+        SetFlashlightState(false);
+        canUseflashlight = !hide;
+        
+        for (int i = 0; i < playerCam.transform.childCount; i++)
+        {
+            var child = playerCam.transform.GetChild(i);
+            if (child != null)
+            {
+                child.gameObject.SetActive(!hide);
+            }
+        }
     }
 }
