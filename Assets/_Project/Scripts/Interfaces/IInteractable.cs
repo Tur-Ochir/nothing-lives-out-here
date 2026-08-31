@@ -35,5 +35,6 @@ public interface IHoldable
 
 public interface IHighlightable
 {
+    
     void SetHighlight(bool active);
 }

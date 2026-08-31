@@ -5,6 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Allows the player to hide inside or under objects (e.g., under bed, wardrobe, chest).
 /// Disables movement, switches camera perspective, and dampens microphone noise detection.
+/// Shows contextual prompt on Tutorial Canvas (e.g. "Press 'E' to Hide" / "Press 'E' to Exit").
 /// </summary>
 public class HidingSpot : MonoBehaviour, IOccupiable, IHighlightable, IUsable
 {
@@ -27,6 +28,12 @@ public class HidingSpot : MonoBehaviour, IOccupiable, IHighlightable, IUsable
     [Range(0f, 1f)]
     [Tooltip("Multiplier applied to microphone noise suspicion when player is hidden here.")]
     public float noiseDampeningMultiplier = 0.4f;
+
+    [Header("Tutorial Prompt Settings")]
+    public bool showTutorialPrompt = true;
+    public string enterPrompt = "Press 'E' to Hide";
+    public string exitPrompt = "Press 'E' to Exit";
+    public Vector3 promptOffset = new Vector3(0f, 0.4f, 0f);
 
     [Header("Audio")]
     public AudioClip enterSFX;
@@ -155,6 +162,13 @@ public class HidingSpot : MonoBehaviour, IOccupiable, IHighlightable, IUsable
             audioSource.PlayOneShot(enterSFX);
         }
 
+        // Show exit tutorial prompt while hiding
+        if (showTutorialPrompt && TutorialManager.Instance != null && !string.IsNullOrEmpty(exitPrompt))
+        {
+            TutorialManager.Instance.defaultOffset = promptOffset;
+            TutorialManager.Instance.ShowTutorial(exitPrompt, hidingCam != null ? hidingCam.transform : transform);
+        }
+
         OnPlayerHidingStateChanged?.Invoke(this, true);
         OnInteracted?.Invoke();
     }
@@ -164,6 +178,12 @@ public class HidingSpot : MonoBehaviour, IOccupiable, IHighlightable, IUsable
         if (!isHiding || !canExitHiding) return;
 
         isHiding = false;
+
+        // Hide tutorial prompt
+        if (showTutorialPrompt && TutorialManager.Instance != null)
+        {
+            TutorialManager.Instance.HideTutorial();
+        }
 
         if (PlayerManager.Instance != null)
         {
@@ -225,6 +245,19 @@ public class HidingSpot : MonoBehaviour, IOccupiable, IHighlightable, IUsable
         if (outline != null)
         {
             outline.enabled = active;
+        }
+
+        if (showTutorialPrompt && TutorialManager.Instance != null)
+        {
+            if (active && !isHiding && !string.IsNullOrEmpty(enterPrompt))
+            {
+                TutorialManager.Instance.defaultOffset = promptOffset;
+                TutorialManager.Instance.ShowTutorial(enterPrompt, transform);
+            }
+            else if (!active && !isHiding)
+            {
+                TutorialManager.Instance.HideTutorial();
+            }
         }
     }
 }

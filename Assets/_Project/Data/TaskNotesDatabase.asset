@@ -77,11 +77,11 @@ MonoBehaviour:
     m_Title: control tutorial
     m_Description: 
     m_Priority: 2
-    m_Status: 1
+    m_Status: 2
     m_Category: Gameplay
     m_LinkedObject: {fileID: 0}
     m_CreatedDate: 2026-08-28 16:21
-    m_CompletedDate: 
+    m_CompletedDate: 2026-08-28 18:38
     m_DueDate: 
     m_Tags: []
     m_IsExpanded: 0

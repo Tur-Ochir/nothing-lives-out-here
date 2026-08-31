@@ -9,13 +9,19 @@ public class CarSeat : MonoBehaviour, IOccupiable, IHighlightable
     public bool isDrivingSeat = true;
     public bool isOccupied = false;
     public Door carDoor;
-    
+
     [Header("Camera & Exit")]
     public CinemachineCamera inCarCam;
     public Transform exitPoint;
 
     [Header("Highlight Outline")]
     public Outline outline;
+
+    [Header("Tutorial Prompt Settings")]
+    public bool showTutorialPrompt = true;
+    public string enterPrompt = "Press 'E' to Drive";
+    public string exitPrompt = "Press 'E' to Exit Car";
+    public Vector3 promptOffset = new Vector3(0f, 0.4f, 0f);
 
     public bool CanInteract => true;
     public bool hidePlayerOnEnter = true;
@@ -74,25 +80,28 @@ public class CarSeat : MonoBehaviour, IOccupiable, IHighlightable
                 PlayerManager.Instance.movement.canMove = false;
                 PlayerManager.Instance.movement.SetCamControllerActive(false);
             }
-            PlayerManager.Instance.HideItems(true);
         }
 
-        if (carDoor != null)
+        // Show exit prompt while driving
+        if (showTutorialPrompt && TutorialManager.Instance != null && !string.IsNullOrEmpty(exitPrompt))
         {
-            carDoor.SetOpen(false);
+            TutorialManager.Instance.defaultOffset = promptOffset;
+            TutorialManager.Instance.ShowTutorial(exitPrompt, transform);
         }
+
         OnInteracted?.Invoke();
     }
 
     public void ExitCarSeat()
     {
         isOccupied = false;
-        
-        if (carDoor != null)
+
+        // Hide tutorial prompt
+        if (showTutorialPrompt && TutorialManager.Instance != null)
         {
-            carDoor.SetOpen(true);
+            TutorialManager.Instance.HideTutorial();
         }
-        
+
         if (inCarCam != null)
         {
             inCarCam.gameObject.SetActive(false);
@@ -124,7 +133,6 @@ public class CarSeat : MonoBehaviour, IOccupiable, IHighlightable
             }
         }
 
-        PlayerManager.Instance.HideItems(false);
         OnInteracted?.Invoke();
     }
 
@@ -150,6 +158,19 @@ public class CarSeat : MonoBehaviour, IOccupiable, IHighlightable
         if (outline != null)
         {
             outline.enabled = active;
+        }
+
+        if (showTutorialPrompt && TutorialManager.Instance != null)
+        {
+            if (active && !isOccupied && !string.IsNullOrEmpty(enterPrompt))
+            {
+                TutorialManager.Instance.defaultOffset = promptOffset;
+                TutorialManager.Instance.ShowTutorial(enterPrompt, transform);
+            }
+            else if (!active && !isOccupied)
+            {
+                TutorialManager.Instance.HideTutorial();
+            }
         }
     }
 }
