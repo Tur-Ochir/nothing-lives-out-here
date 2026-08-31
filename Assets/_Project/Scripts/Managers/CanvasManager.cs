@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// Manages canvas visual transitions, black screen fades, and player sleep sequence choreography.
@@ -12,6 +15,7 @@ public class CanvasManager : MonoBehaviour
 
     [Header("UI")]
     public Image blackScreen;
+    public CanvasGroup settingsCanvas;
 
     private void Awake()
     {
@@ -31,6 +35,14 @@ public class CanvasManager : MonoBehaviour
     private void OnDisable()
     {
         GameManager.OnPlayerSleep -= StartSleep;
+    }
+
+    private void Update()
+    {
+        if (Keyboard.current.escapeKey.wasReleasedThisFrame)
+        {
+            OnSettings();
+        }
     }
 
     public void BlackScreen(float duration)
@@ -81,5 +93,16 @@ public class CanvasManager : MonoBehaviour
         {
             GameManager.Instance.SetNight();
         }
+    }
+
+    public void OnSettings()
+    {
+        settingsCanvas.gameObject.SetActive(true);
+        settingsCanvas.DOFade(1, .3f).From(0).OnComplete(() =>
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 0f;
+        });
     }
 }

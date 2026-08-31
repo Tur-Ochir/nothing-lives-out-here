@@ -13,6 +13,18 @@ MonoBehaviour:
   m_Name: TaskNotesDatabase
   m_EditorClassIdentifier: Dev.TodoNotes.Editor::Dev.TodoNotes.Editor.TaskNotesDatabase
   m_Tasks:
+  - m_Id: 5d661282-410c-4014-b867-aeb7dcb7ce9a
+    m_Title: control tutorial
+    m_Description: 
+    m_Priority: 2
+    m_Status: 2
+    m_Category: Gameplay
+    m_LinkedObject: {fileID: 0}
+    m_CreatedDate: 2026-08-28 16:21
+    m_CompletedDate: 2026-08-28 18:38
+    m_DueDate: 
+    m_Tags: []
+    m_IsExpanded: 0
   - m_Id: 22063962-490c-4bee-b1ff-59ec10f9abcc
     m_Title: Car
     m_Description: 
@@ -33,6 +45,30 @@ MonoBehaviour:
     m_Category: General
     m_LinkedObject: {fileID: 0}
     m_CreatedDate: 2026-08-26 17:02
+    m_CompletedDate: 
+    m_DueDate: 
+    m_Tags: []
+    m_IsExpanded: 0
+  - m_Id: 16598ed9-823f-46d7-8056-57fec01f7c41
+    m_Title: Pause Menu
+    m_Description: 
+    m_Priority: 1
+    m_Status: 1
+    m_Category: UI
+    m_LinkedObject: {fileID: 0}
+    m_CreatedDate: 2026-08-31 14:28
+    m_CompletedDate: 
+    m_DueDate: 
+    m_Tags: []
+    m_IsExpanded: 0
+  - m_Id: 4c99264f-a2ed-4270-8b13-2c2e30fd0189
+    m_Title: Main Menu
+    m_Description: 
+    m_Priority: 1
+    m_Status: 1
+    m_Category: UI
+    m_LinkedObject: {fileID: 0}
+    m_CreatedDate: 2026-08-31 14:29
     m_CompletedDate: 
     m_DueDate: 
     m_Tags: []
@@ -70,18 +106,6 @@ MonoBehaviour:
     m_LinkedObject: {fileID: 0}
     m_CreatedDate: 2026-08-26 23:36
     m_CompletedDate: 
-    m_DueDate: 
-    m_Tags: []
-    m_IsExpanded: 0
-  - m_Id: 5d661282-410c-4014-b867-aeb7dcb7ce9a
-    m_Title: control tutorial
-    m_Description: 
-    m_Priority: 2
-    m_Status: 2
-    m_Category: Gameplay
-    m_LinkedObject: {fileID: 0}
-    m_CreatedDate: 2026-08-28 16:21
-    m_CompletedDate: 2026-08-28 18:38
     m_DueDate: 
     m_Tags: []
     m_IsExpanded: 0
