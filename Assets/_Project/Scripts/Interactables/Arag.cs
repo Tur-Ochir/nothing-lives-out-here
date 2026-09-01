@@ -19,6 +19,7 @@ public class Arag : MonoBehaviour, IItemContainer, IHoldable, IHighlightable
 
     public Rigidbody rb;
     public Collider[] colliders;
+    public List<Collider> itemColliders = new List<Collider>();
     [HideInInspector] public Outline outline;
 
     private List<Outline> itemOutlines = new List<Outline>();
@@ -48,6 +49,7 @@ public class Arag : MonoBehaviour, IItemContainer, IHoldable, IHighlightable
         if (item.TryGetComponent(out Argal argal))
         {
             argal.SetRbColActive(false);
+            itemColliders.Add(argal.col);
         }
 
         Transform targetParent = itemPoints[currentCounter];
@@ -143,7 +145,7 @@ public class Arag : MonoBehaviour, IItemContainer, IHoldable, IHighlightable
 
         SetContainedColliders(true);
         SetActivateCollider(true);
-        Debug.Log("Release Arag");
+        // Debug.Log("Release Arag");
     }
 
     public void SetActivateCollider(bool activate)
@@ -154,6 +156,11 @@ public class Arag : MonoBehaviour, IItemContainer, IHoldable, IHighlightable
             {
                 if (c != null) c.enabled = activate;
             }
+        }
+
+        foreach (var c in itemColliders)
+        {
+            c.enabled = activate;
         }
     }
 

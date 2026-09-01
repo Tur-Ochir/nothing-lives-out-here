@@ -19,7 +19,7 @@ public class Argal : MonoBehaviour, IInteractable, IHoldable, ISpawnable, IHighl
 
     [HideInInspector] public Outline outline;
     [HideInInspector] public Rigidbody rb;
-    [HideInInspector] public Collider col;
+    public Collider col;
 
     public event Action OnInteracted;
 

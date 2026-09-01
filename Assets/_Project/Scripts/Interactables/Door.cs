@@ -68,7 +68,7 @@ public class Door : MonoBehaviour, IInteractable, IHighlightable
         HandleRotate(isOpen);
         PlaySFX(isOpen);
         OnInteracted?.Invoke();
-        Debug.Log($"Door {gameObject.name} interacted. Current state: {(isOpen ? "Open" : "Closed")}");
+        // Debug.Log($"Door {gameObject.name} interacted. Current state: {(isOpen ? "Open" : "Closed")}");
     }
 
     private void HandleRotate(bool open)

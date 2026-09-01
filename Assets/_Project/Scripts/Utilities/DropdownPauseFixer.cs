@@ -23,6 +23,7 @@ public class DropdownPauseFixer : MonoBehaviour
             }
         }
         CacheCanvas();
+        
     }
 
     private void OnEnable()
