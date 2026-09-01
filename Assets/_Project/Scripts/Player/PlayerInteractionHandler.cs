@@ -63,15 +63,6 @@ public class PlayerInteractionHandler : MonoBehaviour
             var itemContainer = hit.transform.GetComponent<IItemContainer>() ?? hit.transform.GetComponentInParent<IItemContainer>();
             if (itemContainer != null)
             {
-                // Transfer between containers if holding a container
-                if (player.currentContainer is MonoBehaviour heldContainerMb && itemContainer is IHoldableContainer targetHoldableContainer)
-                {
-                    if (targetHoldableContainer.TryGet(heldContainerMb.gameObject))
-                    {
-                        return true;
-                    }
-                }
-
                 // Put held item into target container
                 if (player.IsHoldingItem && player.heldItem is MonoBehaviour heldItemMb)
                 {
@@ -82,18 +73,11 @@ public class PlayerInteractionHandler : MonoBehaviour
                 }
             }
 
-            var holdableContainer = hit.transform.GetComponent<IHoldableContainer>() ?? hit.transform.GetComponentInParent<IHoldableContainer>();
-            if (holdableContainer != null && !player.IsHoldingItem && player.currentContainer == null)
-            {
-                holdableContainer.Hold(twoHandPoint);
-                return true;
-            }
-
             // 2. Interactable Interaction
             var interactable = hit.transform.GetComponent<IInteractable>() ?? hit.transform.GetComponentInParent<IInteractable>();
             if (interactable != null)
             {
-                if (player.IsHoldingItem && interactable is IHoldable targetHoldable && targetHoldable.DropCurrentItemOnInteract)
+                if (player.IsHoldingItem && !(player.heldItem is IItemContainer) && interactable is IHoldable targetHoldable && targetHoldable.DropCurrentItemOnInteract)
                 {
                     player.heldItem?.Drop();
                 }
@@ -103,9 +87,19 @@ public class PlayerInteractionHandler : MonoBehaviour
                 // Pick up holdable item if player hand is free
                 if (!player.IsHoldingItem && interactable is IHoldable pickupable)
                 {
-                    pickupable.Pickup(handPoint);
+                    Transform targetHoldPoint = pickupable.HoldType == HoldType.TwoHands ? twoHandPoint : handPoint;
+                    pickupable.Pickup(targetHoldPoint);
                 }
 
+                return true;
+            }
+
+            // 3. Direct Holdable Interaction (for items/containers that implement IHoldable directly)
+            var holdable = hit.transform.GetComponent<IHoldable>() ?? hit.transform.GetComponentInParent<IHoldable>();
+            if (holdable != null && !player.IsHoldingItem)
+            {
+                Transform targetHoldPoint = holdable.HoldType == HoldType.TwoHands ? twoHandPoint : handPoint;
+                holdable.Pickup(targetHoldPoint);
                 return true;
             }
         }
@@ -116,11 +110,6 @@ public class PlayerInteractionHandler : MonoBehaviour
     public void HandleDrop(PlayerManager player)
     {
         if (player == null) return;
-
-        if (player.currentContainer != null)
-        {
-            player.currentContainer.Release();
-        }
 
         if (player.IsHoldingItem)
         {

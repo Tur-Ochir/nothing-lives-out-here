@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
 
         SetupEnvironmentManager();
     }
+    
 
     private void SetupEnvironmentManager()
     {
@@ -76,6 +77,12 @@ public class GameManager : MonoBehaviour
             monsterManager.OnStartWalk += OnMonsterWalk;
         }
         OnPlayerEatFill += HandlePlayerEatFill;
+        Settings.OnLanguageChangedEvent += OnLanguageChanged;
+    }
+
+    public void OnLanguageChanged(Language language)
+    {
+        currentLanguage = language;
     }
 
     private void OnDisable()

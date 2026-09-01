@@ -9,6 +9,7 @@ public class Tag : MonoBehaviour, IInteractable, IHoldable, IHighlightable
 
     [Header("Interactable")]
     public bool canInteract = true;
+    public HoldType holdType = HoldType.OneHand;
     public bool moveToHand = true;
     public Vector3 inHandRotation;
     public float moveSpeed = 12f;
@@ -23,6 +24,7 @@ public class Tag : MonoBehaviour, IInteractable, IHoldable, IHighlightable
 
     public bool CanInteract => canInteract;
     public string ReasonCannotInteract => reasonNotInteract;
+    public HoldType HoldType => holdType;
     public bool IsHeld => PlayerManager.Instance != null && PlayerManager.Instance.heldItem == (IHoldable)this;
     public bool DropCurrentItemOnInteract => dropCurrentItem;
 

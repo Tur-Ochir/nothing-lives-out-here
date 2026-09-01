@@ -45,11 +45,35 @@ public class Furnace : MonoBehaviour, IItemContainer, IHighlightable
     public bool TryContain(GameObject item)
     {
         if (!CanContainItems || item == null) return false;
-        if (am != null && !am.isOpen) return false;
 
+        if (item.TryGetComponent(out Togoo togoo))
+        {
+            if (cap != null && cap.isCapped) return false;
+
+            togoo.transform.SetParent(transform);
+            togoo.transform.DOLocalMove(togooPoint, 0.5f).OnComplete(() => togoo.SetActivateCollider(true));
+            togoo.transform.DOLocalRotate(Vector3.zero, 0.5f);
+
+            if (PlayerManager.Instance != null)
+            {
+                PlayerManager.Instance.heldItem = null;
+            }
+
+            if (cap != null)
+            {
+                cap.canCap = false;
+            }
+
+            togoo.furnace = this;
+            currentTogoo = togoo;
+            return true;
+        }
+        
         // 1. Fuel items (Argal)
         if (item.TryGetComponent(out Argal argal))
         {
+            if (am != null && !am.isOpen) return false;
+            
             burnTime += argal.burnDur;
 
             Transform targetParent = (itemPoints != null && itemPoints.Length > 0) ? itemPoints[0] : transform;
@@ -71,6 +95,8 @@ public class Furnace : MonoBehaviour, IItemContainer, IHighlightable
         // 2. Igniter items (Match)
         if (item.TryGetComponent(out Match _))
         {
+            if (am != null && !am.isOpen) return false;
+            
             if (burnTime > 0f)
             {
                 SetFire(true);
@@ -84,36 +110,7 @@ public class Furnace : MonoBehaviour, IItemContainer, IHighlightable
 
         return false;
     }
-
-    public bool TryGet(GameObject container)
-    {
-        if (container == null) return false;
-
-        if (container.TryGetComponent(out Togoo togoo))
-        {
-            if (cap != null && cap.isCapped) return false;
-
-            togoo.transform.SetParent(transform);
-            togoo.transform.DOLocalMove(togooPoint, 0.5f).OnComplete(() => togoo.SetActivateCollider(true));
-            togoo.transform.DOLocalRotate(Vector3.zero, 0.5f);
-
-            if (PlayerManager.Instance != null)
-            {
-                PlayerManager.Instance.currentContainer = null;
-            }
-
-            if (cap != null)
-            {
-                cap.canCap = false;
-            }
-
-            togoo.furnace = this;
-            currentTogoo = togoo;
-            return true;
-        }
-
-        return false;
-    }
+    
 
     public void Remove(GameObject item)
     {

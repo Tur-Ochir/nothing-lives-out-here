@@ -16,6 +16,7 @@ public class CanvasManager : MonoBehaviour
     [Header("UI")]
     public Image blackScreen;
     public CanvasGroup settingsCanvas;
+    public bool isSettingsOpen;
 
     private void Awake()
     {
@@ -97,12 +98,14 @@ public class CanvasManager : MonoBehaviour
 
     public void OnSettings()
     {
-        settingsCanvas.gameObject.SetActive(true);
-        settingsCanvas.DOFade(1, .3f).From(0).OnComplete(() =>
+        isSettingsOpen = !isSettingsOpen;
+        
+        settingsCanvas.gameObject.SetActive(isSettingsOpen);
+        settingsCanvas.DOFade(isSettingsOpen ? 1 : 0, .3f).From(0).SetUpdate(true).OnComplete(() =>
         {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-            Time.timeScale = 0f;
+            Cursor.visible = isSettingsOpen;
+            Cursor.lockState = isSettingsOpen ? CursorLockMode.None : CursorLockMode.Locked;
+            Time.timeScale = isSettingsOpen ? 0 : 1;
         });
     }
 }

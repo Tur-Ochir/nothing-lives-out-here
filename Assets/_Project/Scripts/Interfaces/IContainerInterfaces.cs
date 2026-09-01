@@ -8,12 +8,3 @@ public interface IItemContainer
     bool TryContain(GameObject item);
     void Remove(GameObject item);
 }
-
-public interface IHoldableContainer
-{
-    bool CanHold { get; }
-    bool IsHeld { get; }
-    void Hold(Transform holdTransform);
-    void Release();
-    bool TryGet(GameObject otherContainer);
-}

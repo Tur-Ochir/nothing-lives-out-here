@@ -10,6 +10,7 @@ public class Argal : MonoBehaviour, IInteractable, IHoldable, ISpawnable, IHighl
 
     [Header("Interactable")]
     public bool canInteract = true;
+    public HoldType holdType = HoldType.OneHand;
     public bool moveToHand = true;
     public Vector3 inHandRotation;
     public float moveSpeed = 12f;
@@ -24,6 +25,7 @@ public class Argal : MonoBehaviour, IInteractable, IHoldable, ISpawnable, IHighl
 
     public bool CanInteract => canInteract;
     public string ReasonCannotInteract => reasonNotInteract;
+    public HoldType HoldType => holdType;
     public bool IsHeld => PlayerManager.Instance != null && PlayerManager.Instance.heldItem == (IHoldable)this;
     public bool DropCurrentItemOnInteract => dropCurrentItem;
 
@@ -66,7 +68,7 @@ public class Argal : MonoBehaviour, IInteractable, IHoldable, ISpawnable, IHighl
     public void Interact()
     {
         // Container pickup (e.g. into Arag basket)
-        if (PlayerManager.Instance != null && PlayerManager.Instance.currentContainer is Arag arag)
+        if (PlayerManager.Instance != null && PlayerManager.Instance.heldItem is Arag arag)
         {
             if (arag.currentCounter >= arag.itemPoints.Length)
             {
@@ -81,6 +83,13 @@ public class Argal : MonoBehaviour, IInteractable, IHoldable, ISpawnable, IHighl
             transform.SetParent(arag.itemPoints[arag.currentCounter]);
             transform.DOLocalJump(Vector3.zero, 2.5f, 1, 0.5f);
             transform.DOLocalRotate(Vector3.zero, 0.5f);
+
+            if (outline != null)
+            {
+                outline.OutlineMode = Outline.Mode.OutlineVisible;
+                arag.AddItemOutline(outline);
+            }
+
             arag.currentCounter++;
             arag.items.Add(gameObject);
             OnInteracted?.Invoke();

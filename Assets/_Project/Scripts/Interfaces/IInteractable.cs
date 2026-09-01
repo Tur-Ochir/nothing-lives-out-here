@@ -25,10 +25,17 @@ public interface IUsable
     void Use();
 }
 
+public enum HoldType
+{
+    OneHand,
+    TwoHands
+}
+
 public interface IHoldable
 {
     bool IsHeld { get; }
     bool DropCurrentItemOnInteract { get; }
+    HoldType HoldType { get; }
     void Pickup(Transform holdTransform);
     void Drop();
 }

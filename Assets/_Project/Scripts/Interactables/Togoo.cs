@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-public class Togoo : MonoBehaviour, IItemContainer, IHoldableContainer, IHighlightable
+public class Togoo : MonoBehaviour, IItemContainer, IHoldable, IHighlightable
 {
     [Header("Container Settings")]
     public bool canContainItems = true;
@@ -13,6 +13,7 @@ public class Togoo : MonoBehaviour, IItemContainer, IHoldableContainer, IHighlig
 
     [Header("Hold Settings")]
     public bool canHold = true;
+    public HoldType holdType = HoldType.TwoHands;
     public float moveSpeed = 12f;
     public Vector3 inHandRotation;
 
@@ -36,7 +37,9 @@ public class Togoo : MonoBehaviour, IItemContainer, IHoldableContainer, IHighlig
     public int ItemCount => currentCounter;
     public int Capacity => itemPoints != null ? itemPoints.Length : 0;
     public bool CanHold => canHold;
-    public bool IsHeld => PlayerManager.Instance != null && PlayerManager.Instance.currentContainer == (IHoldableContainer)this;
+    public HoldType HoldType => holdType;
+    public bool DropCurrentItemOnInteract => false;
+    public bool IsHeld => PlayerManager.Instance != null && PlayerManager.Instance.heldItem == (IHoldable)this;
 
     private void Awake()
     {
@@ -129,7 +132,7 @@ public class Togoo : MonoBehaviour, IItemContainer, IHoldableContainer, IHighlig
         }
     }
 
-    public void Hold(Transform holdTransform)
+    public void Pickup(Transform holdTransform)
     {
         if (!CanHold || holdTransform == null) return;
 
@@ -138,7 +141,7 @@ public class Togoo : MonoBehaviour, IItemContainer, IHoldableContainer, IHighlig
 
         if (PlayerManager.Instance != null)
         {
-            PlayerManager.Instance.currentContainer = this;
+            PlayerManager.Instance.heldItem = this;
         }
 
         if (tag != null)
@@ -157,7 +160,7 @@ public class Togoo : MonoBehaviour, IItemContainer, IHoldableContainer, IHighlig
         moveToHandCoroutine = StartCoroutine(MoveToHandRoutine());
     }
 
-    public void Release()
+    public void Drop()
     {
         if (!CanHold) return;
 
@@ -174,9 +177,9 @@ public class Togoo : MonoBehaviour, IItemContainer, IHoldableContainer, IHighlig
 
         transform.SetParent(null);
 
-        if (PlayerManager.Instance != null && PlayerManager.Instance.currentContainer == (IHoldableContainer)this)
+        if (PlayerManager.Instance != null && PlayerManager.Instance.heldItem == (IHoldable)this)
         {
-            PlayerManager.Instance.currentContainer = null;
+            PlayerManager.Instance.heldItem = null;
         }
 
         if (tag != null && tag.col != null)
@@ -186,11 +189,6 @@ public class Togoo : MonoBehaviour, IItemContainer, IHoldableContainer, IHighlig
 
         SetContainedColliders(true);
         SetActivateCollider(true);
-    }
-
-    public bool TryGet(GameObject otherContainer)
-    {
-        return true;
     }
 
     public void SetActivateCollider(bool activate)

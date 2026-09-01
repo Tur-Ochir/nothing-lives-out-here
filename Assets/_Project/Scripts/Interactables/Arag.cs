@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-public class Arag : MonoBehaviour, IItemContainer, IHoldableContainer, IHighlightable
+public class Arag : MonoBehaviour, IItemContainer, IHoldable, IHighlightable
 {
     [Header("Container Settings")]
     public bool canContainItems = true;
@@ -13,6 +13,7 @@ public class Arag : MonoBehaviour, IItemContainer, IHoldableContainer, IHighligh
 
     [Header("Hold Settings")]
     public bool canHold = true;
+    public HoldType holdType = HoldType.TwoHands;
     public float moveSpeed = 12f;
     public Vector3 inHandRotation;
 
@@ -28,7 +29,9 @@ public class Arag : MonoBehaviour, IItemContainer, IHoldableContainer, IHighligh
     public int ItemCount => currentCounter;
     public int Capacity => itemPoints != null ? itemPoints.Length : 0;
     public bool CanHold => canHold;
-    public bool IsHeld => PlayerManager.Instance != null && PlayerManager.Instance.currentContainer == (IHoldableContainer)this;
+    public HoldType HoldType => holdType;
+    public bool DropCurrentItemOnInteract => false;
+    public bool IsHeld => PlayerManager.Instance != null && PlayerManager.Instance.heldItem == (IHoldable)this;
 
     private void Awake()
     {
@@ -61,7 +64,7 @@ public class Arag : MonoBehaviour, IItemContainer, IHoldableContainer, IHighligh
             itemOutlines.Add(itemOutline);
         }
 
-        if (PlayerManager.Instance != null)
+        if (PlayerManager.Instance != null && PlayerManager.Instance.heldItem != (IHoldable)this)
         {
             PlayerManager.Instance.heldItem = null;
         }
@@ -69,6 +72,14 @@ public class Arag : MonoBehaviour, IItemContainer, IHoldableContainer, IHighligh
         currentCounter++;
         items.Add(item);
         return true;
+    }
+
+    public void AddItemOutline(Outline itemOutline)
+    {
+        if (itemOutline != null && !itemOutlines.Contains(itemOutline))
+        {
+            itemOutlines.Add(itemOutline);
+        }
     }
 
     public void Remove(GameObject item)
@@ -85,7 +96,7 @@ public class Arag : MonoBehaviour, IItemContainer, IHoldableContainer, IHighligh
         }
     }
 
-    public void Hold(Transform holdTransform)
+    public void Pickup(Transform holdTransform)
     {
         if (!CanHold || holdTransform == null) return;
 
@@ -94,7 +105,7 @@ public class Arag : MonoBehaviour, IItemContainer, IHoldableContainer, IHighligh
 
         if (PlayerManager.Instance != null)
         {
-            PlayerManager.Instance.currentContainer = this;
+            PlayerManager.Instance.heldItem = this;
         }
 
         SetContainedColliders(false);
@@ -108,7 +119,7 @@ public class Arag : MonoBehaviour, IItemContainer, IHoldableContainer, IHighligh
         moveToHandCoroutine = StartCoroutine(MoveToHandRoutine());
     }
 
-    public void Release()
+    public void Drop()
     {
         if (!CanHold) return;
 
@@ -125,19 +136,14 @@ public class Arag : MonoBehaviour, IItemContainer, IHoldableContainer, IHighligh
 
         transform.SetParent(null);
 
-        if (PlayerManager.Instance != null && PlayerManager.Instance.currentContainer == (IHoldableContainer)this)
+        if (PlayerManager.Instance != null && PlayerManager.Instance.heldItem == (IHoldable)this)
         {
-            PlayerManager.Instance.currentContainer = null;
+            PlayerManager.Instance.heldItem = null;
         }
 
         SetContainedColliders(true);
         SetActivateCollider(true);
         Debug.Log("Release Arag");
-    }
-
-    public bool TryGet(GameObject otherContainer)
-    {
-        return true;
     }
 
     public void SetActivateCollider(bool activate)

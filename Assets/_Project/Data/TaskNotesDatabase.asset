@@ -53,11 +53,11 @@ MonoBehaviour:
     m_Title: Pause Menu
     m_Description: 
     m_Priority: 1
-    m_Status: 1
+    m_Status: 2
     m_Category: UI
     m_LinkedObject: {fileID: 0}
     m_CreatedDate: 2026-08-31 14:28
-    m_CompletedDate: 
+    m_CompletedDate: 2026-09-01 14:18
     m_DueDate: 
     m_Tags: []
     m_IsExpanded: 0
@@ -65,11 +65,11 @@ MonoBehaviour:
     m_Title: Main Menu
     m_Description: 
     m_Priority: 1
-    m_Status: 1
+    m_Status: 2
     m_Category: UI
     m_LinkedObject: {fileID: 0}
     m_CreatedDate: 2026-08-31 14:29
-    m_CompletedDate: 
+    m_CompletedDate: 2026-09-01 14:18
     m_DueDate: 
     m_Tags: []
     m_IsExpanded: 0
@@ -218,6 +218,30 @@ MonoBehaviour:
     m_DueDate: 
     m_Tags: []
     m_IsExpanded: 0
+  - m_Id: 2f44f6e7-9234-4521-b8b7-99799b4818c2
+    m_Title: Sound Manager
+    m_Description: 
+    m_Priority: 1
+    m_Status: 2
+    m_Category: General
+    m_LinkedObject: {fileID: 0}
+    m_CreatedDate: 2026-09-01 16:26
+    m_CompletedDate: 2026-09-01 16:26
+    m_DueDate: 
+    m_Tags: []
+    m_IsExpanded: 0
+  - m_Id: 0aeac1d1-b322-413d-90b4-2750857e4f52
+    m_Title: Fix interactions
+    m_Description: 
+    m_Priority: 2
+    m_Status: 1
+    m_Category: Bug
+    m_LinkedObject: {fileID: 0}
+    m_CreatedDate: 2026-09-01 18:45
+    m_CompletedDate: 
+    m_DueDate: 
+    m_Tags: []
+    m_IsExpanded: 1
   m_Notes:
   - m_Id: f9a572f8-a1fe-4eb9-a368-130fec2ad323
     m_Title: Story

@@ -8,7 +8,6 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager Instance { get; private set; }
     public bool IsHoldingItem => heldItem != null;
     public IHoldable heldItem;
-    public IHoldableContainer currentContainer;
 
     [Header("Flashlight")]
     public bool canUseflashlight = true;
