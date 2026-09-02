@@ -88,6 +88,7 @@ public class Argal : MonoBehaviour, IInteractable, IHoldable, ISpawnable, IHighl
             {
                 outline.OutlineMode = Outline.Mode.OutlineVisible;
                 arag.AddItemOutline(outline);
+                arag.itemColliders.Add(col);
             }
 
             arag.currentCounter++;

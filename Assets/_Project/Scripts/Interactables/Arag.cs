@@ -49,7 +49,6 @@ public class Arag : MonoBehaviour, IItemContainer, IHoldable, IHighlightable
         if (item.TryGetComponent(out Argal argal))
         {
             argal.SetRbColActive(false);
-            itemColliders.Add(argal.col);
         }
 
         Transform targetParent = itemPoints[currentCounter];
