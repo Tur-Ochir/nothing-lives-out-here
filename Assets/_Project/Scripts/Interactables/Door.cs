@@ -17,6 +17,12 @@ public class Door : MonoBehaviour, IInteractable, IHighlightable
     public AudioClip openSFX;
     public AudioClip closeSFX;
     public AudioClip[] knockSFX;
+    [Range(0f, 1f)] public float sfxVolume = 1f;
+
+    [Header("Pitch Randomization")]
+    public bool randomizePitch = true;
+    public float minPitch = 0.88f;
+    public float maxPitch = 1.12f;
 
     [Header("State")]
     public bool isOpen;
@@ -41,6 +47,27 @@ public class Door : MonoBehaviour, IInteractable, IHighlightable
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 1f; // 3D sound in world
+        audioSource.rolloffMode = AudioRolloffMode.Linear;
+        audioSource.minDistance = 1f;
+        audioSource.maxDistance = 25f;
+    }
+
+    private void Start()
+    {
+        if (SoundManager.Instance != null && audioSource != null)
+        {
+            SoundManager.Instance.RegisterAudioSource(audioSource, SoundManager.SoundCategory.SFX, sfxVolume);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (SoundManager.Instance != null && audioSource != null)
+        {
+            SoundManager.Instance.UnregisterAudioSource(audioSource);
         }
     }
 
@@ -80,11 +107,19 @@ public class Door : MonoBehaviour, IInteractable, IHighlightable
 
     private void PlaySFX(bool open)
     {
-        if (audioSource == null) return;
         var clip = open ? openSFX : closeSFX;
-        if (clip != null)
+        if (clip == null) return;
+
+        float pitch = randomizePitch ? UnityEngine.Random.Range(minPitch, maxPitch) : 1f;
+
+        if (audioSource != null)
         {
-            audioSource.PlayOneShot(clip);
+            audioSource.pitch = pitch;
+            audioSource.PlayOneShot(clip, sfxVolume);
+        }
+        else if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySFX3D(clip, transform.position, sfxVolume);
         }
     }
 
@@ -104,8 +139,21 @@ public class Door : MonoBehaviour, IInteractable, IHighlightable
 
     private void PlayKnockSFX()
     {
-        if (audioSource == null || knockSFX == null || knockSFX.Length == 0) return;
-        audioSource.PlayOneShot(knockSFX[UnityEngine.Random.Range(0, knockSFX.Length)]);
+        if (knockSFX == null || knockSFX.Length == 0) return;
+        AudioClip clip = knockSFX[UnityEngine.Random.Range(0, knockSFX.Length)];
+        if (clip == null) return;
+
+        float pitch = randomizePitch ? UnityEngine.Random.Range(minPitch, maxPitch) : 1f;
+
+        if (audioSource != null)
+        {
+            audioSource.pitch = pitch;
+            audioSource.PlayOneShot(clip, sfxVolume);
+        }
+        else if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySFX3D(clip, transform.position, sfxVolume);
+        }
     }
 
     public void TryOpenAnimation()

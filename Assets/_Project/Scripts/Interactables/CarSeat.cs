@@ -89,12 +89,21 @@ public class CarSeat : MonoBehaviour, IOccupiable, IHighlightable
             TutorialManager.Instance.ShowTutorial(exitPrompt, transform);
         }
 
+        if (carDoor != null)
+        {
+            carDoor.SetOpen(false);
+        }
+
         OnInteracted?.Invoke();
     }
 
     public void ExitCarSeat()
     {
         isOccupied = false;
+        if (carDoor != null)
+        {
+            carDoor.SetOpen(true);
+        }
 
         // Hide tutorial prompt
         if (showTutorialPrompt && TutorialManager.Instance != null)

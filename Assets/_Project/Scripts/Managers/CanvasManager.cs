@@ -3,6 +3,7 @@ using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -16,7 +17,8 @@ public class CanvasManager : MonoBehaviour
     [Header("UI")]
     public Image blackScreen;
     public CanvasGroup settingsCanvas;
-    public bool isSettingsOpen;
+    public CanvasGroup pauseMenuCanvas;
+    public bool isPaused;
 
     private void Awake()
     {
@@ -42,7 +44,7 @@ public class CanvasManager : MonoBehaviour
     {
         if (Keyboard.current.escapeKey.wasReleasedThisFrame)
         {
-            OnSettings();
+            TogglePause();
         }
     }
 
@@ -96,16 +98,41 @@ public class CanvasManager : MonoBehaviour
         }
     }
 
-    public void OnSettings()
+    public void TogglePause()
     {
-        isSettingsOpen = !isSettingsOpen;
+        isPaused = !isPaused;
         
-        settingsCanvas.gameObject.SetActive(isSettingsOpen);
-        settingsCanvas.DOFade(isSettingsOpen ? 1 : 0, .3f).From(0).SetUpdate(true).OnComplete(() =>
+        pauseMenuCanvas.gameObject.SetActive(isPaused);
+        pauseMenuCanvas.DOFade(isPaused ? 1 : 0, .3f).From(0).SetUpdate(true).OnComplete(() =>
         {
-            Cursor.visible = isSettingsOpen;
-            Cursor.lockState = isSettingsOpen ? CursorLockMode.None : CursorLockMode.Locked;
-            Time.timeScale = isSettingsOpen ? 0 : 1;
+            Cursor.visible = isPaused;
+            Cursor.lockState = isPaused ? CursorLockMode.None : CursorLockMode.Locked;
+            Time.timeScale = isPaused ? 0 : 1;
+        });
+    }
+    public void OnResumeButtonClicked()
+    {
+        TogglePause();
+    }
+    public void OnSettingsButtonClicked()
+    {
+        pauseMenuCanvas.DOFade(0, .2f).From(1).SetUpdate(true);
+        settingsCanvas.gameObject.SetActive(true);
+        settingsCanvas.DOFade(1, .3f).From(0).SetUpdate(true);
+    }
+    public void OnSettingsCloseButtonClicked()
+    {
+        settingsCanvas.gameObject.SetActive(false);
+        settingsCanvas.DOFade(0, .2f).From(1).SetUpdate(true);
+        pauseMenuCanvas.DOFade(1, .3f).From(0).SetUpdate(true);
+    }
+
+    public void OnQuitButtonClicked()
+    {
+        TogglePause();
+        DOVirtual.DelayedCall(0.3f, () =>
+        {
+            SceneManager.LoadScene("_Project/Scenes/Menu");
         });
     }
 }

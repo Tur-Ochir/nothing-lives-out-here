@@ -28,6 +28,7 @@ public class PlayerManager : MonoBehaviour
     public PlayerMovement movement;
     public PlayerInteractionHandler interaction;
     public PlayerDriver driver;
+    public PlayerFootsteps footsteps;
     public CinemachineCamera playerCam;
 
     public bool IsDriving => driver != null && driver.IsDriving;
@@ -53,6 +54,11 @@ public class PlayerManager : MonoBehaviour
         input = GetComponent<PlayerInput>();
         movement = GetComponent<PlayerMovement>();
         interaction = GetComponent<PlayerInteractionHandler>();
+        footsteps = GetComponent<PlayerFootsteps>();
+        if (footsteps == null)
+        {
+            footsteps = gameObject.AddComponent<PlayerFootsteps>();
+        }
         driver = GetComponent<PlayerDriver>();
         if (driver == null)
         {

@@ -84,9 +84,7 @@ public class Settings : MonoBehaviour
         }
         else
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            Time.timeScale = 1;
+            CanvasManager.Instance.OnSettingsCloseButtonClicked();
         }
     }
 
