@@ -112,8 +112,17 @@ public class CarController : MonoBehaviour
     public bool headlightsOn = true;
 
     [Header("Audio")]
+    [Tooltip("Audio category for vehicle sounds.")]
+    public SoundManager.SoundCategory audioCategory = SoundManager.SoundCategory.SFX;
+
     [Tooltip("Audio source for engine loop.")]
     public AudioSource engineAudio;
+
+    [Tooltip("Dedicated audio source for vehicle one-shot SFX (start, stop, horn, handbrake).")]
+    public AudioSource sfxAudio;
+
+    [Tooltip("Audio clip for engine running loop.")]
+    public AudioClip engineLoopSFX;
 
     [Tooltip("Audio clip for engine start.")]
     public AudioClip engineStartSFX;
@@ -124,11 +133,28 @@ public class CarController : MonoBehaviour
     [Tooltip("Audio clip for horn.")]
     public AudioClip hornSFX;
 
+    [Tooltip("Audio clip for handbrake engagement.")]
+    public AudioClip handbrakeSFX;
+
+    [Range(0f, 1f)]
+    [Tooltip("Base volume for the engine running audio source.")]
+    public float engineBaseVolume = 0.75f;
+
+    [Range(0f, 1f)]
+    [Tooltip("Base volume for one-shot vehicle SFX.")]
+    public float sfxBaseVolume = 1.0f;
+
     [Tooltip("Pitch of engine at idle.")]
     public float minEnginePitch = 0.7f;
 
     [Tooltip("Pitch of engine at max speed.")]
     public float maxEnginePitch = 1.8f;
+
+    [Tooltip("How quickly engine pitch shifts.")]
+    public float enginePitchSmoothSpeed = 5f;
+
+    [Tooltip("How quickly engine volume fades and adjusts.")]
+    public float engineVolumeSmoothSpeed = 4f;
 
     // Runtime properties
     public PlayerDriver CurrentDriver { get; private set; }
@@ -170,20 +196,29 @@ public class CarController : MonoBehaviour
             driverSeat = GetComponentInChildren<CarSeat>();
         }
 
-        if (engineAudio == null)
-        {
-            engineAudio = GetComponent<AudioSource>();
-            if (engineAudio == null && (engineStartSFX != null || engineStopSFX != null))
-            {
-                engineAudio = gameObject.AddComponent<AudioSource>();
-            }
-        }
-
+        SetupAudioSources();
         AutoFindLightsAndMeshes();
+    }
+
+    private void OnEnable()
+    {
+        RegisterAudioSources();
+    }
+
+    private void OnDisable()
+    {
+        UnregisterAudioSources();
+    }
+
+    private void OnDestroy()
+    {
+        UnregisterAudioSources();
     }
 
     private void Start()
     {
+        RegisterAudioSources();
+
         // Remove Rigidbody and disable WheelColliders on startup until driver enters
         rb = GetComponent<Rigidbody>();
         if (rb != null)
@@ -262,6 +297,11 @@ public class CarController : MonoBehaviour
     /// </summary>
     public void Drive(Vector2 input, bool handbrake = false)
     {
+        if (handbrake && !isHandbraking)
+        {
+            // PlayHandbrake();
+        }
+
         currentInput = input;
         isHandbraking = handbrake;
     }
@@ -486,30 +526,164 @@ public class CarController : MonoBehaviour
         mesh.rotation = rot * Quaternion.Euler(wheelMeshRotationOffset);
     }
 
+    private void SetupAudioSources()
+    {
+        if (engineAudio == null)
+        {
+            AudioSource[] sources = GetComponents<AudioSource>();
+            if (sources.Length > 0)
+            {
+                engineAudio = sources[0];
+            }
+            else
+            {
+                engineAudio = gameObject.AddComponent<AudioSource>();
+            }
+        }
+        ConfigureAudioSource(engineAudio, true);
+
+        if (sfxAudio == null)
+        {
+            AudioSource[] sources = GetComponents<AudioSource>();
+            foreach (var src in sources)
+            {
+                if (src != engineAudio)
+                {
+                    sfxAudio = src;
+                    break;
+                }
+            }
+
+            if (sfxAudio == null)
+            {
+                sfxAudio = gameObject.AddComponent<AudioSource>();
+            }
+        }
+        ConfigureAudioSource(sfxAudio, false);
+    }
+
+    private void ConfigureAudioSource(AudioSource src, bool isLoop)
+    {
+        if (src == null) return;
+        src.playOnAwake = false;
+        src.loop = isLoop;
+        src.spatialBlend = 1f; // 3D sound
+        src.rolloffMode = AudioRolloffMode.Linear;
+        src.minDistance = 2f;
+        src.maxDistance = 50f;
+    }
+
+    public void RegisterAudioSources()
+    {
+        if (SoundManager.Instance == null) return;
+
+        if (engineAudio != null)
+        {
+            SoundManager.Instance.RegisterAudioSource(engineAudio, audioCategory, engineBaseVolume);
+        }
+
+        if (sfxAudio != null)
+        {
+            SoundManager.Instance.RegisterAudioSource(sfxAudio, audioCategory, sfxBaseVolume);
+        }
+    }
+
+    public void UnregisterAudioSources()
+    {
+        if (SoundManager.Instance == null) return;
+
+        if (engineAudio != null)
+        {
+            SoundManager.Instance.UnregisterAudioSource(engineAudio);
+        }
+
+        if (sfxAudio != null)
+        {
+            SoundManager.Instance.UnregisterAudioSource(sfxAudio);
+        }
+    }
+
+    /// <summary>
+    /// Plays vehicle one-shot sound effect (horn, engine start/stop, handbrake) using sfxAudio or SoundManager.
+    /// </summary>
+    public void PlaySFX(AudioClip clip, float volumeScale = 1f)
+    {
+        if (clip == null) return;
+
+        if (sfxAudio != null)
+        {
+            sfxAudio.pitch = 1f;
+            sfxAudio.PlayOneShot(clip, volumeScale);
+        }
+        else if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySFX3D(clip, transform.position, volumeScale * sfxBaseVolume);
+        }
+    }
+
+    /// <summary>
+    /// Plays the vehicle horn SFX.
+    /// </summary>
+    public void PlayHorn()
+    {
+        PlaySFX(hornSFX);
+    }
+
+    /// <summary>
+    /// Plays the vehicle handbrake engagement SFX.
+    /// </summary>
+    public void PlayHandbrake()
+    {
+        PlaySFX(handbrakeSFX);
+    }
+
     private void UpdateEngineAudio()
     {
         if (engineAudio == null) return;
 
+        float effectiveVolume = SoundManager.Instance != null 
+            ? SoundManager.Instance.GetEffectiveVolume(audioCategory) 
+            : 1f;
+
         if (HasDriver)
         {
-            if (!engineAudio.isPlaying)
+            if (engineLoopSFX != null && engineAudio.clip != engineLoopSFX)
+            {
+                engineAudio.clip = engineLoopSFX;
+            }
+
+            if (!engineAudio.isPlaying && engineAudio.clip != null)
             {
                 engineAudio.loop = true;
                 engineAudio.Play();
             }
 
             float speedFraction = Mathf.Clamp01(CurrentSpeedKmh / maxSpeedKmh);
-            engineAudio.pitch = Mathf.Lerp(minEnginePitch, maxEnginePitch, speedFraction);
+            float targetPitch = Mathf.Lerp(minEnginePitch, maxEnginePitch, speedFraction);
+            engineAudio.pitch = Mathf.Lerp(engineAudio.pitch, targetPitch, Time.deltaTime * enginePitchSmoothSpeed);
+
+            float throttle = Mathf.Abs(currentInput.y);
+            float throttleMultiplier = Mathf.Lerp(0.75f, 1f, throttle);
+            float targetVolume = engineBaseVolume * throttleMultiplier * effectiveVolume;
+            engineAudio.volume = Mathf.MoveTowards(engineAudio.volume, targetVolume, Time.deltaTime * engineVolumeSmoothSpeed);
         }
         else
         {
-            if (engineAudio.isPlaying && CurrentSpeedKmh < 1f)
+            if (engineAudio.isPlaying)
             {
-                engineAudio.Stop();
-            }
-            else if (engineAudio.isPlaying)
-            {
-                engineAudio.pitch = Mathf.Lerp(engineAudio.pitch, minEnginePitch, Time.deltaTime * 3f);
+                if (CurrentSpeedKmh < 0.5f)
+                {
+                    engineAudio.volume = Mathf.MoveTowards(engineAudio.volume, 0f, Time.deltaTime * engineVolumeSmoothSpeed);
+                    if (engineAudio.volume <= 0.01f)
+                    {
+                        engineAudio.Stop();
+                    }
+                }
+                else
+                {
+                    engineAudio.pitch = Mathf.Lerp(engineAudio.pitch, minEnginePitch, Time.deltaTime * 2f);
+                    engineAudio.volume = Mathf.MoveTowards(engineAudio.volume, 0f, Time.deltaTime * 2f);
+                }
             }
         }
     }
@@ -541,9 +715,18 @@ public class CarController : MonoBehaviour
         // 2. Activate WheelColliders
         SetWheelCollidersActive(true);
 
-        if (engineStartSFX != null && engineAudio != null)
+        PlaySFX(engineStartSFX);
+
+        if (engineLoopSFX != null && engineAudio != null)
         {
-            engineAudio.PlayOneShot(engineStartSFX);
+            engineAudio.clip = engineLoopSFX;
+            engineAudio.loop = true;
+            engineAudio.pitch = minEnginePitch;
+            if (!engineAudio.isPlaying)
+            {
+                engineAudio.volume = 0f;
+                engineAudio.Play();
+            }
         }
 
         OnDriverEntered?.Invoke(driver);
@@ -573,10 +756,7 @@ public class CarController : MonoBehaviour
             rb = null;
         }
 
-        if (engineStopSFX != null && engineAudio != null)
-        {
-            engineAudio.PlayOneShot(engineStopSFX);
-        }
+        PlaySFX(engineStopSFX);
 
         OnDriverExited?.Invoke(prevDriver);
     }
@@ -603,16 +783,5 @@ public class CarController : MonoBehaviour
             }
         }
         OnHeadlightsChanged?.Invoke(headlightsOn);
-    }
-
-    /// <summary>
-    /// Plays the vehicle horn SFX.
-    /// </summary>
-    public void PlayHorn()
-    {
-        if (hornSFX != null && engineAudio != null)
-        {
-            engineAudio.PlayOneShot(hornSFX);
-        }
     }
 }

@@ -253,6 +253,18 @@ MonoBehaviour:
     m_DueDate: 
     m_Tags: []
     m_IsExpanded: 0
+  - m_Id: b9eedbcf-695f-4c5d-8f31-7ed6cbbfdfae
+    m_Title: Ger model texture
+    m_Description: 
+    m_Priority: 1
+    m_Status: 0
+    m_Category: General
+    m_LinkedObject: {fileID: 0}
+    m_CreatedDate: 2026-09-04 11:46
+    m_CompletedDate: 
+    m_DueDate: 
+    m_Tags: []
+    m_IsExpanded: 0
   m_Notes:
   - m_Id: f9a572f8-a1fe-4eb9-a368-130fec2ad323
     m_Title: Story

@@ -130,6 +130,8 @@ public class CanvasManager : MonoBehaviour
     public void OnQuitButtonClicked()
     {
         TogglePause();
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         DOVirtual.DelayedCall(0.3f, () =>
         {
             SceneManager.LoadScene("_Project/Scenes/Menu");

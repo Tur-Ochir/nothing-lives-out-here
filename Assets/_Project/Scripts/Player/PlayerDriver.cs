@@ -63,7 +63,7 @@ public class PlayerDriver : MonoBehaviour
             transform.rotation = seat.transform.rotation;
             transform.SetParent(car.transform);
         }
-
+        playerManager.HideItems(false);
         // Notify car of driver
         car.SetDriver(this);
 
@@ -109,14 +109,14 @@ public class PlayerDriver : MonoBehaviour
 
         currentCar = null;
         currentSeat = null;
-
+        playerManager.HideItems(true);
         OnExitCar?.Invoke(exitingCar);
     }
 
     /// <summary>
     /// Processes driver inputs from PlayerManager / PlayerInput.
     /// </summary>
-    public void ProcessDriveInput(Vector2 moveInput, bool interactPressed, bool flashlightPressed, bool sprintPressed)
+    public void ProcessDriveInput(Vector2 moveInput, bool interactPressed, bool flashlightPressed, bool sprintPressed, bool hornPressed = false)
     {
         if (!IsDriving) return;
 
@@ -142,6 +142,12 @@ public class PlayerDriver : MonoBehaviour
         if (flashlightPressed)
         {
             currentCar.ToggleHeadlights();
+        }
+
+        // Horn honk
+        if (hornPressed)
+        {
+            currentCar.PlayHorn();
         }
 
         // Send drive input to car controller

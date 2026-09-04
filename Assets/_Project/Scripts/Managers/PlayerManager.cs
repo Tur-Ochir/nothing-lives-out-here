@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,23 +10,23 @@ public class PlayerManager : MonoBehaviour
     public bool IsHoldingItem => heldItem != null;
     public IHoldable heldItem;
 
-    [Header("Flashlight")]
-    public bool canUseflashlight = true;
+    [Header("Flashlight")] public bool canUseflashlight = true;
     public bool flashlightOn = true;
     public Light flashlight;
     public GameObject lightCone;
+    public GameObject flashlightModel;
+    public Vector3 onPosition, onRotation;
+    public Vector3 offPosition, offRotation;
 
-    [Header("Stats")]
-    public int eatenDumplings = 0;
 
-    [Header("Occupied / Hiding State")]
-    public IOccupiable currentOccupied;
+    [Header("Stats")] public int eatenDumplings = 0;
+
+    [Header("Occupied / Hiding State")] public IOccupiable currentOccupied;
     public HidingSpot currentHidingSpot;
     public bool IsHidden => currentHidingSpot != null;
     public bool IsOccupying => currentOccupied != null;
 
-    [Header("Components")]
-    public PlayerMovement movement;
+    [Header("Components")] public PlayerMovement movement;
     public PlayerInteractionHandler interaction;
     public PlayerDriver driver;
     public PlayerFootsteps footsteps;
@@ -49,8 +50,9 @@ public class PlayerManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
         Instance = this;
-        
+
         input = GetComponent<PlayerInput>();
         movement = GetComponent<PlayerMovement>();
         interaction = GetComponent<PlayerInteractionHandler>();
@@ -59,12 +61,13 @@ public class PlayerManager : MonoBehaviour
         {
             footsteps = gameObject.AddComponent<PlayerFootsteps>();
         }
+
         driver = GetComponent<PlayerDriver>();
         if (driver == null)
         {
             driver = gameObject.AddComponent<PlayerDriver>();
         }
-        
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -107,8 +110,10 @@ public class PlayerManager : MonoBehaviour
             bool interactPressed = interactAction != null && interactAction.WasPressedThisFrame();
             bool flashlightPressed = flashlightAction != null && flashlightAction.WasPressedThisFrame();
             bool sprintPressed = sprintAction != null && sprintAction.IsPressed();
+            bool hornPressed = (useAction != null && useAction.WasPressedThisFrame())
+                || (Keyboard.current != null && Keyboard.current.hKey.wasPressedThisFrame);
 
-            driver.ProcessDriveInput(moveInput, interactPressed, flashlightPressed, sprintPressed);
+            driver.ProcessDriveInput(moveInput, interactPressed, flashlightPressed, sprintPressed, hornPressed);
             return;
         }
 
@@ -200,15 +205,15 @@ public class PlayerManager : MonoBehaviour
     public void SetFlashlightState(bool state)
     {
         if (!canUseflashlight) return;
-        
+
         flashlightOn = state;
-        if (flashlight != null)
+        flashlight.enabled = flashlightOn;
+        lightCone.SetActive(flashlightOn);
+
+        if (flashlightModel != null)
         {
-            flashlight.enabled = flashlightOn;
-        }
-        if (lightCone != null)
-        {
-            lightCone.SetActive(flashlightOn);
+            flashlightModel.transform.DOLocalMove(state ? onPosition : offPosition, 0.3f).SetEase(Ease.InOutSine);
+            flashlightModel.transform.DOLocalRotate(state ? onRotation : offRotation, 0.3f).SetEase(Ease.InOutSine);
         }
     }
 
@@ -232,11 +237,12 @@ public class PlayerManager : MonoBehaviour
             driver.ExitCar();
         }
     }
+
     public void HideItems(bool hide)
     {
         SetFlashlightState(false);
         canUseflashlight = !hide;
-        
+
         for (int i = 0; i < playerCam.transform.childCount; i++)
         {
             var child = playerCam.transform.GetChild(i);
