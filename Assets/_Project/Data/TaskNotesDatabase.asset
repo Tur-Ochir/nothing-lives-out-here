@@ -137,14 +137,14 @@ MonoBehaviour:
     m_Title: Shiree
     m_Description: 
     m_Priority: 1
-    m_Status: 1
+    m_Status: 2
     m_Category: Model
     m_LinkedObject: {fileID: 0}
     m_CreatedDate: 2026-08-26 16:56
-    m_CompletedDate: 
+    m_CompletedDate: 2026-09-07 23:18
     m_DueDate: 
     m_Tags: []
-    m_IsExpanded: 0
+    m_IsExpanded: 1
   - m_Id: c4b3ad88-d60c-4fe9-819f-14275271083f
     m_Title: Sandal
     m_Description: 
@@ -257,14 +257,14 @@ MonoBehaviour:
     m_Title: Ger model texture improve
     m_Description: 
     m_Priority: 1
-    m_Status: 1
+    m_Status: 2
     m_Category: General
     m_LinkedObject: {fileID: 0}
     m_CreatedDate: 2026-09-04 11:46
-    m_CompletedDate: 
+    m_CompletedDate: 2026-09-08 00:21
     m_DueDate: 
     m_Tags: []
-    m_IsExpanded: 1
+    m_IsExpanded: 0
   m_Notes:
   - m_Id: f9a572f8-a1fe-4eb9-a368-130fec2ad323
     m_Title: Story
