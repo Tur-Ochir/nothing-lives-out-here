@@ -17,6 +17,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Awdar.002
+    second: {fileID: 2100000, guid: 3d73d32faf685a44182cd4117a219b34, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Battery
     second: {fileID: 2100000, guid: 46f77e10fe0afb24f87450d3627535dc, type: 2}
   - first:
@@ -42,6 +47,16 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Gerel
+    second: {fileID: 2100000, guid: fee8799d54367d044986f026e4516f8b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Haalga.001
+    second: {fileID: 2100000, guid: 73121dcdd6ccf294c963e3da2b347b54, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Iron
     second: {fileID: 2100000, guid: d8661ef58c5cb4e41a47cb4f3c8051a5, type: 2}
   - first:
@@ -49,6 +64,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Match
     second: {fileID: 2100000, guid: 7ba17597b44a0f1478c3955d7ac02396, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal
+    second: {fileID: 2100000, guid: 1ec81253b6941e044a1a34d9ef5f41f7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -69,6 +89,21 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Or
     second: {fileID: 2100000, guid: 5cd8522eb4fd80e41881cd66a5b7b21a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Paper
+    second: {fileID: 2100000, guid: 5bb8034419a63b744a22292ec462d0cb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Radio
+    second: {fileID: 2100000, guid: b567019d796cbc6499753cc0a9c31a7e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Radio_Glass
+    second: {fileID: 2100000, guid: e2e440f7fa3efc84eaf12768f0456628, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
