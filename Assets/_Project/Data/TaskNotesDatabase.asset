@@ -149,11 +149,11 @@ MonoBehaviour:
     m_Title: Sandal
     m_Description: 
     m_Priority: 1
-    m_Status: 0
+    m_Status: 2
     m_Category: Model
     m_LinkedObject: {fileID: 0}
     m_CreatedDate: 2026-08-26 16:56
-    m_CompletedDate: 
+    m_CompletedDate: 2026-09-09 16:04
     m_DueDate: 
     m_Tags: []
     m_IsExpanded: 0
@@ -185,7 +185,7 @@ MonoBehaviour:
     m_Title: Shuugee
     m_Description: 
     m_Priority: 0
-    m_Status: 0
+    m_Status: 1
     m_Category: Model
     m_LinkedObject: {fileID: 0}
     m_CreatedDate: 2026-08-26 17:37
@@ -197,11 +197,11 @@ MonoBehaviour:
     m_Title: 40iin biton
     m_Description: 
     m_Priority: 0
-    m_Status: 0
+    m_Status: 2
     m_Category: Model
     m_LinkedObject: {fileID: 0}
     m_CreatedDate: 2026-08-26 18:02
-    m_CompletedDate: 
+    m_CompletedDate: 2026-09-09 16:04
     m_DueDate: 
     m_Tags: []
     m_IsExpanded: 0
@@ -262,6 +262,18 @@ MonoBehaviour:
     m_LinkedObject: {fileID: 0}
     m_CreatedDate: 2026-09-04 11:46
     m_CompletedDate: 2026-09-08 00:21
+    m_DueDate: 
+    m_Tags: []
+    m_IsExpanded: 0
+  - m_Id: 3af9ce8e-bcdc-46f7-9afd-f73393425690
+    m_Title: Goojuur
+    m_Description: 
+    m_Priority: 1
+    m_Status: 2
+    m_Category: General
+    m_LinkedObject: {fileID: 0}
+    m_CreatedDate: 2026-09-09 12:38
+    m_CompletedDate: 2026-09-09 16:03
     m_DueDate: 
     m_Tags: []
     m_IsExpanded: 0
