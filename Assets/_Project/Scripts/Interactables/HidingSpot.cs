@@ -123,6 +123,7 @@ public class HidingSpot : MonoBehaviour, IOccupiable, IHighlightable, IUsable
         // Disable player movement & crouch
         if (player.movement != null)
         {
+            player.movement.SetKinematic(true);
             player.movement.canMove = false;
             player.movement.canCrouch = false;
         }
@@ -130,7 +131,11 @@ public class HidingSpot : MonoBehaviour, IOccupiable, IHighlightable, IUsable
         // Reposition player if hide point is set
         if (hidePoint != null)
         {
-            if (player.TryGetComponent<CharacterController>(out var cc))
+            if (player.movement != null)
+            {
+                player.movement.Teleport(hidePoint.position, hidePoint.rotation);
+            }
+            else if (player.TryGetComponent<CharacterController>(out var cc))
             {
                 cc.enabled = false;
                 player.transform.position = hidePoint.position;
@@ -197,7 +202,11 @@ public class HidingSpot : MonoBehaviour, IOccupiable, IHighlightable, IUsable
             // Reposition player to exit point
             if (exitPoint != null)
             {
-                if (player.TryGetComponent<CharacterController>(out var cc))
+                if (player.movement != null)
+                {
+                    player.movement.Teleport(exitPoint.position, exitPoint.rotation);
+                }
+                else if (player.TryGetComponent<CharacterController>(out var cc))
                 {
                     cc.enabled = false;
                     player.transform.position = exitPoint.position;
@@ -214,6 +223,7 @@ public class HidingSpot : MonoBehaviour, IOccupiable, IHighlightable, IUsable
             // Restore player movement & crouch
             if (player.movement != null)
             {
+                player.movement.SetKinematic(false);
                 player.movement.canMove = true;
                 player.movement.canCrouch = true;
             }

@@ -185,11 +185,11 @@ MonoBehaviour:
     m_Title: Shuugee
     m_Description: 
     m_Priority: 0
-    m_Status: 1
+    m_Status: 2
     m_Category: Model
     m_LinkedObject: {fileID: 0}
     m_CreatedDate: 2026-08-26 17:37
-    m_CompletedDate: 
+    m_CompletedDate: 2026-09-10 15:27
     m_DueDate: 
     m_Tags: []
     m_IsExpanded: 0

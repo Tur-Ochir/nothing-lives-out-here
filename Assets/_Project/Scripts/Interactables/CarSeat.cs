@@ -130,15 +130,23 @@ public class CarSeat : MonoBehaviour, IOccupiable, IHighlightable
             else
             {
                 var player = PlayerManager.Instance;
-                if (player.TryGetComponent<CharacterController>(out var cc))
+                Vector3 exitPos = exitPoint != null ? exitPoint.position : transform.position;
+                Quaternion exitRot = exitPoint != null ? exitPoint.rotation : transform.rotation;
+
+                if (player != null && player.movement != null)
+                {
+                    player.movement.Teleport(exitPos, exitRot);
+                    player.movement.SetKinematic(false);
+                    player.movement.canMove = true;
+                    player.movement.SetCamControllerActive(true);
+                }
+                else if (player != null && player.TryGetComponent<CharacterController>(out var cc))
                 {
                     cc.enabled = false;
-                    player.transform.position = exitPoint != null ? exitPoint.position : transform.position;
-                    player.transform.rotation = exitPoint != null ? exitPoint.rotation : transform.rotation;
+                    player.transform.position = exitPos;
+                    player.transform.rotation = exitRot;
                     cc.enabled = true;
                 }
-                player.movement.canMove = true;
-                player.movement.SetCamControllerActive(true);
             }
         }
 

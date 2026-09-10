@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3e518fa43f588074da4fe65a0766231d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 24448
+  packageName: Old Rusted Bowl
+  packageVersion: 1.0
+  assetPath: Assets/Bowl/Prefabs/Bowl_pref.prefab
+  uploadId: 39361

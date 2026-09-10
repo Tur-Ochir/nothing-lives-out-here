@@ -24,12 +24,14 @@ public class PlayerDriver : MonoBehaviour
 
     private PlayerMovement playerMovement;
     private CharacterController characterController;
+    private Rigidbody rb;
     private PlayerManager playerManager;
 
     private void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
         characterController = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
         playerManager = GetComponent<PlayerManager>();
     }
 
@@ -51,9 +53,16 @@ public class PlayerDriver : MonoBehaviour
 
         if (playerMovement != null)
         {
+            playerMovement.SetKinematic(true);
             playerMovement.canMove = false;
             playerMovement.canCrouch = false;
             playerMovement.SetCamControllerActive(false);
+        }
+        else if (rb != null)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.isKinematic = true;
         }
 
         // Attach player to car/seat position
@@ -102,9 +111,17 @@ public class PlayerDriver : MonoBehaviour
 
         if (playerMovement != null)
         {
+            playerMovement.Teleport(exitTarget.position, exitTarget.rotation);
+            playerMovement.SetKinematic(false);
             playerMovement.canMove = true;
             playerMovement.canCrouch = true;
             playerMovement.SetCamControllerActive(true);
+        }
+        else if (rb != null)
+        {
+            rb.isKinematic = false;
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
         }
 
         currentCar = null;

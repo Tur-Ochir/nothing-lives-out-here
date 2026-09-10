@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Handles playing surface-dependent footstep sound effects based on player movement distance.
 /// </summary>
-[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(PlayerMovement))]
 public class PlayerFootsteps : MonoBehaviour
 {
     public enum SurfaceType
@@ -54,6 +54,7 @@ public class PlayerFootsteps : MonoBehaviour
     public AudioClip[] defaultWalkClips;
 
     private CharacterController controller;
+    private Rigidbody rb;
     private PlayerMovement playerMovement;
     private AudioSource audioSource;
     private float distanceTraveled = 0f;
@@ -63,6 +64,7 @@ public class PlayerFootsteps : MonoBehaviour
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
         playerMovement = GetComponent<PlayerMovement>();
 
         // Ensure dedicated AudioSource for footsteps
@@ -121,20 +123,37 @@ public class PlayerFootsteps : MonoBehaviour
 
     private void ProcessFootstepAccumulation()
     {
-        if (controller == null) return;
+        Vector3 horizontalVelocity = Vector3.zero;
+        bool isGrounded = false;
 
-        // Calculate horizontal velocity
-        Vector3 horizontalVelocity = controller.velocity;
-        horizontalVelocity.y = 0f;
-        float speed = horizontalVelocity.magnitude;
-
-        // If controller.velocity is 0 (due to SimpleMove in some frames), fall back to move direction * speed
-        if (speed < minVelocityThreshold && playerMovement != null && playerMovement.MoveDirection.sqrMagnitude > 0.01f)
+        if (playerMovement != null)
         {
-            speed = playerMovement.speed * playerMovement.MoveDirection.magnitude;
+            isGrounded = playerMovement.IsGrounded;
+            Vector3 vel = playerMovement.Velocity;
+            horizontalVelocity = new Vector3(vel.x, 0f, vel.z);
+        }
+        else if (rb != null)
+        {
+            horizontalVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+            isGrounded = true;
+        }
+        else if (controller != null)
+        {
+            horizontalVelocity = new Vector3(controller.velocity.x, 0f, controller.velocity.z);
+            isGrounded = controller.isGrounded;
+        }
+        else
+        {
+            return;
         }
 
-        bool isGrounded = controller.isGrounded;
+        float speed = horizontalVelocity.magnitude;
+
+        // If velocity is below threshold, fall back to move direction * speed
+        if (speed < minVelocityThreshold && playerMovement != null && playerMovement.MoveDirection.sqrMagnitude > 0.01f)
+        {
+            speed = playerMovement.CurrentSpeed * playerMovement.MoveDirection.magnitude;
+        }
 
         if (isGrounded && speed >= minVelocityThreshold)
         {
