@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 716fca4961a92754d9c91f9fd8abf562
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 80011
+  packageName: PBR Jerrycan Free
+  packageVersion: 1.0
+  assetPath: Assets/Dnk_Dev/Jerrycan_Free/Materials/LPMat.mat
+  uploadId: 726600
