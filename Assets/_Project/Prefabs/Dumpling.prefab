@@ -225,11 +225,15 @@ MonoBehaviour:
   eatenVer1: {fileID: 5539954588854849223}
   counter: 2
   canInteract: 1
+  holdType: 0
   moveToHand: 1
+  inHandPositionOffset: {x: 0, y: 0, z: 0}
   inHandRotation: {x: -120, y: 0, z: 0}
   moveSpeed: 12
   dropCurrentItem: 1
   reasonNotInteract: 
+  applyThrowOnDrop: 1
+  throwForce: 3
   outline: {fileID: 0}
   rb: {fileID: 0}
   col: {fileID: 0}

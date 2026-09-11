@@ -15,7 +15,12 @@ public class Arag : MonoBehaviour, IItemContainer, IHoldable, IHighlightable
     public bool canHold = true;
     public HoldType holdType = HoldType.TwoHands;
     public float moveSpeed = 12f;
+    public Vector3 inHandPositionOffset = Vector3.zero;
     public Vector3 inHandRotation;
+
+    [Header("Throw / Drop Settings")]
+    public bool applyThrowOnDrop = false;
+    public float throwForce = 3f;
 
     public Rigidbody rb;
     public Collider[] colliders;
@@ -144,6 +149,12 @@ public class Arag : MonoBehaviour, IItemContainer, IHoldable, IHighlightable
 
         SetContainedColliders(true);
         SetActivateCollider(true);
+
+        if (applyThrowOnDrop && rb != null && hand != null)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.AddForce(hand.forward * throwForce, ForceMode.Impulse);
+        }
         // Debug.Log("Release Arag");
     }
 
@@ -186,17 +197,19 @@ public class Arag : MonoBehaviour, IItemContainer, IHoldable, IHighlightable
 
     private IEnumerator MoveToHandRoutine()
     {
-        while (hand != null && Vector3.Distance(transform.position, hand.position) > 0.1f)
+        while (hand != null && Vector3.Distance(transform.position, hand.TransformPoint(inHandPositionOffset)) > 0.05f)
         {
-            transform.position = Vector3.Lerp(transform.position, hand.position, moveSpeed * Time.deltaTime);
-            transform.rotation = Quaternion.Slerp(transform.rotation, hand.rotation, moveSpeed * Time.deltaTime);
+            Vector3 targetPosition = hand.TransformPoint(inHandPositionOffset);
+            Quaternion targetRotation = hand.rotation * Quaternion.Euler(inHandRotation);
+            transform.position = Vector3.Lerp(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, moveSpeed * Time.deltaTime);
             yield return null;
         }
 
         if (hand != null)
         {
             transform.SetParent(hand);
-            transform.localPosition = Vector3.zero;
+            transform.localPosition = inHandPositionOffset;
             transform.localRotation = Quaternion.Euler(inHandRotation);
         }
 

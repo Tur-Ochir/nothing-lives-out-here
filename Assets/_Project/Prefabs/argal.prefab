@@ -169,20 +169,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a19be7598889c847a37f69baf136aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  burnDur: 60
   canInteract: 1
-  canUse: 1
+  holdType: 0
   moveToHand: 1
+  inHandPositionOffset: {x: 0, y: 0, z: 0}
   inHandRotation: {x: 0, y: 0, z: 0}
-  moveDuration: 0.5
-  isMovingToHand: 0
-  dropCurrentItem: 1
   moveSpeed: 12
-  container: {fileID: 0}
+  dropCurrentItem: 1
   reasonNotInteract: 
+  applyThrowOnDrop: 1
+  throwForce: 3
   outline: {fileID: 0}
   rb: {fileID: 0}
   col: {fileID: 0}
-  burnDur: 60
 --- !u!54 &6877453054514883896
 Rigidbody:
   m_ObjectHideFlags: 0

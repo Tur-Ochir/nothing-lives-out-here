@@ -54,7 +54,7 @@ MonoBehaviour:
     m_Description: blocked by victim task
     m_Priority: 2
     m_Status: 3
-    m_Category: General
+    m_Category: Visual
     m_LinkedObject: {fileID: 0}
     m_CreatedDate: 2026-08-26 17:02
     m_CompletedDate: 
@@ -144,7 +144,7 @@ MonoBehaviour:
     m_CompletedDate: 2026-09-07 23:18
     m_DueDate: 
     m_Tags: []
-    m_IsExpanded: 1
+    m_IsExpanded: 0
   - m_Id: c4b3ad88-d60c-4fe9-819f-14275271083f
     m_Title: Sandal
     m_Description: 
@@ -258,7 +258,7 @@ MonoBehaviour:
     m_Description: 
     m_Priority: 1
     m_Status: 2
-    m_Category: General
+    m_Category: Visual
     m_LinkedObject: {fileID: 0}
     m_CreatedDate: 2026-09-04 11:46
     m_CompletedDate: 2026-09-08 00:21
@@ -270,13 +270,25 @@ MonoBehaviour:
     m_Description: 
     m_Priority: 1
     m_Status: 2
-    m_Category: General
+    m_Category: Model
     m_LinkedObject: {fileID: 0}
     m_CreatedDate: 2026-09-09 12:38
     m_CompletedDate: 2026-09-09 16:03
     m_DueDate: 
     m_Tags: []
     m_IsExpanded: 0
+  - m_Id: 9d7ea61d-a76b-407e-80c0-0376bbdd93c4
+    m_Title: Make interactive all
+    m_Description: 
+    m_Priority: 1
+    m_Status: 1
+    m_Category: Gameplay
+    m_LinkedObject: {fileID: 0}
+    m_CreatedDate: 2026-09-11 11:58
+    m_CompletedDate: 
+    m_DueDate: 
+    m_Tags: []
+    m_IsExpanded: 1
   m_Notes:
   - m_Id: f9a572f8-a1fe-4eb9-a368-130fec2ad323
     m_Title: Story
@@ -381,7 +393,12 @@ MonoBehaviour:
     m_LastModifiedDate: 2026-08-27 16:36
     m_LinkedObjects: []
     m_Tags: []
-  m_Scratchpad: 
+  m_Scratchpad: 'axe Vector3(345,260,-8.83891516e-07)
+
+    shovel Vector3(0,60.0000038,180)
+
+    knife
+    Vector3(0,60.0000038,270)'
   m_CustomCategories:
   - General
   - Gameplay

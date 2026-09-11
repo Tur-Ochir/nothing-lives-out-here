@@ -1,28 +1,34 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class Dumpling : MonoBehaviour, IInteractable, IHoldable, ICookable, IEatable, IUsable, IHighlightable
+public class GeneralItem : MonoBehaviour, IInteractable, IHoldable, IHighlightable
 {
-    [Header("Dumpling Settings")]
-    public bool cooked;
-    public Color cookedColor;
-    public GameObject eatenVer1;
-    public int counter = 2;
-
-    [Header("Interactable")]
+    [Header("Interactable Settings")]
     public bool canInteract = true;
+    public string reasonNotInteract;
+    public bool dropCurrentItem = true;
+
+    [Header("Hold Settings")]
+    public bool canHold = true;
     public HoldType holdType = HoldType.OneHand;
     public bool moveToHand = true;
-    public Vector3 inHandPositionOffset = Vector3.zero;
-    public Vector3 inHandRotation;
     public float moveSpeed = 12f;
-    public bool dropCurrentItem = true;
-    public string reasonNotInteract;
+    public Vector3 inHandPositionOffset = Vector3.zero;
+    public Vector3 inHandRotationOffset = Vector3.zero;
 
     [Header("Throw / Drop Settings")]
     public bool applyThrowOnDrop = false;
     public float throwForce = 3f;
+
+    [Header("Audio (Optional)")]
+    public AudioClip pickupSound;
+    public AudioClip dropSound;
+
+    [Header("Events")]
+    public UnityEvent onPickup;
+    public UnityEvent onDrop;
 
     [HideInInspector] public Outline outline;
     [HideInInspector] public Rigidbody rb;
@@ -30,45 +36,20 @@ public class Dumpling : MonoBehaviour, IInteractable, IHoldable, ICookable, IEat
 
     public event Action OnInteracted;
 
-    public bool IsCooked => cooked;
-    public bool CanEat => cooked;
     public bool CanInteract => canInteract;
     public string ReasonCannotInteract => reasonNotInteract;
-    public bool CanUse => true;
     public HoldType HoldType => holdType;
     public bool IsHeld => PlayerManager.Instance != null && PlayerManager.Instance.heldItem == (IHoldable)this;
     public bool DropCurrentItemOnInteract => dropCurrentItem;
 
-    private MeshRenderer meshRenderer;
     private Transform hand;
     private Coroutine moveToHandCoroutine;
 
     private void Awake()
     {
-        meshRenderer = GetComponent<MeshRenderer>();
         outline = GetComponent<Outline>();
         col = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
-    }
-
-    public void Cook()
-    {
-        cooked = true;
-
-        if (meshRenderer != null)
-        {
-            meshRenderer.material.color = cookedColor;
-        }
-
-        if (eatenVer1 != null && eatenVer1.TryGetComponent(out MeshRenderer eatenRenderer))
-        {
-            eatenRenderer.material.color = cookedColor;
-        }
-
-        if (col != null)
-        {
-            col.enabled = true;
-        }
     }
 
     public void Interact()
@@ -77,40 +58,13 @@ public class Dumpling : MonoBehaviour, IInteractable, IHoldable, ICookable, IEat
         OnInteracted?.Invoke();
     }
 
-    public void Use()
-    {
-        Eat();
-    }
-
-    public void Eat()
-    {
-        if (!CanEat)
-        {
-            Debug.Log("Can't eat raw dumpling.");
-            return;
-        }
-
-        Debug.Log("Eaten dumpling piece.");
-        counter--;
-
-        if (counter == 1)
-        {
-            if (meshRenderer != null) meshRenderer.enabled = false;
-            if (eatenVer1 != null) eatenVer1.SetActive(true);
-        }
-        else if (counter < 1)
-        {
-            if (PlayerManager.Instance != null)
-            {
-                PlayerManager.Instance.heldItem = null;
-                PlayerManager.Instance.Eat();
-            }
-            Destroy(gameObject);
-        }
-    }
-
     public void Pickup(Transform holdTransform)
     {
+        if (!canHold)
+        {
+            GameManager.Instance.PlaySubtitle(reasonNotInteract);
+            return;
+        }
         if (holdTransform == null) return;
 
         SetRbColActive(false);
@@ -121,8 +75,23 @@ public class Dumpling : MonoBehaviour, IInteractable, IHoldable, ICookable, IEat
             PlayerManager.Instance.heldItem = this;
         }
 
+        if (pickupSound != null && SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySFX(pickupSound);
+        }
+
+        onPickup?.Invoke();
+
         if (moveToHandCoroutine != null) StopCoroutine(moveToHandCoroutine);
-        moveToHandCoroutine = StartCoroutine(MoveToHandRoutine());
+
+        if (moveToHand)
+        {
+            moveToHandCoroutine = StartCoroutine(MoveToHandRoutine());
+        }
+        else
+        {
+            AttachToHandDirectly();
+        }
     }
 
     public void Drop()
@@ -146,6 +115,13 @@ public class Dumpling : MonoBehaviour, IInteractable, IHoldable, ICookable, IEat
             rb.linearVelocity = Vector3.zero;
             rb.AddForce(hand.forward * throwForce, ForceMode.Impulse);
         }
+
+        if (dropSound != null && SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySFX(dropSound);
+        }
+
+        onDrop?.Invoke();
     }
 
     public void SetRbColActive(bool active)
@@ -159,24 +135,26 @@ public class Dumpling : MonoBehaviour, IInteractable, IHoldable, ICookable, IEat
         if (outline != null) outline.enabled = active;
     }
 
+    private void AttachToHandDirectly()
+    {
+        if (hand == null) return;
+        transform.SetParent(hand);
+        transform.localPosition = inHandPositionOffset;
+        transform.localRotation = Quaternion.Euler(inHandRotationOffset);
+    }
+
     private IEnumerator MoveToHandRoutine()
     {
         while (hand != null && Vector3.Distance(transform.position, hand.TransformPoint(inHandPositionOffset)) > 0.05f)
         {
             Vector3 targetPosition = hand.TransformPoint(inHandPositionOffset);
-            Quaternion targetRotation = hand.rotation * Quaternion.Euler(inHandRotation);
+            Quaternion targetRotation = hand.rotation * Quaternion.Euler(inHandRotationOffset);
             transform.position = Vector3.Lerp(transform.position, targetPosition, moveSpeed * Time.deltaTime);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, moveSpeed * Time.deltaTime);
             yield return null;
         }
 
-        if (hand != null)
-        {
-            transform.SetParent(hand);
-            transform.localPosition = inHandPositionOffset;
-            transform.localRotation = Quaternion.Euler(inHandRotation);
-        }
-
+        AttachToHandDirectly();
         moveToHandCoroutine = null;
     }
 }
