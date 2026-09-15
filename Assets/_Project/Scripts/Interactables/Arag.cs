@@ -22,6 +22,14 @@ public class Arag : MonoBehaviour, IItemContainer, IHoldable, IHighlightable
     public bool applyThrowOnDrop = false;
     public float throwForce = 3f;
 
+    [Header("Audio (Optional)")]
+    public AudioClip pickupSound;
+    public AudioClip dropSound;
+    public bool randomizePitch = true;
+    public float minPitch = 0.88f;
+    public float maxPitch = 1.12f;
+    [HideInInspector] public AudioSource audioSource;
+
     public Rigidbody rb;
     public Collider[] colliders;
     public List<Collider> itemColliders = new List<Collider>();
@@ -44,6 +52,29 @@ public class Arag : MonoBehaviour, IItemContainer, IHoldable, IHighlightable
         colliders = GetComponents<Collider>();
         rb = GetComponent<Rigidbody>();
         outline = GetComponent<Outline>();
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false;
+            audioSource.spatialBlend = 1f;
+        }
+    }
+
+    private void OnEnable()
+    {
+        if (SoundManager.Instance != null && audioSource != null)
+        {
+            SoundManager.Instance.RegisterAudioSource(audioSource, SoundManager.SoundCategory.SFX);
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (SoundManager.Instance != null && audioSource != null)
+        {
+            SoundManager.Instance.UnregisterAudioSource(audioSource);
+        }
     }
 
     public bool TryContain(GameObject item)
@@ -51,9 +82,10 @@ public class Arag : MonoBehaviour, IItemContainer, IHoldable, IHighlightable
         if (!CanContainItems || item == null) return false;
         if (itemPoints == null || currentCounter >= itemPoints.Length) return false;
 
-        if (item.TryGetComponent(out Argal argal))
+        if (item.transform.parent.TryGetComponent(out Argal argal))
         {
             argal.SetRbColActive(false);
+            argal.PlaySFX(argal.pickupSound);
         }
 
         Transform targetParent = itemPoints[currentCounter];
@@ -121,6 +153,12 @@ public class Arag : MonoBehaviour, IItemContainer, IHoldable, IHighlightable
             rb.isKinematic = true;
         }
 
+        if (pickupSound != null && audioSource != null)
+        {
+            audioSource.pitch = randomizePitch ? UnityEngine.Random.Range(minPitch, maxPitch) : 1f;
+            audioSource.PlayOneShot(pickupSound);
+        }
+
         if (moveToHandCoroutine != null) StopCoroutine(moveToHandCoroutine);
         moveToHandCoroutine = StartCoroutine(MoveToHandRoutine());
     }
@@ -149,6 +187,12 @@ public class Arag : MonoBehaviour, IItemContainer, IHoldable, IHighlightable
 
         SetContainedColliders(true);
         SetActivateCollider(true);
+
+        if (dropSound != null && audioSource != null)
+        {
+            audioSource.pitch = randomizePitch ? UnityEngine.Random.Range(minPitch, maxPitch) : 1f;
+            audioSource.PlayOneShot(dropSound);
+        }
 
         if (applyThrowOnDrop && rb != null && hand != null)
         {

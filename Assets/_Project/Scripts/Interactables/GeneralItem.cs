@@ -25,6 +25,10 @@ public class GeneralItem : MonoBehaviour, IInteractable, IHoldable, IHighlightab
     [Header("Audio (Optional)")]
     public AudioClip pickupSound;
     public AudioClip dropSound;
+    public bool randomizePitch = true;
+    public float minPitch = 0.88f;
+    public float maxPitch = 1.12f;
+    [HideInInspector] public AudioSource audioSource;
 
     [Header("Events")]
     public UnityEvent onPickup;
@@ -50,6 +54,22 @@ public class GeneralItem : MonoBehaviour, IInteractable, IHoldable, IHighlightab
         outline = GetComponent<Outline>();
         col = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    private void OnEnable()
+    {
+        if (SoundManager.Instance != null && audioSource != null)
+        {
+            SoundManager.Instance.RegisterAudioSource(audioSource, SoundManager.SoundCategory.SFX);
+        }
+    }
+    private void OnDisable()
+    {
+        if (SoundManager.Instance != null && audioSource != null)
+        {
+            SoundManager.Instance.UnregisterAudioSource(audioSource);
+        }
     }
 
     public void Interact()
@@ -75,9 +95,10 @@ public class GeneralItem : MonoBehaviour, IInteractable, IHoldable, IHighlightab
             PlayerManager.Instance.heldItem = this;
         }
 
-        if (pickupSound != null && SoundManager.Instance != null)
+        if (pickupSound != null && audioSource != null)
         {
-            SoundManager.Instance.PlaySFX(pickupSound);
+            audioSource.pitch = randomizePitch ? UnityEngine.Random.Range(minPitch, maxPitch) : 1f;
+            audioSource.PlayOneShot(pickupSound);
         }
 
         onPickup?.Invoke();
@@ -116,9 +137,10 @@ public class GeneralItem : MonoBehaviour, IInteractable, IHoldable, IHighlightab
             rb.AddForce(hand.forward * throwForce, ForceMode.Impulse);
         }
 
-        if (dropSound != null && SoundManager.Instance != null)
+        if (dropSound != null && audioSource != null)
         {
-            SoundManager.Instance.PlaySFX(dropSound);
+            audioSource.pitch = randomizePitch ? UnityEngine.Random.Range(minPitch, maxPitch) : 1f;
+            audioSource.PlayOneShot(dropSound);
         }
 
         onDrop?.Invoke();

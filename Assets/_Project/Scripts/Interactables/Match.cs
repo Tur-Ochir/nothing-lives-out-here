@@ -17,6 +17,14 @@ public class Match : MonoBehaviour, IInteractable, IHoldable, IHighlightable
     [Header("Throw / Drop Settings")]
     public bool applyThrowOnDrop = false;
     public float throwForce = 3f;
+    
+    [Header("Audio (Optional)")]
+    public AudioClip pickupSound;
+    public AudioClip dropSound;
+    public bool randomizePitch = true;
+    public float minPitch = 0.88f;
+    public float maxPitch = 1.12f;
+    [HideInInspector] public AudioSource audioSource;
 
     [HideInInspector] public Outline outline;
     [HideInInspector] public Rigidbody rb;
@@ -38,6 +46,22 @@ public class Match : MonoBehaviour, IInteractable, IHoldable, IHighlightable
         outline = GetComponent<Outline>();
         col = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
+    }
+    
+    private void OnEnable()
+    {
+        if (SoundManager.Instance != null && audioSource != null)
+        {
+            SoundManager.Instance.RegisterAudioSource(audioSource, SoundManager.SoundCategory.SFX);
+        }
+    }
+    private void OnDisable()
+    {
+        if (SoundManager.Instance != null && audioSource != null)
+        {
+            SoundManager.Instance.UnregisterAudioSource(audioSource);
+        }
     }
 
     public void Interact()
@@ -57,6 +81,11 @@ public class Match : MonoBehaviour, IInteractable, IHoldable, IHighlightable
         {
             PlayerManager.Instance.heldItem = this;
         }
+        if (pickupSound != null && audioSource != null)
+        {
+            audioSource.pitch = randomizePitch ? UnityEngine.Random.Range(minPitch, maxPitch) : 1f;
+            audioSource.PlayOneShot(pickupSound);
+        }
 
         if (moveToHandCoroutine != null) StopCoroutine(moveToHandCoroutine);
         moveToHandCoroutine = StartCoroutine(MoveToHandRoutine());
@@ -73,6 +102,11 @@ public class Match : MonoBehaviour, IInteractable, IHoldable, IHighlightable
         {
             StopCoroutine(moveToHandCoroutine);
             moveToHandCoroutine = null;
+        }
+        if (dropSound != null && audioSource != null)
+        {
+            audioSource.pitch = randomizePitch ? UnityEngine.Random.Range(minPitch, maxPitch) : 1f;
+            audioSource.PlayOneShot(dropSound);
         }
 
         transform.SetParent(null);

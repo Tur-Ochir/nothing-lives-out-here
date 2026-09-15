@@ -29,6 +29,7 @@ namespace Dev.TodoNotes.Editor
 
         private Vector2 m_ScrollPos;
         private TaskItem m_TaskToDelete = null;
+        private readonly Dictionary<string, string> m_NewChecklistInputs = new Dictionary<string, string>();
 
         public TaskListView(TaskNotesDatabase database, EditorWindow parentWindow)
         {
@@ -265,6 +266,12 @@ namespace Dev.TodoNotes.Editor
             Rect catRect = GUILayoutUtility.GetRect(new GUIContent(task.Category), TaskNotesStyles.BadgeStyle, GUILayout.ExpandWidth(false));
             TaskNotesStyles.DrawBadge(catRect, task.Category, new Color(0.35f, 0.4f, 0.45f, 0.8f));
 
+            // 4b. Checklist Progress Badge (if has checklist)
+            if (task.HasChecklist)
+            {
+                TaskChecklistDrawer.DrawChecklistBadge(task);
+            }
+
             GUILayout.Space(4);
 
             // 5. Status dropdown
@@ -389,6 +396,14 @@ namespace Dev.TodoNotes.Editor
                 m_Database.MarkDirty();
             }
 
+            // Checklist Section
+            if (!m_NewChecklistInputs.TryGetValue(task.Id, out string currentInput))
+            {
+                currentInput = "";
+            }
+            TaskChecklistDrawer.DrawChecklistSection(task, m_Database, ref currentInput, "TaskListChecklist");
+            m_NewChecklistInputs[task.Id] = currentInput;
+
             // Metadata / Timestamps
             EditorGUILayout.BeginHorizontal();
             string metaText = $"Created: {task.CreatedDate}";
@@ -460,7 +475,8 @@ namespace Dev.TodoNotes.Editor
                 list = list.FindAll(t =>
                     t.Title.ToLowerInvariant().Contains(query) ||
                     t.Description.ToLowerInvariant().Contains(query) ||
-                    t.Category.ToLowerInvariant().Contains(query));
+                    t.Category.ToLowerInvariant().Contains(query) ||
+                    (t.HasChecklist && t.Checklist.Any(c => c != null && c.Text.ToLowerInvariant().Contains(query))));
             }
 
             // Filter Status

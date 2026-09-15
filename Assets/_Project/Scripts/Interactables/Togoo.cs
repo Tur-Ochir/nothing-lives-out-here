@@ -31,6 +31,14 @@ public class Togoo : MonoBehaviour, IItemContainer, IHoldable, IHighlightable
     public int minDumplings = 3;
     public Furnace furnace;
 
+    [Header("Audio (Optional)")]
+    public AudioClip pickupSound;
+    public AudioClip dropSound;
+    public bool randomizePitch = true;
+    public float minPitch = 0.88f;
+    public float maxPitch = 1.12f;
+    [HideInInspector] public AudioSource audioSource;
+
     public Rigidbody rb;
     public Collider[] colliders;
     [HideInInspector] public Outline outline;
@@ -52,6 +60,29 @@ public class Togoo : MonoBehaviour, IItemContainer, IHoldable, IHighlightable
         rb = GetComponent<Rigidbody>();
         outline = GetComponent<Outline>();
         tag = GetComponentInChildren<Tag>();
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false;
+            audioSource.spatialBlend = 1f;
+        }
+    }
+
+    private void OnEnable()
+    {
+        if (SoundManager.Instance != null && audioSource != null)
+        {
+            SoundManager.Instance.RegisterAudioSource(audioSource, SoundManager.SoundCategory.SFX);
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (SoundManager.Instance != null && audioSource != null)
+        {
+            SoundManager.Instance.UnregisterAudioSource(audioSource);
+        }
     }
 
     private void Update()
@@ -88,6 +119,7 @@ public class Togoo : MonoBehaviour, IItemContainer, IHoldable, IHighlightable
             {
                 PlayerManager.Instance.heldItem = null;
             }
+            newTag.PlaySFX(newTag.dropSound);
 
             TryCook();
             return true;
@@ -161,8 +193,19 @@ public class Togoo : MonoBehaviour, IItemContainer, IHoldable, IHighlightable
             rb.isKinematic = true;
         }
 
+        if (pickupSound != null && audioSource != null)
+        {
+            PlaySFX(pickupSound);
+        }
+
         if (moveToHandCoroutine != null) StopCoroutine(moveToHandCoroutine);
         moveToHandCoroutine = StartCoroutine(MoveToHandRoutine());
+    }
+
+    public void PlaySFX(AudioClip clip)
+    {
+        audioSource.pitch = randomizePitch ? UnityEngine.Random.Range(minPitch, maxPitch) : 1f;
+        audioSource.PlayOneShot(clip);
     }
 
     public void Drop()
@@ -194,6 +237,11 @@ public class Togoo : MonoBehaviour, IItemContainer, IHoldable, IHighlightable
 
         SetContainedColliders(true);
         SetActivateCollider(true);
+
+        if (dropSound != null && audioSource != null)
+        {
+            PlaySFX(dropSound);
+        }
 
         if (applyThrowOnDrop && rb != null && hand != null)
         {

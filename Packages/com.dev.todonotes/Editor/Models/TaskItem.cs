@@ -22,6 +22,7 @@ namespace Dev.TodoNotes.Editor
         [SerializeField] private string m_CompletedDate;
         [SerializeField] private string m_DueDate;
         [SerializeField] private List<string> m_Tags = new List<string>();
+        [SerializeField] private List<ChecklistItem> m_Checklist = new List<ChecklistItem>();
         [SerializeField] private bool m_IsExpanded;
 
         public TaskItem()
@@ -36,6 +37,7 @@ namespace Dev.TodoNotes.Editor
             m_CompletedDate = "";
             m_DueDate = "";
             m_Tags = new List<string>();
+            m_Checklist = new List<ChecklistItem>();
             m_IsExpanded = false;
         }
 
@@ -51,6 +53,7 @@ namespace Dev.TodoNotes.Editor
             m_CompletedDate = "";
             m_DueDate = "";
             m_Tags = new List<string>();
+            m_Checklist = new List<ChecklistItem>();
             m_IsExpanded = false;
         }
 
@@ -137,6 +140,31 @@ namespace Dev.TodoNotes.Editor
             set => m_Tags = value;
         }
 
+        public List<ChecklistItem> Checklist
+        {
+            get => m_Checklist ?? (m_Checklist = new List<ChecklistItem>());
+            set => m_Checklist = value;
+        }
+
+        public int ChecklistTotalCount => Checklist.Count;
+        public int ChecklistDoneCount
+        {
+            get
+            {
+                int count = 0;
+                var list = Checklist;
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (list[i] != null && list[i].IsDone) count++;
+                }
+                return count;
+            }
+        }
+
+        public float ChecklistProgress => ChecklistTotalCount > 0 ? (float)ChecklistDoneCount / ChecklistTotalCount : 0f;
+
+        public bool HasChecklist => Checklist.Count > 0;
+
         public bool IsExpanded
         {
             get => m_IsExpanded;
@@ -145,6 +173,15 @@ namespace Dev.TodoNotes.Editor
 
         public TaskItem Clone()
         {
+            var clonedChecklist = new List<ChecklistItem>();
+            if (m_Checklist != null)
+            {
+                foreach (var item in m_Checklist)
+                {
+                    if (item != null) clonedChecklist.Add(item.Clone());
+                }
+            }
+
             return new TaskItem
             {
                 Id = Guid.NewGuid().ToString(),
@@ -158,6 +195,7 @@ namespace Dev.TodoNotes.Editor
                 CompletedDate = "",
                 DueDate = m_DueDate,
                 Tags = new List<string>(m_Tags ?? new List<string>()),
+                Checklist = clonedChecklist,
                 IsExpanded = m_IsExpanded
             };
         }

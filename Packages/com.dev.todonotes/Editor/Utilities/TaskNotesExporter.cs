@@ -193,6 +193,15 @@ namespace Dev.TodoNotes.Editor
                     {
                         sb.AppendLine($"  > {task.Description.Replace("\n", "\n  > ")}");
                     }
+                    if (task.HasChecklist)
+                    {
+                        foreach (var subItem in task.Checklist)
+                        {
+                            if (subItem == null) continue;
+                            string subCheck = subItem.IsDone ? "[x]" : "[ ]";
+                            sb.AppendLine($"  - {subCheck} {subItem.Text}");
+                        }
+                    }
                 }
                 sb.AppendLine();
             }

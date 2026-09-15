@@ -10,6 +10,7 @@ public class Door : MonoBehaviour, IInteractable, IHighlightable
 
     [Header("Animation")]
     public float rotationDuration = 1f;
+    public float openRotationDuration = 0f;
     public Vector3 closedRotation;
     public Vector3 openRotation;
 
@@ -101,8 +102,13 @@ public class Door : MonoBehaviour, IInteractable, IHighlightable
     private void HandleRotate(bool open)
     {
         Vector3 targetRotation = open ? openRotation : closedRotation;
+        float duration = rotationDuration;
+        if (openRotationDuration > 0 && open)
+        {
+            duration = openRotationDuration;
+        }
         rotateTween?.Kill();
-        rotateTween = transform.DOLocalRotate(targetRotation, rotationDuration);
+        rotateTween = transform.DOLocalRotate(targetRotation, duration);
     }
 
     private void PlaySFX(bool open)

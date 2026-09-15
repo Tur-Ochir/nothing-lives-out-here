@@ -22,6 +22,14 @@ public class Argal : MonoBehaviour, IInteractable, IHoldable, ISpawnable, IHighl
     public bool applyThrowOnDrop = false;
     public float throwForce = 3f;
 
+    [Header("Audio (Optional)")]
+    public AudioClip pickupSound;
+    public AudioClip dropSound;
+    public bool randomizePitch = true;
+    public float minPitch = 0.88f;
+    public float maxPitch = 1.12f;
+    [HideInInspector] public AudioSource audioSource;
+
     [HideInInspector] public Outline outline;
     [HideInInspector] public Rigidbody rb;
     public Collider col;
@@ -42,6 +50,29 @@ public class Argal : MonoBehaviour, IInteractable, IHoldable, ISpawnable, IHighl
         outline = GetComponent<Outline>();
         rb = GetComponent<Rigidbody>();
         col = GetComponentInChildren<Collider>();
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false;
+            audioSource.spatialBlend = 1f;
+        }
+    }
+
+    private void OnEnable()
+    {
+        if (SoundManager.Instance != null && audioSource != null)
+        {
+            SoundManager.Instance.RegisterAudioSource(audioSource, SoundManager.SoundCategory.SFX);
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (SoundManager.Instance != null && audioSource != null)
+        {
+            SoundManager.Instance.UnregisterAudioSource(audioSource);
+        }
     }
 
     public void OnSpawned()
@@ -99,6 +130,7 @@ public class Argal : MonoBehaviour, IInteractable, IHoldable, ISpawnable, IHighl
             arag.currentCounter++;
             arag.items.Add(gameObject);
             OnInteracted?.Invoke();
+            PlaySFX(pickupSound);
             return;
         }
 
@@ -118,8 +150,19 @@ public class Argal : MonoBehaviour, IInteractable, IHoldable, ISpawnable, IHighl
             PlayerManager.Instance.heldItem = this;
         }
 
+        if (pickupSound != null && audioSource != null)
+        {
+            PlaySFX(pickupSound);
+        }
+
         if (moveToHandCoroutine != null) StopCoroutine(moveToHandCoroutine);
         moveToHandCoroutine = StartCoroutine(MoveToHandRoutine());
+    }
+
+    public void PlaySFX(AudioClip clip)
+    {
+        audioSource.pitch = randomizePitch ? UnityEngine.Random.Range(minPitch, maxPitch) : 1f;
+        audioSource.PlayOneShot(clip);
     }
 
     public void Drop()
@@ -133,6 +176,11 @@ public class Argal : MonoBehaviour, IInteractable, IHoldable, ISpawnable, IHighl
         {
             StopCoroutine(moveToHandCoroutine);
             moveToHandCoroutine = null;
+        }
+
+        if (dropSound != null && audioSource != null)
+        {
+            PlaySFX(dropSound);
         }
 
         transform.SetParent(null);

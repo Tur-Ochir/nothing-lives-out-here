@@ -26,6 +26,7 @@ namespace Dev.TodoNotes.Editor
         private string m_NewInlineTitle = "";
 
         private TaskItem m_TaskToDelete = null;
+        private readonly Dictionary<string, string> m_NewChecklistInputs = new Dictionary<string, string>();
 
         // Drag and Drop State
         private TaskItem m_PotentialDragTask = null;
@@ -250,6 +251,12 @@ namespace Dev.TodoNotes.Editor
 
             Rect catRect = GUILayoutUtility.GetRect(new GUIContent(task.Category), TaskNotesStyles.BadgeStyle, GUILayout.ExpandWidth(false));
             TaskNotesStyles.DrawBadge(catRect, task.Category, new Color(0.35f, 0.4f, 0.45f, 0.8f));
+
+            // Checklist Progress Badge (if has checklist)
+            if (task.HasChecklist)
+            {
+                TaskChecklistDrawer.DrawChecklistBadge(task);
+            }
 
             GUILayout.FlexibleSpace();
 
@@ -568,6 +575,14 @@ namespace Dev.TodoNotes.Editor
                 m_Database.MarkDirty();
             }
 
+            // Checklist Section
+            if (!m_NewChecklistInputs.TryGetValue(task.Id, out string currentInput))
+            {
+                currentInput = "";
+            }
+            TaskChecklistDrawer.DrawChecklistSection(task, m_Database, ref currentInput, "KanbanChecklist");
+            m_NewChecklistInputs[task.Id] = currentInput;
+
             // Delete
             EditorGUILayout.BeginHorizontal();
             GUILayout.FlexibleSpace();
@@ -628,7 +643,8 @@ namespace Dev.TodoNotes.Editor
                 list = list.FindAll(t =>
                     t.Title.ToLowerInvariant().Contains(query) ||
                     t.Description.ToLowerInvariant().Contains(query) ||
-                    t.Category.ToLowerInvariant().Contains(query));
+                    t.Category.ToLowerInvariant().Contains(query) ||
+                    (t.HasChecklist && t.Checklist.Any(c => c != null && c.Text.ToLowerInvariant().Contains(query))));
             }
 
             if (!string.IsNullOrEmpty(categoryFilter) && categoryFilter != "All")

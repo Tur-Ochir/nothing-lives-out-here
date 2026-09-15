@@ -66,6 +66,7 @@ public class Furnace : MonoBehaviour, IItemContainer, IHighlightable
 
             togoo.furnace = this;
             currentTogoo = togoo;
+            togoo.PlaySFX(togoo.dropSound);
             return true;
         }
         

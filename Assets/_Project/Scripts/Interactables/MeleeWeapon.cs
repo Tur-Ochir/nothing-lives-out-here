@@ -51,6 +51,11 @@ public class MeleeWeapon : MonoBehaviour, IInteractable, IHoldable, IUsable, IHi
     public AudioClip pickupSound;
     public AudioClip dropSound;
 
+    [Header("Pitch Randomization")]
+    public bool randomizePitch = true;
+    public float minPitch = 0.88f;
+    public float maxPitch = 1.12f;
+
     [Header("Events")]
     public UnityEvent onAttack;
     public UnityEvent<RaycastHit> onHitTarget;
@@ -60,6 +65,7 @@ public class MeleeWeapon : MonoBehaviour, IInteractable, IHoldable, IUsable, IHi
     [HideInInspector] public Outline outline;
     [HideInInspector] public Rigidbody rb;
     [HideInInspector] public Collider col;
+    [HideInInspector] public AudioSource audioSource;
 
     public event Action OnInteracted;
 
@@ -80,9 +86,32 @@ public class MeleeWeapon : MonoBehaviour, IInteractable, IHoldable, IUsable, IHi
         outline = GetComponent<Outline>();
         col = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false;
+            audioSource.spatialBlend = 1f;
+        }
         if (animator == null)
         {
             animator = GetComponent<Animator>() ?? GetComponentInChildren<Animator>();
+        }
+    }
+
+    private void OnEnable()
+    {
+        if (SoundManager.Instance != null && audioSource != null)
+        {
+            SoundManager.Instance.RegisterAudioSource(audioSource, SoundManager.SoundCategory.SFX);
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (SoundManager.Instance != null && audioSource != null)
+        {
+            SoundManager.Instance.UnregisterAudioSource(audioSource);
         }
     }
 
@@ -104,9 +133,18 @@ public class MeleeWeapon : MonoBehaviour, IInteractable, IHoldable, IUsable, IHi
     {
         PlayAttackAnimation();
 
-        if (attackSwingSound != null && SoundManager.Instance != null)
+        if (attackSwingSound != null)
         {
-            SoundManager.Instance.PlaySFX(attackSwingSound);
+            float pitch = randomizePitch ? UnityEngine.Random.Range(minPitch, maxPitch) : 1f;
+            if (audioSource != null)
+            {
+                audioSource.pitch = pitch;
+                audioSource.PlayOneShot(attackSwingSound);
+            }
+            else if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.PlaySFX(attackSwingSound, 1f, pitch);
+            }
         }
 
         onAttack?.Invoke();
@@ -157,9 +195,18 @@ public class MeleeWeapon : MonoBehaviour, IInteractable, IHoldable, IUsable, IHi
                 Instantiate(hitEffectPrefab, hit.point, Quaternion.LookRotation(hit.normal));
             }
 
-            if (hitSound != null && SoundManager.Instance != null)
+            if (hitSound != null)
             {
-                SoundManager.Instance.PlaySFX(hitSound);
+                float pitch = randomizePitch ? UnityEngine.Random.Range(minPitch, maxPitch) : 1f;
+                if (SoundManager.Instance != null)
+                {
+                    SoundManager.Instance.PlaySFX(hitSound, 1f, pitch);
+                }
+                else if (audioSource != null)
+                {
+                    audioSource.pitch = pitch;
+                    audioSource.PlayOneShot(hitSound);
+                }
             }
 
             onHitTarget?.Invoke(hit);
@@ -178,9 +225,10 @@ public class MeleeWeapon : MonoBehaviour, IInteractable, IHoldable, IUsable, IHi
             PlayerManager.Instance.heldItem = this;
         }
 
-        if (pickupSound != null && SoundManager.Instance != null)
+        if (pickupSound != null && audioSource != null)
         {
-            SoundManager.Instance.PlaySFX(pickupSound);
+            audioSource.pitch = randomizePitch ? UnityEngine.Random.Range(minPitch, maxPitch) : 1f;
+            audioSource.PlayOneShot(pickupSound);
         }
 
         onPickup?.Invoke();
@@ -221,9 +269,10 @@ public class MeleeWeapon : MonoBehaviour, IInteractable, IHoldable, IUsable, IHi
             rb.AddForce(hand.forward * throwForce, ForceMode.Impulse);
         }
 
-        if (dropSound != null && SoundManager.Instance != null)
+        if (dropSound != null && audioSource != null)
         {
-            SoundManager.Instance.PlaySFX(dropSound);
+            audioSource.pitch = randomizePitch ? UnityEngine.Random.Range(minPitch, maxPitch) : 1f;
+            audioSource.PlayOneShot(dropSound);
         }
 
         onDrop?.Invoke();

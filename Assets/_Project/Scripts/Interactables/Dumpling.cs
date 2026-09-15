@@ -24,6 +24,14 @@ public class Dumpling : MonoBehaviour, IInteractable, IHoldable, ICookable, IEat
     public bool applyThrowOnDrop = false;
     public float throwForce = 3f;
 
+    [Header("Audio (Optional)")]
+    public AudioClip pickupSound;
+    public AudioClip dropSound;
+    public bool randomizePitch = true;
+    public float minPitch = 0.88f;
+    public float maxPitch = 1.12f;
+    [HideInInspector] public AudioSource audioSource;
+
     [HideInInspector] public Outline outline;
     [HideInInspector] public Rigidbody rb;
     [HideInInspector] public Collider col;
@@ -49,6 +57,29 @@ public class Dumpling : MonoBehaviour, IInteractable, IHoldable, ICookable, IEat
         outline = GetComponent<Outline>();
         col = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false;
+            audioSource.spatialBlend = 1f;
+        }
+    }
+
+    private void OnEnable()
+    {
+        if (SoundManager.Instance != null && audioSource != null)
+        {
+            SoundManager.Instance.RegisterAudioSource(audioSource, SoundManager.SoundCategory.SFX);
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (SoundManager.Instance != null && audioSource != null)
+        {
+            SoundManager.Instance.UnregisterAudioSource(audioSource);
+        }
     }
 
     public void Cook()
@@ -121,6 +152,12 @@ public class Dumpling : MonoBehaviour, IInteractable, IHoldable, ICookable, IEat
             PlayerManager.Instance.heldItem = this;
         }
 
+        if (pickupSound != null && audioSource != null)
+        {
+            audioSource.pitch = randomizePitch ? UnityEngine.Random.Range(minPitch, maxPitch) : 1f;
+            audioSource.PlayOneShot(pickupSound);
+        }
+
         if (moveToHandCoroutine != null) StopCoroutine(moveToHandCoroutine);
         moveToHandCoroutine = StartCoroutine(MoveToHandRoutine());
     }
@@ -136,6 +173,12 @@ public class Dumpling : MonoBehaviour, IInteractable, IHoldable, ICookable, IEat
         {
             StopCoroutine(moveToHandCoroutine);
             moveToHandCoroutine = null;
+        }
+
+        if (dropSound != null && audioSource != null)
+        {
+            audioSource.pitch = randomizePitch ? UnityEngine.Random.Range(minPitch, maxPitch) : 1f;
+            audioSource.PlayOneShot(dropSound);
         }
 
         transform.SetParent(null);

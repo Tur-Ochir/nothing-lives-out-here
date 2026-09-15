@@ -234,6 +234,9 @@ MonoBehaviour:
   reasonNotInteract: 
   applyThrowOnDrop: 1
   throwForce: 3
+  pickupSound: {fileID: 8300000, guid: dfc16bdfeea208942a11029f71652b94, type: 3}
+  dropSound: {fileID: 8300000, guid: dfc16bdfeea208942a11029f71652b94, type: 3}
+  audioSource: {fileID: 0}
   outline: {fileID: 0}
   rb: {fileID: 0}
   col: {fileID: 0}
