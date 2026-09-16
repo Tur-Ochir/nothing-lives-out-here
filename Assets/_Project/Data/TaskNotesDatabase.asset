@@ -90,7 +90,7 @@ MonoBehaviour:
     m_DueDate: 
     m_Tags: []
     m_Checklist: []
-    m_IsExpanded: 0
+    m_IsExpanded: 1
   - m_Id: 05736471-73b8-404d-b7e4-1c178336a2e5
     m_Title: Aluurchin
     m_Description: 
@@ -146,10 +146,10 @@ MonoBehaviour:
       m_IsDone: 1
     - m_Id: 395174c1-bc0f-485b-aac9-ead92bdbbd69
       m_Text: items interact
-      m_IsDone: 0
+      m_IsDone: 1
     - m_Id: 50502aa7-f77f-431c-9ce8-7fb245cbb560
       m_Text: Togoo interact
-      m_IsDone: 0
+      m_IsDone: 1
     - m_Id: 9db6dd2c-8983-4b8e-a173-f80e0fcf0127
       m_Text: buuz steaming
       m_IsDone: 0
@@ -160,7 +160,7 @@ MonoBehaviour:
       m_Text: gerel on, off
       m_IsDone: 0
     - m_Id: 7d1c7cd8-c670-4c0f-aa54-ba48b66c7512
-      m_Text: match
+      m_Text: match interacting
       m_IsDone: 0
     m_IsExpanded: 1
   - m_Id: 4ccc88c7-79fd-41ff-a888-1900d3a20c86

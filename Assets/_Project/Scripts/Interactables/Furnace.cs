@@ -88,7 +88,7 @@ public class Furnace : MonoBehaviour, IItemContainer, IHighlightable
                     GameManager.Instance.PlaySubtitle("match");
                 }
             });
-
+            argal.PlaySFX(argal.dropSound);
             items.Add(item);
             return true;
         }
