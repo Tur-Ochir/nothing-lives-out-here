@@ -162,9 +162,9 @@ public class MicNoiseHUD : MonoBehaviour
     {
         if (!enableSpikePulse || micIcon == null) return;
 
-        pulseTween?.Kill();
-        micIcon.transform.localScale = Vector3.one;
-        pulseTween = micIcon.transform.DOPunchScale(Vector3.one * (pulseScale - 1f), pulseDuration, 8, 0.5f);
+        // pulseTween?.Kill();
+        // micIcon.transform.localScale = Vector3.one;
+        // pulseTween = micIcon.transform.DOPunchScale(Vector3.one * (pulseScale - 1f), pulseDuration, 8, 0.5f);
     }
 
     private void HandleMicStateChanged(bool active)

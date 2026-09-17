@@ -57,16 +57,7 @@ public class PlayerManager : MonoBehaviour
         movement = GetComponent<PlayerMovement>();
         interaction = GetComponent<PlayerInteractionHandler>();
         footsteps = GetComponent<PlayerFootsteps>();
-        if (footsteps == null)
-        {
-            footsteps = gameObject.AddComponent<PlayerFootsteps>();
-        }
-
         driver = GetComponent<PlayerDriver>();
-        if (driver == null)
-        {
-            driver = gameObject.AddComponent<PlayerDriver>();
-        }
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;

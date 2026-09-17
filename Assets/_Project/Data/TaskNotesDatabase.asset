@@ -345,6 +345,32 @@ MonoBehaviour:
     m_Tags: []
     m_Checklist: []
     m_IsExpanded: 0
+  - m_Id: 0b4e7b95-c046-4079-943b-3e64d3336b3e
+    m_Title: Zurag bolon tolnii heseg
+    m_Description: 
+    m_Priority: 1
+    m_Status: 0
+    m_Category: Model
+    m_LinkedObject: {fileID: 0}
+    m_CreatedDate: 2026-09-17 16:34
+    m_CompletedDate: 
+    m_DueDate: 
+    m_Tags: []
+    m_Checklist: []
+    m_IsExpanded: 0
+  - m_Id: 0fa330d8-b4c4-4ee3-bc30-7ec73bc24aee
+    m_Title: Holdoogchin dotroh ewgui mah
+    m_Description: 
+    m_Priority: 1
+    m_Status: 0
+    m_Category: Model
+    m_LinkedObject: {fileID: 0}
+    m_CreatedDate: 2026-09-17 16:34
+    m_CompletedDate: 
+    m_DueDate: 
+    m_Tags: []
+    m_Checklist: []
+    m_IsExpanded: 1
   m_Notes:
   - m_Id: f9a572f8-a1fe-4eb9-a368-130fec2ad323
     m_Title: Story
