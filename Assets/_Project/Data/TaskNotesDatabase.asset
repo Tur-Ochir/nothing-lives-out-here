@@ -162,7 +162,7 @@ MonoBehaviour:
     - m_Id: 7d1c7cd8-c670-4c0f-aa54-ba48b66c7512
       m_Text: match interacting
       m_IsDone: 0
-    m_IsExpanded: 1
+    m_IsExpanded: 0
   - m_Id: 4ccc88c7-79fd-41ff-a888-1900d3a20c86
     m_Title: Victim
     m_Description: 
@@ -366,6 +366,19 @@ MonoBehaviour:
     m_Category: Model
     m_LinkedObject: {fileID: 0}
     m_CreatedDate: 2026-09-17 16:34
+    m_CompletedDate: 
+    m_DueDate: 
+    m_Tags: []
+    m_Checklist: []
+    m_IsExpanded: 0
+  - m_Id: bc77ff1c-3e04-4bd3-b162-ed05b21f3e8c
+    m_Title: fix pause menu ui not working
+    m_Description: 
+    m_Priority: 2
+    m_Status: 0
+    m_Category: Bug
+    m_LinkedObject: {fileID: 0}
+    m_CreatedDate: 2026-09-18 18:39
     m_CompletedDate: 
     m_DueDate: 
     m_Tags: []
