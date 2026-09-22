@@ -95,7 +95,7 @@ MonoBehaviour:
     m_Title: Aluurchin
     m_Description: 
     m_Priority: 2
-    m_Status: 0
+    m_Status: 1
     m_Category: Model
     m_LinkedObject: {fileID: 0}
     m_CreatedDate: 2026-08-26 17:01
@@ -163,11 +163,42 @@ MonoBehaviour:
       m_Text: match interacting
       m_IsDone: 0
     m_IsExpanded: 0
+  - m_Id: 5c3f0d72-484d-45f1-8754-37ad8de9ac38
+    m_Title: Storepage
+    m_Description: 
+    m_Priority: 1
+    m_Status: 0
+    m_Category: General
+    m_LinkedObject: {fileID: 0}
+    m_CreatedDate: 2026-09-22 17:44
+    m_CompletedDate: 
+    m_DueDate: 
+    m_Tags: []
+    m_Checklist:
+    - m_Id: 9ffcc183-8220-4e1b-8db4-e9efd46303f6
+      m_Text: Name
+      m_IsDone: 0
+    - m_Id: 385044f8-f931-4488-8a21-c8dbaf4de9d3
+      m_Text: Pitch
+      m_IsDone: 0
+    - m_Id: d7bea634-325d-45d9-912e-c7ed95712058
+      m_Text: Capsule art
+      m_IsDone: 0
+    - m_Id: 92ad1681-699d-4081-b510-362c5b4c1987
+      m_Text: Screenshot x 5
+      m_IsDone: 0
+    - m_Id: 7a38b240-9994-47f8-9f4f-81270f398885
+      m_Text: Trailer
+      m_IsDone: 0
+    - m_Id: fca50be7-27d1-4a10-84f7-b7a70f0c0229
+      m_Text: Description
+      m_IsDone: 0
+    m_IsExpanded: 1
   - m_Id: 4ccc88c7-79fd-41ff-a888-1900d3a20c86
     m_Title: Victim
     m_Description: 
     m_Priority: 2
-    m_Status: 1
+    m_Status: 0
     m_Category: Model
     m_LinkedObject: {fileID: 0}
     m_CreatedDate: 2026-08-26 23:36
@@ -383,7 +414,7 @@ MonoBehaviour:
     m_DueDate: 
     m_Tags: []
     m_Checklist: []
-    m_IsExpanded: 1
+    m_IsExpanded: 0
   m_Notes:
   - m_Id: f9a572f8-a1fe-4eb9-a368-130fec2ad323
     m_Title: Story
@@ -397,12 +428,19 @@ MonoBehaviour:
     m_Tags: []
   - m_Id: 7aa23239-641b-4d60-9279-1ea973577feb
     m_Title: Plan
-    m_Content: "Storepage deadline:\n2026/8/31 \n\nDemo Trailer Release Date:\n2026/9/16\n\nDemo Release Date:\n2026/9/21\n\nFull Release Date:\n2026/11/5"
+    m_Content: 'Storepage deadline:
+
+      2026/9/30
+
+
+      Full Release Date:
+
+      2026/10/25'
     m_Category: General
     m_ColorTag: 1
     m_IsPinned: 1
     m_CreatedDate: 2026-08-26 17:57
-    m_LastModifiedDate: 2026-08-27 16:36
+    m_LastModifiedDate: 2026-09-22 17:43
     m_LinkedObjects: []
     m_Tags: []
   m_Scratchpad: 'axe Vector3(345,260,-8.83891516e-07)
