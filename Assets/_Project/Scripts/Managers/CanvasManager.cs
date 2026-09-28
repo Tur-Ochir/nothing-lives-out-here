@@ -101,30 +101,74 @@ public class CanvasManager : MonoBehaviour
     public void TogglePause()
     {
         isPaused = !isPaused;
-        
-        pauseMenuCanvas.gameObject.SetActive(isPaused);
-        pauseMenuCanvas.DOFade(isPaused ? 1 : 0, .3f).From(0).SetUpdate(true).OnComplete(() =>
+
+        // Apply cursor state immediately so UI is immediately clickable
+        Cursor.visible = isPaused;
+        Cursor.lockState = isPaused ? CursorLockMode.None : CursorLockMode.Locked;
+        Time.timeScale = isPaused ? 0 : 1;
+
+        if (PlayerManager.Instance != null && PlayerManager.Instance.movement != null)
         {
-            Cursor.visible = isPaused;
-            Cursor.lockState = isPaused ? CursorLockMode.None : CursorLockMode.Locked;
-            Time.timeScale = isPaused ? 0 : 1;
-        });
+            PlayerManager.Instance.movement.canMove = !isPaused;
+            PlayerManager.Instance.movement.SetCamControllerActive(!isPaused);
+        }
+
+        pauseMenuCanvas.DOKill();
+        if (isPaused)
+        {
+            pauseMenuCanvas.gameObject.SetActive(true);
+            pauseMenuCanvas.DOFade(1f, 0.3f).From(0f).SetUpdate(true);
+        }
+        else
+        {
+            if (settingsCanvas != null)
+            {
+                settingsCanvas.DOKill();
+                settingsCanvas.gameObject.SetActive(false);
+            }
+
+            pauseMenuCanvas.DOFade(0f, 0.2f).SetUpdate(true).OnComplete(() =>
+            {
+                pauseMenuCanvas.gameObject.SetActive(false);
+            });
+        }
     }
+
     public void OnResumeButtonClicked()
     {
         TogglePause();
     }
+
     public void OnSettingsButtonClicked()
     {
-        pauseMenuCanvas.DOFade(0, .2f).From(1).SetUpdate(true);
-        settingsCanvas.gameObject.SetActive(true);
-        settingsCanvas.DOFade(1, .3f).From(0).SetUpdate(true);
+        pauseMenuCanvas.DOKill();
+        pauseMenuCanvas.DOFade(0f, 0.2f).SetUpdate(true).OnComplete(() =>
+        {
+            pauseMenuCanvas.gameObject.SetActive(false);
+        });
+
+        if (settingsCanvas != null)
+        {
+            settingsCanvas.DOKill();
+            settingsCanvas.gameObject.SetActive(true);
+            settingsCanvas.DOFade(1f, 0.3f).From(0f).SetUpdate(true);
+        }
     }
+
     public void OnSettingsCloseButtonClicked()
     {
-        settingsCanvas.gameObject.SetActive(false);
-        settingsCanvas.DOFade(0, .2f).From(1).SetUpdate(true);
-        pauseMenuCanvas.DOFade(1, .3f).From(0).SetUpdate(true);
+        if (settingsCanvas != null)
+        {
+            settingsCanvas.DOKill();
+            settingsCanvas.DOFade(0f, 0.2f).SetUpdate(true).OnComplete(() =>
+            {
+                settingsCanvas.gameObject.SetActive(false);
+            });
+        }
+
+        pauseMenuCanvas.DOKill();
+        pauseMenuCanvas.gameObject.SetActive(true);
+        pauseMenuCanvas.DOFade(1f, 0.3f).From(0f).SetUpdate(true);
     }
 
     public void OnQuitButtonClicked()

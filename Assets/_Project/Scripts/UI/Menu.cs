@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +8,7 @@ public class Menu : MonoBehaviour
 {
     public CanvasGroup menuPanel;
     public CanvasGroup optionPanel;
+    public TMP_Dropdown languageDropdown;
     public void OnPlayButtonClicked()
     {
         SceneManager.LoadScene("_Project/Scenes/Main");
@@ -26,5 +28,11 @@ public class Menu : MonoBehaviour
     {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void OnLanguageChanged()
+    {
+        Debug.Log($"Dropdown value: {languageDropdown.value}");
+        // languageDropdown.value = 
     }
 }

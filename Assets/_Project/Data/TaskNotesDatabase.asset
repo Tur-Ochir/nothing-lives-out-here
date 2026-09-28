@@ -193,12 +193,12 @@ MonoBehaviour:
     - m_Id: fca50be7-27d1-4a10-84f7-b7a70f0c0229
       m_Text: Description
       m_IsDone: 0
-    m_IsExpanded: 1
+    m_IsExpanded: 0
   - m_Id: 4ccc88c7-79fd-41ff-a888-1900d3a20c86
     m_Title: Victim
     m_Description: 
     m_Priority: 2
-    m_Status: 0
+    m_Status: 3
     m_Category: Model
     m_LinkedObject: {fileID: 0}
     m_CreatedDate: 2026-08-26 23:36
@@ -380,7 +380,7 @@ MonoBehaviour:
     m_Title: Zurag bolon tolnii heseg
     m_Description: 
     m_Priority: 1
-    m_Status: 0
+    m_Status: 1
     m_Category: Model
     m_LinkedObject: {fileID: 0}
     m_CreatedDate: 2026-09-17 16:34
@@ -406,15 +406,34 @@ MonoBehaviour:
     m_Title: fix pause menu ui not working
     m_Description: 
     m_Priority: 2
-    m_Status: 0
+    m_Status: 2
     m_Category: Bug
     m_LinkedObject: {fileID: 0}
     m_CreatedDate: 2026-09-18 18:39
-    m_CompletedDate: 
+    m_CompletedDate: 2026-09-28 18:42
     m_DueDate: 
     m_Tags: []
     m_Checklist: []
     m_IsExpanded: 0
+  - m_Id: ea756dbe-511c-41fb-9e41-2daf99d2f0e7
+    m_Title: Settings
+    m_Description: 
+    m_Priority: 1
+    m_Status: 0
+    m_Category: General
+    m_LinkedObject: {fileID: 0}
+    m_CreatedDate: 2026-09-28 17:49
+    m_CompletedDate: 
+    m_DueDate: 
+    m_Tags: []
+    m_Checklist:
+    - m_Id: 5f93a8d5-eafe-4401-87b2-dcbdbc2b5896
+      m_Text: Mouse sens
+      m_IsDone: 0
+    - m_Id: bf02dad7-e7ee-4f1d-8cad-54f9ae4dafd0
+      m_Text: Microphone selector
+      m_IsDone: 0
+    m_IsExpanded: 1
   m_Notes:
   - m_Id: f9a572f8-a1fe-4eb9-a368-130fec2ad323
     m_Title: Story

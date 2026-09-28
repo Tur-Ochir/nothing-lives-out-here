@@ -157,7 +157,7 @@ public class PlayerManager : MonoBehaviour
         // 7. Highlight look-at target
         if (interaction != null && !IsHidden && currentOccupied == null)
         {
-            interaction.ProcessLookAtTarget();
+            // interaction.ProcessLookAtTarget();
         }
 
         // 8. Flashlight Toggle
