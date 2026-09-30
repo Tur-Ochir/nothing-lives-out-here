@@ -393,11 +393,11 @@ MonoBehaviour:
     m_Title: Holdoogchin dotroh ewgui mah
     m_Description: 
     m_Priority: 1
-    m_Status: 0
+    m_Status: 2
     m_Category: Model
     m_LinkedObject: {fileID: 0}
     m_CreatedDate: 2026-09-17 16:34
-    m_CompletedDate: 
+    m_CompletedDate: 2026-09-30 12:20
     m_DueDate: 
     m_Tags: []
     m_Checklist: []
@@ -433,7 +433,7 @@ MonoBehaviour:
     - m_Id: bf02dad7-e7ee-4f1d-8cad-54f9ae4dafd0
       m_Text: Microphone selector
       m_IsDone: 0
-    m_IsExpanded: 1
+    m_IsExpanded: 0
   m_Notes:
   - m_Id: f9a572f8-a1fe-4eb9-a368-130fec2ad323
     m_Title: Story
